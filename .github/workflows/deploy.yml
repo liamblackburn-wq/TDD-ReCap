@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy to App Runner
         run: |
-          aws apprunner start-deployment --service-arn arn:aws:apprunner:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:service/flask-app-service
+          aws apprunner start-deployment --service-arn arn:aws:apprunner:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:service/liam-tdd-recap
