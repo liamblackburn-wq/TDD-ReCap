@@ -16,8 +16,7 @@ duty2 = Duty("duty2", "Initiate and facilitate")
 def test_duty_returns_name():
     assert isinstance(duty1, Duty)
 
-def test_duty1_and_duty2_are_different():
-    
+def test_duty1_and_duty2_are_different():    
     assert duty1.equals(duty2) is False
 
 def test_duties_has_description():
