@@ -1,0 +1,1743 @@
+versions pytest-8.2.0, python-3.12.12.final.0
+invocation_dir=/Users/liamblackburn/Documents/code/TDD ReCap
+cwd=/Users/liamblackburn/Documents/code/TDD ReCap
+args=('--debug',)
+
+  pytest_cmdline_main [hook]
+      config: <_pytest.config.Config object at 0x1080fb7a0>
+    pytest_plugin_registered [hook]
+        plugin: <Session  exitstatus='<UNSET>' testsfailed=0 testscollected=0>
+        plugin_name: session
+        manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+    finish pytest_plugin_registered --> [] [hook]
+    pytest_configure [hook]
+        config: <_pytest.config.Config object at 0x1080fb7a0>
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.LFPlugin object at 0x10951adb0>
+          plugin_name: lfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.NFPlugin object at 0x108613170>
+          plugin_name: nfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+    early skip of rewriting module: faulthandler [assertion]
+      pytest_plugin_registered [hook]
+          plugin: <class '_pytest.legacypath.LegacyTmpdirPlugin'>
+          plugin_name: legacypath-tmpdir
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+    early skip of rewriting module: pdb [assertion]
+    early skip of rewriting module: cmd [assertion]
+    early skip of rewriting module: code [assertion]
+    early skip of rewriting module: codeop [assertion]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.config.PytestPluginManager object at 0x103358da0>
+          plugin_name: 4348808608
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.config.Config object at 0x1080fb7a0>
+          plugin_name: pytestconfig
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.mark' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/mark/__init__.py'>
+          plugin_name: mark
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.main' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/main.py'>
+          plugin_name: main
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.runner' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/runner.py'>
+          plugin_name: runner
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.fixtures' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/fixtures.py'>
+          plugin_name: fixtures
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.helpconfig' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/helpconfig.py'>
+          plugin_name: helpconfig
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.python' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/python.py'>
+          plugin_name: python
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.terminal' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/terminal.py'>
+          plugin_name: terminal
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.debugging' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/debugging.py'>
+          plugin_name: debugging
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.unittest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/unittest.py'>
+          plugin_name: unittest
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.capture' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/capture.py'>
+          plugin_name: capture
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.skipping' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/skipping.py'>
+          plugin_name: skipping
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.legacypath' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/legacypath.py'>
+          plugin_name: legacypath
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.tmpdir' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/tmpdir.py'>
+          plugin_name: tmpdir
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.monkeypatch' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/monkeypatch.py'>
+          plugin_name: monkeypatch
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.recwarn' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/recwarn.py'>
+          plugin_name: recwarn
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.pastebin' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/pastebin.py'>
+          plugin_name: pastebin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.assertion' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/assertion/__init__.py'>
+          plugin_name: assertion
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.junitxml' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/junitxml.py'>
+          plugin_name: junitxml
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.doctest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/doctest.py'>
+          plugin_name: doctest
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.cacheprovider' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/cacheprovider.py'>
+          plugin_name: cacheprovider
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.freeze_support' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/freeze_support.py'>
+          plugin_name: freeze_support
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.setuponly' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/setuponly.py'>
+          plugin_name: setuponly
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.setupplan' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/setupplan.py'>
+          plugin_name: setupplan
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.stepwise' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/stepwise.py'>
+          plugin_name: stepwise
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.warnings' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/warnings.py'>
+          plugin_name: warnings
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.logging' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/logging.py'>
+          plugin_name: logging
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.reports' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/reports.py'>
+          plugin_name: reports
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.python_path' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/python_path.py'>
+          plugin_name: python_path
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.unraisableexception' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/unraisableexception.py'>
+          plugin_name: unraisableexception
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.threadexception' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/threadexception.py'>
+          plugin_name: threadexception
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.faulthandler' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/faulthandler.py'>
+          plugin_name: faulthandler
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_playwright.pytest_playwright' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_playwright/pytest_playwright.py'>
+          plugin_name: playwright
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_mock' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_mock/__init__.py'>
+          plugin_name: pytest_mock
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_base_url.plugin' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_base_url/plugin.py'>
+          plugin_name: base_url
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <CaptureManager _method='fd' _global_capturing=<MultiCapture out=<FDCapture 1 oldfd=5 _state='suspended' tmpfile=<_io.TextIOWrapper name="<_io.FileIO name=6 mode='rb+' closefd=True>" mode='r+' encoding='utf-8'>> err=<FDCapture 2 oldfd=7 _state='suspended' tmpfile=<_io.TextIOWrapper name="<_io.FileIO name=8 mode='rb+' closefd=True>" mode='r+' encoding='utf-8'>> in_=<FDCapture 0 oldfd=3 _state='started' tmpfile=<_io.TextIOWrapper name='/dev/null' mode='r' encoding='utf-8'>> _state='suspended' _in_suspended=False> _capture_fixture=None>
+          plugin_name: capturemanager
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+          plugin_name: session
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.LFPlugin object at 0x10951adb0>
+          plugin_name: lfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.NFPlugin object at 0x108613170>
+          plugin_name: nfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <class '_pytest.legacypath.LegacyTmpdirPlugin'>
+          plugin_name: legacypath-tmpdir
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.terminal.TerminalReporter object at 0x10951b320>
+          plugin_name: terminalreporter
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.logging.LoggingPlugin object at 0x109518290>
+          plugin_name: logging-plugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+    finish pytest_configure --> [] [hook]
+    pytest_sessionstart [hook]
+        session: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.config.PytestPluginManager object at 0x103358da0>
+          plugin_name: 4348808608
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.config.Config object at 0x1080fb7a0>
+          plugin_name: pytestconfig
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.mark' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/mark/__init__.py'>
+          plugin_name: mark
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.main' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/main.py'>
+          plugin_name: main
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.runner' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/runner.py'>
+          plugin_name: runner
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.fixtures' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/fixtures.py'>
+          plugin_name: fixtures
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.helpconfig' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/helpconfig.py'>
+          plugin_name: helpconfig
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.python' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/python.py'>
+          plugin_name: python
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.terminal' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/terminal.py'>
+          plugin_name: terminal
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.debugging' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/debugging.py'>
+          plugin_name: debugging
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.unittest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/unittest.py'>
+          plugin_name: unittest
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.capture' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/capture.py'>
+          plugin_name: capture
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.skipping' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/skipping.py'>
+          plugin_name: skipping
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.legacypath' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/legacypath.py'>
+          plugin_name: legacypath
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.tmpdir' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/tmpdir.py'>
+          plugin_name: tmpdir
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.monkeypatch' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/monkeypatch.py'>
+          plugin_name: monkeypatch
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.recwarn' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/recwarn.py'>
+          plugin_name: recwarn
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.pastebin' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/pastebin.py'>
+          plugin_name: pastebin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.assertion' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/assertion/__init__.py'>
+          plugin_name: assertion
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.junitxml' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/junitxml.py'>
+          plugin_name: junitxml
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.doctest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/doctest.py'>
+          plugin_name: doctest
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.cacheprovider' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/cacheprovider.py'>
+          plugin_name: cacheprovider
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.freeze_support' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/freeze_support.py'>
+          plugin_name: freeze_support
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.setuponly' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/setuponly.py'>
+          plugin_name: setuponly
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.setupplan' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/setupplan.py'>
+          plugin_name: setupplan
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.stepwise' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/stepwise.py'>
+          plugin_name: stepwise
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.warnings' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/warnings.py'>
+          plugin_name: warnings
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.logging' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/logging.py'>
+          plugin_name: logging
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.reports' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/reports.py'>
+          plugin_name: reports
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.python_path' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/python_path.py'>
+          plugin_name: python_path
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.unraisableexception' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/unraisableexception.py'>
+          plugin_name: unraisableexception
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.threadexception' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/threadexception.py'>
+          plugin_name: threadexception
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module '_pytest.faulthandler' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/faulthandler.py'>
+          plugin_name: faulthandler
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_playwright.pytest_playwright' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_playwright/pytest_playwright.py'>
+          plugin_name: playwright
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_mock' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_mock/__init__.py'>
+          plugin_name: pytest_mock
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <module 'pytest_base_url.plugin' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_base_url/plugin.py'>
+          plugin_name: base_url
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <CaptureManager _method='fd' _global_capturing=<MultiCapture out=<FDCapture 1 oldfd=5 _state='suspended' tmpfile=<_io.TextIOWrapper name="<_io.FileIO name=6 mode='rb+' closefd=True>" mode='r+' encoding='utf-8'>> err=<FDCapture 2 oldfd=7 _state='suspended' tmpfile=<_io.TextIOWrapper name="<_io.FileIO name=8 mode='rb+' closefd=True>" mode='r+' encoding='utf-8'>> in_=<FDCapture 0 oldfd=3 _state='started' tmpfile=<_io.TextIOWrapper name='/dev/null' mode='r' encoding='utf-8'>> _state='suspended' _in_suspended=False> _capture_fixture=None>
+          plugin_name: capturemanager
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+          plugin_name: session
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.LFPlugin object at 0x10951adb0>
+          plugin_name: lfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.cacheprovider.NFPlugin object at 0x108613170>
+          plugin_name: nfplugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <class '_pytest.legacypath.LegacyTmpdirPlugin'>
+          plugin_name: legacypath-tmpdir
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.terminal.TerminalReporter object at 0x10951b320>
+          plugin_name: terminalreporter
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.logging.LoggingPlugin object at 0x109518290>
+          plugin_name: logging-plugin
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_plugin_registered [hook]
+          plugin: <_pytest.fixtures.FixtureManager object at 0x1095181a0>
+          plugin_name: funcmanage
+          manager: <_pytest.config.PytestPluginManager object at 0x103358da0>
+      finish pytest_plugin_registered --> [] [hook]
+      pytest_report_header [hook]
+          config: <_pytest.config.Config object at 0x1080fb7a0>
+          start_path: /Users/liamblackburn/Documents/code/TDD ReCap
+          startdir: /Users/liamblackburn/Documents/code/TDD ReCap
+      early skip of rewriting module: email.parser [assertion]
+      early skip of rewriting module: email.feedparser [assertion]
+      finish pytest_report_header --> [['rootdir: /Users/liamblackburn/Documents/code/TDD ReCap', 'plugins: playwright-0.7.2, mock-3.14.1, base-url-2.1.0'], ['using: pytest-8.2.0', 'setuptools registered plugins:', '  pytest-playwright-0.7.2 at /Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_playwright/pytest_playwright.py', '  pytest-mock-3.14.1 at /Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_mock/__init__.py', '  pytest-base-url-2.1.0 at /Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest_base_url/plugin.py']] [hook]
+    finish pytest_sessionstart --> [] [hook]
+    pytest_collection [hook]
+        session: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+    perform_collect <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0> ['/Users/liamblackburn/Documents/code/TDD ReCap'] [collection]
+        pytest_collectstart [hook]
+            collector: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+        finish pytest_collectstart --> [] [hook]
+        pytest_make_collect_report [hook]
+            collector: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+        processing argument CollectionArgument(path=PosixPath('/Users/liamblackburn/Documents/code/TDD ReCap'), parts=[], module_name=None) [collection]
+            pytest_collect_directory [hook]
+                path: /Users/liamblackburn/Documents/code/TDD ReCap
+                parent: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+            finish pytest_collect_directory --> <Dir TDD ReCap> [hook]
+        finish pytest_make_collect_report --> <CollectReport '' lenresult=1 outcome='passed'> [hook]
+        pytest_collectreport [hook]
+            report: <CollectReport '' lenresult=1 outcome='passed'>
+        finish pytest_collectreport --> [] [hook]
+    genitems <Dir TDD ReCap> [collection]
+      pytest_collectstart [hook]
+          collector: <Dir TDD ReCap>
+      finish pytest_collectstart --> [] [hook]
+      pytest_make_collect_report [hook]
+          collector: <Dir TDD ReCap>
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/.git
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/.git
+        finish pytest_ignore_collect --> True [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/.github
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/.github
+        finish pytest_ignore_collect --> True [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/.pytest_cache
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/.pytest_cache
+        finish pytest_ignore_collect --> True [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/Dockerfile
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/Dockerfile
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/Dockerfile
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/Dockerfile
+        finish pytest_collect_file --> [] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/__pycache__
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/__pycache__
+        finish pytest_ignore_collect --> True [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/app.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/app.py
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/app.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/app.py
+        finish pytest_collect_file --> [] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/db.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/db.py
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/db.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/db.py
+        finish pytest_collect_file --> [] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/pytestdebug.log
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/pytestdebug.log
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/pytestdebug.log
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/pytestdebug.log
+        finish pytest_collect_file --> [] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/requirements.txt
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/requirements.txt
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/requirements.txt
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/requirements.txt
+        finish pytest_collect_file --> [] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+          pytest_pycollect_makemodule [hook]
+              parent: <Dir TDD ReCap>
+              module_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+              path: /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py
+          finish pytest_pycollect_makemodule --> <Module test_app.py> [hook]
+        finish pytest_collect_file --> [<Module test_app.py>] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+          pytest_pycollect_makemodule [hook]
+              parent: <Dir TDD ReCap>
+              module_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+              path: /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py
+          finish pytest_pycollect_makemodule --> <Module test_duty.py> [hook]
+        finish pytest_collect_file --> [<Module test_duty.py>] [hook]
+        pytest_ignore_collect [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            collection_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+        finish pytest_ignore_collect --> None [hook]
+        pytest_collect_file [hook]
+            parent: <Dir TDD ReCap>
+            file_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+            path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+          pytest_pycollect_makemodule [hook]
+              parent: <Dir TDD ReCap>
+              module_path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+              path: /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py
+          finish pytest_pycollect_makemodule --> <Module test_e2e.py> [hook]
+        finish pytest_collect_file --> [<Module test_e2e.py>] [hook]
+      finish pytest_make_collect_report --> <CollectReport '.' lenresult=3 outcome='passed'> [hook]
+    genitems <Module test_app.py> [collection]
+      pytest_collectstart [hook]
+          collector: <Module test_app.py>
+      finish pytest_collectstart --> [] [hook]
+      pytest_make_collect_report [hook]
+          collector: <Module test_app.py>
+      find_module called for: test_app [assertion]
+      matched test file '/Users/liamblackburn/Documents/code/TDD ReCap/test_app.py' [assertion]
+      found cached rewritten pyc for /Users/liamblackburn/Documents/code/TDD ReCap/test_app.py [assertion]
+      early skip of rewriting module: app [assertion]
+      early skip of rewriting module: flask [assertion]
+      early skip of rewriting module: flask.json [assertion]
+      early skip of rewriting module: flask.globals [assertion]
+      early skip of rewriting module: werkzeug [assertion]
+      early skip of rewriting module: werkzeug.serving [assertion]
+      early skip of rewriting module: socketserver [assertion]
+      early skip of rewriting module: http [assertion]
+      early skip of rewriting module: http.server [assertion]
+      early skip of rewriting module: http.client [assertion]
+      early skip of rewriting module: werkzeug._internal [assertion]
+      early skip of rewriting module: werkzeug.exceptions [assertion]
+      early skip of rewriting module: markupsafe [assertion]
+      early skip of rewriting module: markupsafe._speedups [assertion]
+      early skip of rewriting module: werkzeug.urls [assertion]
+      early skip of rewriting module: werkzeug.datastructures [assertion]
+      early skip of rewriting module: werkzeug.datastructures.accept [assertion]
+      early skip of rewriting module: werkzeug.datastructures.structures [assertion]
+      early skip of rewriting module: werkzeug.datastructures.mixins [assertion]
+      early skip of rewriting module: werkzeug.http [assertion]
+      early skip of rewriting module: urllib.request [assertion]
+      early skip of rewriting module: urllib.error [assertion]
+      early skip of rewriting module: urllib.response [assertion]
+      early skip of rewriting module: _scproxy [assertion]
+      early skip of rewriting module: werkzeug.sansio [assertion]
+      early skip of rewriting module: werkzeug.sansio.http [assertion]
+      early skip of rewriting module: werkzeug.datastructures.auth [assertion]
+      early skip of rewriting module: werkzeug.datastructures.cache_control [assertion]
+      early skip of rewriting module: werkzeug.datastructures.csp [assertion]
+      early skip of rewriting module: werkzeug.datastructures.etag [assertion]
+      early skip of rewriting module: werkzeug.datastructures.file_storage [assertion]
+      early skip of rewriting module: werkzeug.datastructures.headers [assertion]
+      early skip of rewriting module: werkzeug.datastructures.range [assertion]
+      early skip of rewriting module: werkzeug.test [assertion]
+      early skip of rewriting module: werkzeug.sansio.multipart [assertion]
+      early skip of rewriting module: werkzeug.utils [assertion]
+      early skip of rewriting module: werkzeug.security [assertion]
+      early skip of rewriting module: hmac [assertion]
+      early skip of rewriting module: secrets [assertion]
+      early skip of rewriting module: werkzeug.wsgi [assertion]
+      early skip of rewriting module: werkzeug.sansio.utils [assertion]
+      early skip of rewriting module: werkzeug.wrappers [assertion]
+      early skip of rewriting module: werkzeug.wrappers.request [assertion]
+      early skip of rewriting module: werkzeug.formparser [assertion]
+      early skip of rewriting module: werkzeug.sansio.request [assertion]
+      early skip of rewriting module: werkzeug.user_agent [assertion]
+      early skip of rewriting module: werkzeug.wrappers.response [assertion]
+      early skip of rewriting module: werkzeug.sansio.response [assertion]
+      early skip of rewriting module: werkzeug.local [assertion]
+      early skip of rewriting module: flask.json.provider [assertion]
+      early skip of rewriting module: flask.app [assertion]
+      early skip of rewriting module: click [assertion]
+      early skip of rewriting module: click.core [assertion]
+      early skip of rewriting module: click.types [assertion]
+      early skip of rewriting module: click._compat [assertion]
+      early skip of rewriting module: click.exceptions [assertion]
+      early skip of rewriting module: click.utils [assertion]
+      early skip of rewriting module: click.globals [assertion]
+      early skip of rewriting module: click.formatting [assertion]
+      early skip of rewriting module: click.parser [assertion]
+      early skip of rewriting module: click.termui [assertion]
+      early skip of rewriting module: click.decorators [assertion]
+      early skip of rewriting module: werkzeug.routing [assertion]
+      early skip of rewriting module: werkzeug.routing.converters [assertion]
+      early skip of rewriting module: werkzeug.routing.exceptions [assertion]
+      early skip of rewriting module: werkzeug.routing.map [assertion]
+      early skip of rewriting module: werkzeug.routing.matcher [assertion]
+      early skip of rewriting module: werkzeug.routing.rules [assertion]
+      early skip of rewriting module: flask.cli [assertion]
+      early skip of rewriting module: flask.helpers [assertion]
+      early skip of rewriting module: flask.signals [assertion]
+      early skip of rewriting module: blinker [assertion]
+      early skip of rewriting module: blinker.base [assertion]
+      early skip of rewriting module: blinker._utilities [assertion]
+      early skip of rewriting module: flask.typing [assertion]
+      early skip of rewriting module: flask.ctx [assertion]
+      early skip of rewriting module: flask.sansio [assertion]
+      early skip of rewriting module: flask.sansio.app [assertion]
+      early skip of rewriting module: flask.config [assertion]
+      early skip of rewriting module: flask.logging [assertion]
+      early skip of rewriting module: flask.templating [assertion]
+      early skip of rewriting module: jinja2 [assertion]
+      early skip of rewriting module: jinja2.bccache [assertion]
+      early skip of rewriting module: pickle [assertion]
+      early skip of rewriting module: _compat_pickle [assertion]
+      early skip of rewriting module: _pickle [assertion]
+      early skip of rewriting module: jinja2.environment [assertion]
+      early skip of rewriting module: jinja2.nodes [assertion]
+      early skip of rewriting module: jinja2.utils [assertion]
+      early skip of rewriting module: jinja2.compiler [assertion]
+      early skip of rewriting module: jinja2.exceptions [assertion]
+      early skip of rewriting module: jinja2.idtracking [assertion]
+      early skip of rewriting module: jinja2.visitor [assertion]
+      early skip of rewriting module: jinja2.optimizer [assertion]
+      early skip of rewriting module: jinja2.defaults [assertion]
+      early skip of rewriting module: jinja2.filters [assertion]
+      early skip of rewriting module: jinja2.async_utils [assertion]
+      early skip of rewriting module: jinja2.runtime [assertion]
+      early skip of rewriting module: jinja2.tests [assertion]
+      early skip of rewriting module: jinja2.lexer [assertion]
+      early skip of rewriting module: jinja2._identifier [assertion]
+      early skip of rewriting module: jinja2.parser [assertion]
+      early skip of rewriting module: jinja2.loaders [assertion]
+      early skip of rewriting module: flask.sansio.scaffold [assertion]
+      early skip of rewriting module: flask.sessions [assertion]
+      early skip of rewriting module: itsdangerous [assertion]
+      early skip of rewriting module: itsdangerous.encoding [assertion]
+      early skip of rewriting module: itsdangerous.exc [assertion]
+      early skip of rewriting module: itsdangerous.serializer [assertion]
+      early skip of rewriting module: itsdangerous.signer [assertion]
+      early skip of rewriting module: itsdangerous.timed [assertion]
+      early skip of rewriting module: itsdangerous.url_safe [assertion]
+      early skip of rewriting module: itsdangerous._json [assertion]
+      early skip of rewriting module: flask.json.tag [assertion]
+      early skip of rewriting module: flask.wrappers [assertion]
+      early skip of rewriting module: flask.blueprints [assertion]
+      early skip of rewriting module: flask.sansio.blueprints [assertion]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_app.py>
+            name: @py_builtins
+            obj: <module 'builtins' (built-in)>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_app.py>
+            name: @pytest_ar
+            obj: <module '_pytest.assertion.rewrite' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/assertion/rewrite.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_app.py>
+            name: pytest
+            obj: <module 'pytest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest/__init__.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_app.py>
+            name: app
+            obj: <Flask 'app'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_app.py>
+            name: test_home_page
+            obj: <function test_home_page at 0x10957c220>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x109571370>
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_home_page>] [hook]
+      finish pytest_make_collect_report --> <CollectReport 'test_app.py' lenresult=1 outcome='passed'> [hook]
+    genitems <Function test_home_page> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_home_page>
+      finish pytest_itemcollected --> [] [hook]
+      pytest_collectreport [hook]
+          report: <CollectReport 'test_app.py' lenresult=1 outcome='passed'>
+      finish pytest_collectreport --> [] [hook]
+    genitems <Module test_duty.py> [collection]
+      pytest_collectstart [hook]
+          collector: <Module test_duty.py>
+      finish pytest_collectstart --> [] [hook]
+      pytest_make_collect_report [hook]
+          collector: <Module test_duty.py>
+      find_module called for: test_duty [assertion]
+      matched test file '/Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py' [assertion]
+      found cached rewritten pyc for /Users/liamblackburn/Documents/code/TDD ReCap/test_duty.py [assertion]
+      early skip of rewriting module: db [assertion]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: @py_builtins
+            obj: <module 'builtins' (built-in)>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: @pytest_ar
+            obj: <module '_pytest.assertion.rewrite' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/assertion/rewrite.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: db
+            obj: <module 'db' from '/Users/liamblackburn/Documents/code/TDD ReCap/db.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: pytest
+            obj: <module 'pytest' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/pytest/__init__.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: Duty
+            obj: <class 'test_duty.Duty'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: duty1
+            obj: <test_duty.Duty object at 0x1099b7fb0>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: duty2
+            obj: <test_duty.Duty object at 0x1094ef8c0>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: fake_call
+            obj: <function fake_call at 0x1099cf4c0>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: test_db_is_called_successfully
+            obj: <function test_db_is_called_successfully at 0x1099cf7e0>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x109518cb0>
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_db_is_called_successfully>] [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: test_duty_returns_name
+            obj: <function test_duty_returns_name at 0x1099cf880>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x10951a4b0>
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_duty_returns_name>] [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: test_duty1_and_duty2_are_different
+            obj: <function test_duty1_and_duty2_are_different at 0x1099cf920>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x109519dc0>
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_duty1_and_duty2_are_different>] [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_duty.py>
+            name: test_duties_has_description
+            obj: <function test_duties_has_description at 0x1099cf9c0>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x109518cb0>
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_duties_has_description>] [hook]
+      finish pytest_make_collect_report --> <CollectReport 'test_duty.py' lenresult=4 outcome='passed'> [hook]
+    genitems <Function test_db_is_called_successfully> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_db_is_called_successfully>
+      finish pytest_itemcollected --> [] [hook]
+    genitems <Function test_duty_returns_name> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_duty_returns_name>
+      finish pytest_itemcollected --> [] [hook]
+    genitems <Function test_duty1_and_duty2_are_different> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_duty1_and_duty2_are_different>
+      finish pytest_itemcollected --> [] [hook]
+    genitems <Function test_duties_has_description> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_duties_has_description>
+      finish pytest_itemcollected --> [] [hook]
+      pytest_collectreport [hook]
+          report: <CollectReport 'test_duty.py' lenresult=4 outcome='passed'>
+      finish pytest_collectreport --> [] [hook]
+    genitems <Module test_e2e.py> [collection]
+      pytest_collectstart [hook]
+          collector: <Module test_e2e.py>
+      finish pytest_collectstart --> [] [hook]
+      pytest_make_collect_report [hook]
+          collector: <Module test_e2e.py>
+      find_module called for: test_e2e [assertion]
+      matched test file '/Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py' [assertion]
+      found cached rewritten pyc for /Users/liamblackburn/Documents/code/TDD ReCap/test_e2e.py [assertion]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: @py_builtins
+            obj: <module 'builtins' (built-in)>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: @pytest_ar
+            obj: <module '_pytest.assertion.rewrite' from '/Users/liamblackburn/.pyenv/versions/3.12.12/envs/flask-env-31212/lib/python3.12/site-packages/_pytest/assertion/rewrite.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: re
+            obj: <module 're' from '/Users/liamblackburn/.pyenv/versions/3.12.12/lib/python3.12/re/__init__.py'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: Page
+            obj: <class 'playwright.sync_api._generated.Page'>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: expect
+            obj: <playwright.sync_api.Expect object at 0x108613110>
+        finish pytest_pycollect_makeitem --> None [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: test_has_title
+            obj: <function test_has_title at 0x1099cf380>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x1099e8770>
+            pytest_make_parametrize_id [hook]
+                config: <_pytest.config.Config object at 0x1080fb7a0>
+                val: chromium
+                argname: browser_name
+            finish pytest_make_parametrize_id --> None [hook]
+          early skip of rewriting module: encodings.unicode_escape [assertion]
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_has_title[chromium]>] [hook]
+        pytest_pycollect_makeitem [hook]
+            collector: <Module test_e2e.py>
+            name: test_get_started_link
+            obj: <function test_get_started_link at 0x1099cfb00>
+          pytest_generate_tests [hook]
+              metafunc: <_pytest.python.Metafunc object at 0x109518cb0>
+            pytest_make_parametrize_id [hook]
+                config: <_pytest.config.Config object at 0x1080fb7a0>
+                val: chromium
+                argname: browser_name
+            finish pytest_make_parametrize_id --> None [hook]
+          finish pytest_generate_tests --> [] [hook]
+        finish pytest_pycollect_makeitem --> [<Function test_get_started_link[chromium]>] [hook]
+      finish pytest_make_collect_report --> <CollectReport 'test_e2e.py' lenresult=2 outcome='passed'> [hook]
+    genitems <Function test_has_title[chromium]> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_has_title[chromium]>
+      finish pytest_itemcollected --> [] [hook]
+    genitems <Function test_get_started_link[chromium]> [collection]
+      pytest_itemcollected [hook]
+          item: <Function test_get_started_link[chromium]>
+      finish pytest_itemcollected --> [] [hook]
+      pytest_collectreport [hook]
+          report: <CollectReport 'test_e2e.py' lenresult=2 outcome='passed'>
+      finish pytest_collectreport --> [] [hook]
+      pytest_collectreport [hook]
+          report: <CollectReport '.' lenresult=3 outcome='passed'>
+      finish pytest_collectreport --> [] [hook]
+      pytest_collection_modifyitems [hook]
+          session: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+          config: <_pytest.config.Config object at 0x1080fb7a0>
+          items: [<Function test_home_page>, <Function test_db_is_called_successfully>, <Function test_duty_returns_name>, <Function test_duty1_and_duty2_are_different>, <Function test_duties_has_description>, <Function test_has_title[chromium]>, <Function test_get_started_link[chromium]>]
+      finish pytest_collection_modifyitems --> [] [hook]
+      pytest_collection_finish [hook]
+          session: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=0>
+        pytest_report_collectionfinish [hook]
+            config: <_pytest.config.Config object at 0x1080fb7a0>
+            items: [<Function test_home_page>, <Function test_db_is_called_successfully>, <Function test_duty_returns_name>, <Function test_duty1_and_duty2_are_different>, <Function test_duties_has_description>, <Function test_has_title[chromium]>, <Function test_get_started_link[chromium]>]
+            start_path: /Users/liamblackburn/Documents/code/TDD ReCap
+            startdir: /Users/liamblackburn/Documents/code/TDD ReCap
+        finish pytest_report_collectionfinish --> [] [hook]
+      finish pytest_collection_finish --> [] [hook]
+    finish pytest_collection --> None [hook]
+    pytest_runtestloop [hook]
+        session: <Session  exitstatus=<ExitCode.OK: 0> testsfailed=0 testscollected=7>
+      pytest_runtest_protocol [hook]
+          item: <Function test_home_page>
+          nextitem: <Function test_db_is_called_successfully>
+        pytest_runtest_logstart [hook]
+            nodeid: test_app.py::test_home_page
+            location: ('test_app.py', 3, 'test_home_page')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_home_page>
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='pytestconfig' scope='session' baseid=''>
+              request: <SubRequest 'pytestconfig' for <Function test_home_page>>
+          finish pytest_fixture_setup --> <_pytest.config.Config object at 0x1080fb7a0> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='delete_output_dir' scope='session' baseid=''>
+              request: <SubRequest 'delete_output_dir' for <Function test_home_page>>
+          finish pytest_fixture_setup --> None [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='base_url' scope='session' baseid=''>
+              request: <SubRequest 'base_url' for <Function test_home_page>>
+          finish pytest_fixture_setup -->  [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='_verify_url' scope='session' baseid=''>
+              request: <SubRequest '_verify_url' for <Function test_home_page>>
+          finish pytest_fixture_setup --> None [hook]
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_home_page>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_app.py::test_home_page' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_app.py::test_home_page' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_app.py::test_home_page' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_home_page>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_home_page>
+          early skip of rewriting module: flask.testing [assertion]
+          early skip of rewriting module: click.testing [assertion]
+          early skip of rewriting module: encodings.idna [assertion]
+          early skip of rewriting module: stringprep [assertion]
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_home_page>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_app.py::test_home_page' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_app.py::test_home_page' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_app.py::test_home_page' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_home_page>
+            nextitem: <Function test_db_is_called_successfully>
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_home_page>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_app.py::test_home_page' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_app.py::test_home_page' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_app.py::test_home_page' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_app.py::test_home_page
+            location: ('test_app.py', 3, 'test_home_page')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_db_is_called_successfully>
+          nextitem: <Function test_duty_returns_name>
+        pytest_runtest_logstart [hook]
+            nodeid: test_duty.py::test_db_is_called_successfully
+            location: ('test_duty.py', 23, 'test_db_is_called_successfully')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_db_is_called_successfully>
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='mocker' scope='function' baseid=''>
+              request: <SubRequest 'mocker' for <Function test_db_is_called_successfully>>
+          finish pytest_fixture_setup --> <pytest_mock.plugin.MockerFixture object at 0x1094ef7a0> [hook]
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_db_is_called_successfully>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_db_is_called_successfully' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_db_is_called_successfully>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_db_is_called_successfully>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_db_is_called_successfully>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_db_is_called_successfully' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_db_is_called_successfully>
+            nextitem: <Function test_duty_returns_name>
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='mocker' scope='function' baseid=''>
+              request: <SubRequest 'mocker' for <Function test_db_is_called_successfully>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_db_is_called_successfully>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_db_is_called_successfully' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_db_is_called_successfully' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_duty.py::test_db_is_called_successfully
+            location: ('test_duty.py', 23, 'test_db_is_called_successfully')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_duty_returns_name>
+          nextitem: <Function test_duty1_and_duty2_are_different>
+        pytest_runtest_logstart [hook]
+            nodeid: test_duty.py::test_duty_returns_name
+            location: ('test_duty.py', 38, 'test_duty_returns_name')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_duty_returns_name>
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty_returns_name>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty_returns_name' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty_returns_name' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty_returns_name' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_duty_returns_name>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_duty_returns_name>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty_returns_name>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty_returns_name' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty_returns_name' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty_returns_name' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_duty_returns_name>
+            nextitem: <Function test_duty1_and_duty2_are_different>
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty_returns_name>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty_returns_name' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty_returns_name' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty_returns_name' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_duty.py::test_duty_returns_name
+            location: ('test_duty.py', 38, 'test_duty_returns_name')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_duty1_and_duty2_are_different>
+          nextitem: <Function test_duties_has_description>
+        pytest_runtest_logstart [hook]
+            nodeid: test_duty.py::test_duty1_and_duty2_are_different
+            location: ('test_duty.py', 41, 'test_duty1_and_duty2_are_different')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_duty1_and_duty2_are_different>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+            nextitem: <Function test_duties_has_description>
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duty1_and_duty2_are_different>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duty1_and_duty2_are_different' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_duty.py::test_duty1_and_duty2_are_different
+            location: ('test_duty.py', 41, 'test_duty1_and_duty2_are_different')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_duties_has_description>
+          nextitem: <Function test_has_title[chromium]>
+        pytest_runtest_logstart [hook]
+            nodeid: test_duty.py::test_duties_has_description
+            location: ('test_duty.py', 44, 'test_duties_has_description')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_duties_has_description>
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duties_has_description>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duties_has_description' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duties_has_description' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duties_has_description' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_duties_has_description>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_duties_has_description>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duties_has_description>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duties_has_description' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duties_has_description' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duties_has_description' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_duties_has_description>
+            nextitem: <Function test_has_title[chromium]>
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_duties_has_description>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_duty.py::test_duties_has_description' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_duty.py::test_duties_has_description' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_duty.py::test_duties_has_description' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_duty.py::test_duties_has_description
+            location: ('test_duty.py', 44, 'test_duties_has_description')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_has_title[chromium]>
+          nextitem: <Function test_get_started_link[chromium]>
+        pytest_runtest_logstart [hook]
+            nodeid: test_e2e.py::test_has_title[chromium]
+            location: ('test_e2e.py', 3, 'test_has_title[chromium]')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_has_title[chromium]>
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='browser_type_launch_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_type_launch_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='playwright' scope='session' baseid=''>
+              request: <SubRequest 'playwright' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <playwright._impl._playwright.Playwright object at 0x1099ebc50> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='browser_name' scope='session' baseid=''>
+              request: <SubRequest 'browser_name' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> chromium [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='browser_type' scope='session' baseid=''>
+              request: <SubRequest 'browser_type' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <BrowserType name=chromium executable_path=/Users/liamblackburn/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='connect_options' scope='session' baseid=''>
+              request: <SubRequest 'connect_options' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> None [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='launch_browser' scope='session' baseid=''>
+              request: <SubRequest 'launch_browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <function launch_browser.<locals>.launch at 0x109a20400> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='browser' scope='session' baseid=''>
+              request: <SubRequest 'browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <Browser type=<BrowserType name=chromium executable_path=/Users/liamblackburn/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing> version=145.0.7632.6> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='device' scope='session' baseid=''>
+              request: <SubRequest 'device' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> None [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='_pw_artifacts_folder' scope='session' baseid=''>
+              request: <SubRequest '_pw_artifacts_folder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <TemporaryDirectory '/var/folders/y8/dlxvlxzn75dbxkjh2x3jmb6h0000gp/T/playwright-pytest-sog6wgvs'> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> /Users/liamblackburn/Documents/code/TDD ReCap/test-results/test-e2e-py-test-has-title-chromium [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <pytest_playwright.pytest_playwright.ArtifactsRecorder object at 0x109a1aa50> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <function new_context.<locals>._new_context at 0x109c3cc20> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <BrowserContext browser=<Browser type=<BrowserType name=chromium executable_path=/Users/liamblackburn/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing> version=145.0.7632.6>> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_setup --> <Page url='about:blank'> [hook]
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_has_title[chromium]>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_has_title[chromium]' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_has_title[chromium]>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_has_title[chromium]>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_has_title[chromium]>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_has_title[chromium]' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_has_title[chromium]>
+            nextitem: <Function test_get_started_link[chromium]>
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_has_title[chromium]>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_has_title[chromium]' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_has_title[chromium]' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_e2e.py::test_has_title[chromium]
+            location: ('test_e2e.py', 3, 'test_has_title[chromium]')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+      pytest_runtest_protocol [hook]
+          item: <Function test_get_started_link[chromium]>
+          nextitem: None
+        pytest_runtest_logstart [hook]
+            nodeid: test_e2e.py::test_get_started_link[chromium]
+            location: ('test_e2e.py', 9, 'test_get_started_link[chromium]')
+        finish pytest_runtest_logstart --> [] [hook]
+        pytest_runtest_setup [hook]
+            item: <Function test_get_started_link[chromium]>
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_setup --> /Users/liamblackburn/Documents/code/TDD ReCap/test-results/test-e2e-py-test-get-started-link-chromium [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_setup --> <pytest_playwright.pytest_playwright.ArtifactsRecorder object at 0x109cd6480> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_setup --> <function new_context.<locals>._new_context at 0x109cd14e0> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_setup --> <BrowserContext browser=<Browser type=<BrowserType name=chromium executable_path=/Users/liamblackburn/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing> version=145.0.7632.6>> [hook]
+          pytest_fixture_setup [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_setup --> <Page url='about:blank'> [hook]
+        finish pytest_runtest_setup --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_get_started_link[chromium]>
+            call: <CallInfo when='setup' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='setup' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='setup' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='setup' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_call [hook]
+            item: <Function test_get_started_link[chromium]>
+          pytest_pyfunc_call [hook]
+              pyfuncitem: <Function test_get_started_link[chromium]>
+          finish pytest_pyfunc_call --> True [hook]
+        finish pytest_runtest_call --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_get_started_link[chromium]>
+            call: <CallInfo when='call' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='call' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='call' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='call' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('passed', '.', 'PASSED') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_teardown [hook]
+            item: <Function test_get_started_link[chromium]>
+            nextitem: None
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='page' scope='function' baseid=''>
+              request: <SubRequest 'page' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='context' scope='function' baseid=''>
+              request: <SubRequest 'context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_pw_artifacts_folder' scope='session' baseid=''>
+              request: <SubRequest '_pw_artifacts_folder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='device' scope='session' baseid=''>
+              request: <SubRequest 'device' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='new_context' scope='function' baseid=''>
+              request: <SubRequest 'new_context' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser' scope='session' baseid=''>
+              request: <SubRequest 'browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser' scope='session' baseid=''>
+              request: <SubRequest 'browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='launch_browser' scope='session' baseid=''>
+              request: <SubRequest 'launch_browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='launch_browser' scope='session' baseid=''>
+              request: <SubRequest 'launch_browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='connect_options' scope='session' baseid=''>
+              request: <SubRequest 'connect_options' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='launch_browser' scope='session' baseid=''>
+              request: <SubRequest 'launch_browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_type' scope='session' baseid=''>
+              request: <SubRequest 'browser_type' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_type' scope='session' baseid=''>
+              request: <SubRequest 'browser_type' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_name' scope='session' baseid=''>
+              request: <SubRequest 'browser_name' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_type' scope='session' baseid=''>
+              request: <SubRequest 'browser_type' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='playwright' scope='session' baseid=''>
+              request: <SubRequest 'playwright' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='launch_browser' scope='session' baseid=''>
+              request: <SubRequest 'launch_browser' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_type_launch_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_type_launch_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_verify_url' scope='session' baseid=''>
+              request: <SubRequest '_verify_url' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_verify_url' scope='session' baseid=''>
+              request: <SubRequest '_verify_url' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='base_url' scope='session' baseid=''>
+              request: <SubRequest 'base_url' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='delete_output_dir' scope='session' baseid=''>
+              request: <SubRequest 'delete_output_dir' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_get_started_link[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='_artifacts_recorder' scope='function' baseid=''>
+              request: <SubRequest '_artifacts_recorder' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='output_path' scope='function' baseid=''>
+              request: <SubRequest 'output_path' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_context_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_context_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='device' scope='session' baseid=''>
+              request: <SubRequest 'device' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='browser_type_launch_args' scope='session' baseid=''>
+              request: <SubRequest 'browser_type_launch_args' for <Function test_has_title[chromium]>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='mocker' scope='function' baseid=''>
+              request: <SubRequest 'mocker' for <Function test_db_is_called_successfully>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='delete_output_dir' scope='session' baseid=''>
+              request: <SubRequest 'delete_output_dir' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+          pytest_fixture_post_finalizer [hook]
+              fixturedef: <FixtureDef argname='pytestconfig' scope='session' baseid=''>
+              request: <SubRequest 'pytestconfig' for <Function test_home_page>>
+          finish pytest_fixture_post_finalizer --> [] [hook]
+        finish pytest_runtest_teardown --> None [hook]
+        pytest_runtest_makereport [hook]
+            item: <Function test_get_started_link[chromium]>
+            call: <CallInfo when='teardown' result: None>
+        finish pytest_runtest_makereport --> <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='teardown' outcome='passed'> [hook]
+        pytest_runtest_logreport [hook]
+            report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='teardown' outcome='passed'>
+          pytest_report_teststatus [hook]
+              report: <TestReport 'test_e2e.py::test_get_started_link[chromium]' when='teardown' outcome='passed'>
+              config: <_pytest.config.Config object at 0x1080fb7a0>
+          finish pytest_report_teststatus --> ('', '', '') [hook]
+        finish pytest_runtest_logreport --> [] [hook]
+        pytest_runtest_logfinish [hook]
+            nodeid: test_e2e.py::test_get_started_link[chromium]
+            location: ('test_e2e.py', 9, 'test_get_started_link[chromium]')
+        finish pytest_runtest_logfinish --> [] [hook]
+      finish pytest_runtest_protocol --> True [hook]
+    finish pytest_runtestloop --> True [hook]
+    pytest_sessionfinish [hook]
+        session: <Session  exitstatus=0 testsfailed=0 testscollected=7>
+        exitstatus: 0
+      pytest_terminal_summary [hook]
+          terminalreporter: <_pytest.terminal.TerminalReporter object at 0x10951b320>
+          exitstatus: 0
+          config: <_pytest.config.Config object at 0x1080fb7a0>
+      finish pytest_terminal_summary --> [] [hook]
+    finish pytest_sessionfinish --> [] [hook]
+    pytest_unconfigure [hook]
+        config: <_pytest.config.Config object at 0x1080fb7a0>
+    finish pytest_unconfigure --> [] [hook]
