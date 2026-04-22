@@ -1,5 +1,4 @@
 import db 
-import pytest
 
 class Duty:
     def __init__(self, name, description):
@@ -46,19 +45,5 @@ def test_duties_has_description():
     assert "Script and code" in duty1.description() 
     assert "Initiate and facilitate" in duty2.description()
 
-# def test_api_response_keys(mocker):
-#     mock_database = mocker.Mock()
 
-#     expected_data = [{
-#         "Duty_Id" : 1,
-#         "Description" : "Script and code",
-#         "KSBs" : " "
-#     }]
-
-#     mock_database.get_duty.return_value = expected_data
-
-#     result = duty_response(mock_database, 1)
-
-#     assert result == expected_data
-#     mock_database.fetch.assert_called_once_with(1)
     
