@@ -1,19 +1,8 @@
-import db 
+import db
+from db import Duties
 
-class Duty:
-    def __init__(self, name, description):
-        self.name = name
-        self._description = description
-    
-    def equals(self, duty2):
-        return self.name == duty2.name
-    
-    def description(self):
-        return self._description
-
-
-duty1 = Duty("duty1", "Script and code")
-duty2 = Duty("duty2", "Initiate and facilitate")
+duty1 = Duties("duty1", "Script and code")
+duty2 = Duties("duty2", "Initiate and facilitate")
 
 def fake_call():
     return [{
@@ -36,7 +25,7 @@ def test_db_is_called_successfully(mocker):
 
 
 def test_duty_returns_name():
-    assert isinstance(duty1, Duty)
+    assert isinstance(duty1, Duties)
 
 def test_duty1_and_duty2_are_different():    
     assert duty1.equals(duty2) is False
