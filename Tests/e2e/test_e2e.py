@@ -18,6 +18,11 @@ def xtest_home_page_is_reachable():
         response = client.get('/')
         assert response.status_code == 200
 
-def test_add_new_duties_button_is_visible(page: Page, live_server):
+def test_add_new_duties_button_is_visible_and_clickable(page: Page, live_server):
     page.goto(live_server.url())
-    expect(page.get_by_role("button", name="Add New Duty")).to_be_visible()
+
+    add_duties_button = page.get_by_role("button", name="Add New Duty")
+    expect(add_duties_button).to_be_visible()
+    add_duties_button.click()
+
+
