@@ -24,5 +24,6 @@ def test_add_new_duties_button_is_visible_and_clickable(page: Page, live_server)
     add_duties_button = page.get_by_role("button", name="Add New Duty")
     expect(add_duties_button).to_be_visible()
     add_duties_button.click()
+    expect(page.get_by_role("combobox", name="Duties" )).to_be_visible()
 
 
