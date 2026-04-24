@@ -30,5 +30,5 @@ def test_correct_amount_of_duties_in_dropdown(page: Page, live_server):
     page.goto(live_server.url())
     add_duties_button = page.get_by_role("button", name="Add Duties")
     add_duties_button.click()
-    dropdown = page.get_by_role("combobox", name="Choose Duties")
-    expect(dropdown.get_by_role("option")).to_have_count(13)
+    checkboxes = page.get_by_role("checkbox")
+    expect(checkboxes).to_have_count(13)
