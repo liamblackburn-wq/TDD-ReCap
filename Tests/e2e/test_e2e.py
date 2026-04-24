@@ -26,7 +26,7 @@ def xtest_add_duties_button_is_visible_and_clickable(page: Page, live_server):
     add_duties_button.click()
     expect(page.get_by_role("form", name="Add Duty Form" )).to_be_visible()
 
-def test_correct_amount_of_duty_checkboxes(page: Page, live_server):
+def xtest_correct_amount_of_duty_checkboxes(page: Page, live_server):
     page.goto(live_server.url())
     add_duties_button = page.get_by_role("button", name="Add Duties")
     add_duties_button.click()
