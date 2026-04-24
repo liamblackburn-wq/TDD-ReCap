@@ -11,5 +11,4 @@ def home():
     if request.method == "POST":
         added_duties = request.form.getlist("duties")
 
-
     return render_template('index.html', duties=duty_list, added_duties=added_duties)

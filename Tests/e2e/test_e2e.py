@@ -48,12 +48,14 @@ def test_submit_button(revealed_form: Page):
 
     duty_5.check()
 
-    expect(automate_duties_list).to_be_visible()
+    expect(automate_duties_list).to_be_attached()
     expect(automate_duties_list).to_be_empty()
     expect(submit_button).to_be_visible()
 
     submit_button.click()
 
     expect(automate_duties_list).to_contain_text("Duty 5")
+    expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
+
 
 

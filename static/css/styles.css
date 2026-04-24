@@ -2,7 +2,7 @@
     display: none;
 }
 
-#automate_list {
+.listed_duty {
     height: 50px;
     border: 1px solid black
 }
