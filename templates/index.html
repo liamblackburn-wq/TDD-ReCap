@@ -15,32 +15,10 @@
     </button>
     <form id="form" class="hidden" aria-label="Add Duty Form">
       <div class="checkbox-group">
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox" id="duty_5" name="duties" value="Duty 5">
-        <label for="duty_5">Duty 5</label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
-        <input type="checkbox">
-        <label></label>
+        {% for duty in duties %}
+          <input type="checkbox" id="{{ duty.replace(' ', '_') | lower }}" name="duties" value="{{ duty }}">
+          <label for="{{ duty.replace(' ', '_') | lower }}">{{ duty }}</label>
+        {% endfor %}
       </div>
     </form>
 <!--        <ul>-->
