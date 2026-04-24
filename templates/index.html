@@ -14,9 +14,11 @@
       Add Duties
     </button>
     <ul id="automate_list" aria-label="Automate Duties List">
-
+      {% for duty in added_duties %}
+        <li class="listed_duty">{{ duty }}</li>
+      {% endfor %}
     </ul>
-    <form id="form" class="hidden" aria-label="Add Duty Form">
+    <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
       <div class="checkbox-group">
         {% for duty in duties %}
           <input type="checkbox" id="{{ duty.replace(' ', '_') | lower }}" name="duties" value="{{ duty }}">
