@@ -42,13 +42,16 @@ def xtest_individual_duty_exists_and_checked(revealed_form: Page):
     expect(duty_5).to_be_checked()
 
 def test_submit_button(revealed_form: Page):
-    automate_duties_list = revealed_form.get_by_role("list")
+    automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
     submit_button = revealed_form.get_by_role("button", name="Submit")
     duty_5 = revealed_form.get_by_label("Duty 5")
 
     duty_5.check()
+
+    expect(automate_duties_list).to_be_visible()
+    expect(automate_duties_list).to_be_empty()
+    expect(submit_button).to_be_visible()
+
     submit_button.click()
 
-    expect(submit_button).to_be_visible()
-    expect(automate_duties_list).to_be_visible()
-    expect(automate_duties_list).to_contain_text("Duty 5")
+

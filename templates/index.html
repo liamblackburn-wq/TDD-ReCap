@@ -13,6 +13,9 @@
     <button id="add-duties">
       Add Duties
     </button>
+    <ul id="automate_list">
+
+    </ul>
     <form id="form" class="hidden" aria-label="Add Duty Form">
       <div class="checkbox-group">
         {% for duty in duties %}
@@ -20,12 +23,7 @@
           <label for="{{ duty.replace(' ', '_') | lower }}">{{ duty }}</label>
         {% endfor %}
       </div>
+      <button type="submit">Submit</button>
     </form>
-<!--        <ul>-->
-<!--          <li>Duty 5</li>-->
-<!--          <li>Duty 7</li>-->
-<!--          <li>Duty 8</li>-->
-<!--          <li>Duty 10</li>-->
-<!--        </ul>-->
 </body>
 </html>
