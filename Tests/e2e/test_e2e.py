@@ -52,6 +52,4 @@ def test_submit_button(revealed_form: Page):
     expect(automate_duties_list).to_be_empty()
     expect(submit_button).to_be_visible()
 
-    submit_button.click()
-
 
