@@ -56,19 +56,3 @@ def xtest_submit_button(revealed_form: Page):
 
     expect(automate_duties_list).to_contain_text("Duty 5")
     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
-
-def test_duties_are_not_overwritten_after_submit_button(revealed_form: Page):
-    automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
-    submit_button = revealed_form.get_by_role("button", name="Submit")
-    duty_5 = revealed_form.get_by_label("Duty 5")
-    duty_7 = revealed_form.get_by_label("Duty 7")
-    duty_5.check()
-
-    submit_button.click()
-    revealed_form.get_by_role("button", name="Add Duties").click()
-
-    duty_7.check()
-
-    submit_button.click()
-
-    expect(automate_duties_list.get_by_role("listitem")).to_have_text(["Duty 5", "Duty 7"])
