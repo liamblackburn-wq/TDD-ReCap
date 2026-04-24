@@ -26,9 +26,17 @@ def xtest_add_duties_button_is_visible_and_clickable(page: Page, live_server):
     add_duties_button.click()
     expect(page.get_by_role("form", name="Add Duty Form" )).to_be_visible()
 
-def test_correct_amount_of_duties_in_dropdown(page: Page, live_server):
+def test_correct_amount_of_duty_checkboxes(page: Page, live_server):
     page.goto(live_server.url())
     add_duties_button = page.get_by_role("button", name="Add Duties")
     add_duties_button.click()
     checkboxes = page.get_by_role("checkbox")
     expect(checkboxes).to_have_count(13)
+
+def test_individual_duty_exists_and_checked(page: Page, live_server):
+    page.goto(live_server.url())
+    add_duties_button = page.get_by_role("button", name="Add Duties")
+    add_duties_button.click()
+    duty_5_check = page.get_by_label("Duty 5")
+    duty_5_check.check()
+    expect(duty_5_check).to_be_checked()
