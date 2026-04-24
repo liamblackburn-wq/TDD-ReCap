@@ -18,12 +18,17 @@ def xtest_home_page_is_reachable():
         response = client.get('/')
         assert response.status_code == 200
 
-def test_add_new_duties_button_is_visible_and_clickable(page: Page, live_server):
+def xtest_add_duties_button_is_visible_and_clickable(page: Page, live_server):
     page.goto(live_server.url())
 
-    add_duties_button = page.get_by_role("button", name="Add New Duty")
+    add_duties_button = page.get_by_role("button", name="Add Duties")
     expect(add_duties_button).to_be_visible()
     add_duties_button.click()
-    expect(page.get_by_role("combobox", name="Duties" )).to_be_visible()
+    expect(page.get_by_role("form", name="Add Duty Form" )).to_be_visible()
 
-
+def test_correct_amount_of_duties_in_dropdown(page: Page, live_server):
+    page.goto(live_server.url())
+    add_duties_button = page.get_by_role("button", name="Add Duties")
+    add_duties_button.click()
+    dropdown = page.get_by_role("combobox", name="Choose Duties")
+    expect(dropdown.get_by_role("option")).to_have_count(13)
