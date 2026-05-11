@@ -8,13 +8,11 @@ class DatabaseService:
 
         number_of_duties = ', '.join(['?'] * len(duty_ids))
 
-        query = f"SELECT description FROM Duty WHERE id IN ({number_of_duties})"
+        query = f"SELECT name, description FROM Duty WHERE id IN ({number_of_duties})"
 
         cursor = self.connection.cursor()
-
         cursor.execute(query, duty_ids)
-
         rows = cursor.fetchall()
 
-        return [row[0] for row in rows]
+        return [{"Duty": row[0], "Description": row[1]} for row in rows]
 
