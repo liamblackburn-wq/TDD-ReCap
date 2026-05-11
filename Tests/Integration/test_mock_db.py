@@ -1,7 +1,12 @@
 from db import DatabaseService
 import pytest
-import sqlite3
 from unittest.mock import Mock
+
+duty_1_description = ("Script and code in at least one general purpose language and at least one domain-specific "
+                      "language to orchestrate infrastructure, follow test driven development "
+                      "and ensure appropriate test coverage.")
+
+duty_3_description = "Engage in productive pair/mob programming to underpin the practice of peer review."
 
 def mock_sql_connection(rows_to_return):
     con = Mock()
@@ -14,8 +19,8 @@ def mock_sql_connection(rows_to_return):
     return con
 
 @pytest.mark.parametrize("duty_id_list, expected_result", (
-        ([1, 2, 3], ["Duty 1", "Duty 2", "Duty 3"]),
-        ([1, 3], ["Duty 1", "Duty 3"])
+        ([1], [duty_1_description]),
+        ([1, 3], [duty_1_description, duty_3_description]),
 ))
 def test_get_duty_descriptions_returns_descriptions(duty_id_list, expected_result):
     rows_to_return = [(description,) for description in expected_result]
