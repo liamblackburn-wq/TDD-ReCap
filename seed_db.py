@@ -14,7 +14,7 @@ def setup_database():
     )
     """)
 
-    cur.executemany("INSERT OR REPLACE INTO Duties VALUES (?, ?, ?)", duties_data_rows)
+    cur.executemany("INSERT OR REPLACE INTO duties VALUES (?, ?, ?)", duties_data_rows)
 
     con.commit()
     con.close()
