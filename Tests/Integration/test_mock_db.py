@@ -19,11 +19,14 @@ def mock_sql_connection(rows_to_return):
     return con
 
 @pytest.mark.parametrize("duty_id_list, expected_result", (
-        ([1], [duty_1_description]),
-        ([1, 3], [duty_1_description, duty_3_description]),
+        ([1], [{"Duty": "Duty 1", "Description": duty_1_description}]),
+        ([1, 3], [
+            {"Duty": "Duty 1", "Description": duty_1_description},
+            {"Duty": "Duty 3", "Description": duty_3_description}
+        ]),
 ))
 def test_get_duty_descriptions_returns_descriptions(duty_id_list, expected_result):
-    rows_to_return = [(description,) for description in expected_result]
+    rows_to_return = [(item["Duty"], item["Description"]) for item in expected_result]
     mock_con = mock_sql_connection(rows_to_return)
 
     db = DatabaseService(mock_con)
