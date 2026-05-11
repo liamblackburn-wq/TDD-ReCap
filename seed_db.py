@@ -7,7 +7,7 @@ def setup_database():
     cur = con.cursor()
 
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS Duties (
+    CREATE TABLE IF NOT EXISTS duties (
     id INTEGER PRIMARY KEY,
     Duty TEXT,
     Description TEXT
