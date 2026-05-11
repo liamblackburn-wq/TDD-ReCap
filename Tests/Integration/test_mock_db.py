@@ -6,10 +6,9 @@ from unittest.mock import Mock
 def mock_sql_connection(rows_to_return):
     con = Mock()
     cursor = Mock()
-    result_set = Mock()
-    result_set.fetchall.return_value = rows_to_return
 
-    cursor.execute.return_value = result_set
+    cursor.fetchall.return_value = rows_to_return
+    cursor.execute.return_value = cursor
     con.cursor.return_value = cursor
 
     return con
@@ -23,7 +22,6 @@ def test_get_duty_descriptions_returns_descriptions(duty_id_list, expected_resul
     mock_con = mock_sql_connection(rows_to_return)
 
     db = DatabaseService(mock_con)
-
     actual_result = db.get_duty_descriptions(duty_id_list)
 
     assert actual_result == expected_result
