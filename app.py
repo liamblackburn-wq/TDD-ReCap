@@ -14,6 +14,9 @@ def home():
     added_duties = []
 
     if request.method == "POST":
+        if 'duties' not in request.form:
+            return "Bad Request", 400
+
         selected_duties = request.form.getlist("duties")
         selected_ids = [int(name.split(" ")[1]) for name in selected_duties]
 
