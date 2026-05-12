@@ -56,3 +56,5 @@ def test_submit_button(revealed_form: Page):
 
     expect(automate_duties_list).to_contain_text("Duty 5")
     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
+    revealed_form.get_by_role("button", name="Add Duties").click()
+    expect(duty_5).not_to_be_attached()
