@@ -24,3 +24,4 @@ def test_duties_persistence_after_refresh(client):
     client.post('/', data=form_date)
     response = client.get('/')
     assert b"<strong>Duty 1</strong>" in response.data
+
