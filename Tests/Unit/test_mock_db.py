@@ -52,5 +52,5 @@ def test_get_saved_duties_executes_correct_query():
 def test_remove_saved_duty_executes_correct_query():
     mock_con = mock_sql_connection([])
     db = DatabaseService(mock_con)
-    db.remove_saved_duty()
+    db.remove_saved_duty([1, 2])
     assert mock_con.cursor().execute.called
