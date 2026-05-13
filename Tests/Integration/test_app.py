@@ -51,3 +51,13 @@ def test_clear_app_route_returns_200(client):
     response = client.get('/clear-duties', follow_redirects=True)
 
     assert response.status_code == 200
+
+def test_duties_cleared_when_button_is_clicked(client):
+    form_data = {"duties": ["Duty 1", "Duty 2"]}
+    submitted_duties_response = client.post('/', data=form_data)
+    assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
+
+    response = client.get('/clear-duties', follow_redirects=True)
+    assert b"Automate!" in response.data
+
+    assert response.data.count(b"class=\"listed_duty\"") == 0
