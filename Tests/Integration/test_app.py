@@ -1,5 +1,7 @@
 import pytest
 from app import app as my_app
+from db import DatabaseService
+import sqlite3
 
 @pytest.fixture
 def app():
@@ -30,9 +32,13 @@ def test_remove_app_route_returns_200(client):
 
     assert response.status_code == 200
 
-# def test_duty_removed_when_remove_button_is_clicked(client):
-#     form_data = {"duties": ["Duty 1"]}
-#     client.post('/', data=form_data)
-#     response = client.get('/remove/1', follow_redirects=True)
-#
-#     assert b"<strong>Duty 1</strong>" not in response.data
+def test_duty_removed_when_remove_button_is_clicked(client):
+    form_data = {"duties": ["Duty 1", "Duty 2"]}
+    submitted_duties_response = client.post('/', data=form_data)
+    assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
+
+    response = client.get('/remove/1', follow_redirects=True)
+    assert b"Automate!" in response.data
+    assert response.data.count(b"class=\"listed_duty\"") == 1
+    assert b"<strong>Duty 2</strong>" in response.data
+    assert b"<strong>Duty 1</strong>" not in response.data

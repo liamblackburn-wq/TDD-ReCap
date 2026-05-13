@@ -61,3 +61,11 @@ def test_remove_saved_duty_executes_correct_query():
     assert args[1] == (1,)
     assert mock_con.commit.called
 
+def test_clear_saved_duty_executes_correct_query():
+    mock_con = mock_sql_connection([])
+    db = DatabaseService(mock_con)
+    db.clear_saved_duties()
+
+    args, _ = mock_con.cursor().execute.call_args
+
+    assert "DELETE FROM saved_duties" in args[0]
