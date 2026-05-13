@@ -40,5 +40,6 @@ def remove_duty(duty_id):
 
 @app.route("/clear-duties", methods=["GET", "POST"])
 def clear_duties():
-
+    service = get_db_service()
+    service.clear_saved_duties()
     return redirect(url_for('home'))
