@@ -5,7 +5,11 @@ import sqlite3
 
 @pytest.fixture
 def app():
+    connection = sqlite3.connect("duties.db")
+    service = DatabaseService(connection)
+    service.clear_saved_duties()
     yield my_app
+    connection.close()
 
 @pytest.fixture
 def client(app):
