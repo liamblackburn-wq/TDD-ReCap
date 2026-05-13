@@ -37,3 +37,5 @@ def remove_duty(duty_id):
     service = get_db_service()
     service.remove_saved_duty(duty_id)
     return redirect(url_for('home'))
+
+

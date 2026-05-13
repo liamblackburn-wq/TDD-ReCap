@@ -46,3 +46,8 @@ def test_duty_removed_when_remove_button_is_clicked(client):
     assert response.data.count(b"class=\"listed_duty\"") == 1
     assert b"<strong>Duty 2</strong>" in response.data
     assert b"<strong>Duty 1</strong>" not in response.data
+
+def test_clear_app_route_returns_200(client):
+    response = client.get('/clear-duties', follow_redirects=True)
+
+    assert response.status_code == 200
