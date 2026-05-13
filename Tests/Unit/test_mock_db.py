@@ -48,3 +48,9 @@ def test_get_saved_duties_executes_correct_query():
     db = DatabaseService(mock_con)
     db.get_saved_duties()
     assert mock_con.cursor().execute.called
+
+def test_remove_saved_duty_executes_correct_query():
+    mock_con = mock_sql_connection([])
+    db = DatabaseService(mock_con)
+    db.remove_saved_duty()
+    assert mock_con.cursor().execute.called
