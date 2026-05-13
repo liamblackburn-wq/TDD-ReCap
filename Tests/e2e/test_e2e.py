@@ -8,7 +8,7 @@ def app():
 
 @pytest.fixture
 def homepage(page: Page, live_server):
-    page.goto(live_server.url())
+    page.goto(live_server.url('/clear-duties'))
     return page
 
 @pytest.fixture
