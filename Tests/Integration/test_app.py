@@ -36,7 +36,7 @@ def test_remove_app_route_returns_200(client):
 
     assert response.status_code == 200
 
-def test_duty_removed_when_remove_button_is_clicked(client):
+def test_duty_removed(client):
     form_data = {"duties": ["Duty 1", "Duty 2"]}
     submitted_duties_response = client.post('/', data=form_data)
     assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
@@ -52,7 +52,7 @@ def test_clear_app_route_returns_200(client):
 
     assert response.status_code == 200
 
-def test_duties_cleared_when_button_is_clicked(client):
+def test_duties_cleared(client):
     form_data = {"duties": ["Duty 1", "Duty 2"]}
     submitted_duties_response = client.post('/', data=form_data)
     assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
