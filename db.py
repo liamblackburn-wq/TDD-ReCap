@@ -38,3 +38,12 @@ class DatabaseService:
         rows = cursor.fetchall()
 
         return [{"id": row[0], "Duty": row[1], "Description": row[2]} for row in rows]
+
+    def remove_saved_duty(self, duty_id):
+
+        query = "DELETE FROM saved_duties WHERE id = ?"
+
+        cursor = self.connection.cursor()
+
+        cursor.execute(query, duty_id)
+        self.connection.commit()
