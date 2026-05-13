@@ -47,3 +47,5 @@ class DatabaseService:
 
         cursor.execute(query, (duty_id,))
         self.connection.commit()
+
+

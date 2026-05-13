@@ -4,9 +4,11 @@ from db import DatabaseService
 
 app = Flask(__name__)
 
+
 def get_db_service():
     connection = sqlite3.connect('duties.db', check_same_thread=False)
     return DatabaseService(connection)
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -28,6 +30,7 @@ def home():
 
     available_duties = [duty for duty in duty_list if duty not in updated_duty_list]
     return render_template('index.html', duties=available_duties, added_duties=added_duties)
+
 
 @app.route("/remove/<duty_id>", methods=["GET", "POST"])
 def remove_duty(duty_id):
