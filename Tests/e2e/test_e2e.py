@@ -2,8 +2,6 @@ from playwright.sync_api import Page, expect
 from app import app as my_app
 import pytest
 
-
-
 @pytest.fixture(scope="session")
 def app():
     return my_app
@@ -18,10 +16,9 @@ def revealed_form(homepage: Page):
     homepage.get_by_role("button", name="Add Duties").click()
     return homepage
 
-def test_home_page_is_reachable():
-    with my_app.test_client() as client:
-        response = client.get('/')
-        assert response.status_code == 200
+def test_home_page_is_reachable(page: Page, live_server):
+    response = page.goto(live_server.url())
+    assert response.status == 200
 
 def test_heading_text_exists(homepage: Page):
     expect(homepage.get_by_role("heading", name="Apprentice Duties")).to_contain_text('Apprentice Duties')
