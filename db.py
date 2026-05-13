@@ -16,3 +16,25 @@ class DatabaseService:
 
         return [{"Duty": row[0], "Description": row[1]} for row in rows]
 
+    def save_duties(self, duty_ids):
+
+        duties_to_save = [(duty_id,) for duty_id in duty_ids]
+
+        query = f"INSERT OR IGNORE INTO saved_duties (id) VALUES (?)"
+
+        cursor = self.connection.cursor()
+
+        cursor.executemany(query, duties_to_save)
+        self.connection.commit()
+
+    def get_saved_duties(self):
+        query = """
+                SELECT duty.id, duty.Duty, duty.Description
+                FROM duties duty
+                         JOIN saved_duties saved ON duty.id = saved.id
+                """
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        return [{"id": row[0], "Duty": row[1], "Description": row[2]} for row in rows]
