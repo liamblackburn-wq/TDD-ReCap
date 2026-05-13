@@ -48,4 +48,10 @@ class DatabaseService:
         cursor.execute(query, (duty_id,))
         self.connection.commit()
 
-
+    def clear_saved_duties(self):
+        query = """
+                DELETE FROM saved_duties 
+        """
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        self.connection.commit()
