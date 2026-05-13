@@ -34,3 +34,17 @@ def test_get_duty_descriptions_returns_descriptions(duty_id_list, expected_resul
 
     assert actual_result == expected_result
 
+
+def test_save_duties_executes_correct_query():
+    mock_con = mock_sql_connection([])
+    db = DatabaseService(mock_con)
+
+    db.save_duties([1, 2])
+
+    assert mock_con.cursor().executemany.called
+
+def test_get_saved_duties_executes_correct_query():
+    mock_con = mock_sql_connection([])
+    db = DatabaseService(mock_con)
+    db.get_saved_duties()
+    assert mock_con.cursor().execute.called

@@ -14,6 +14,13 @@ def setup_database():
     )
     """)
 
+    cur.execute(
+        """
+    CREATE TABLE IF NOT EXISTS saved_duties (
+        id INTEGER PRIMARY KEY
+    )
+    """)
+
     cur.executemany("INSERT OR REPLACE INTO duties VALUES (?, ?, ?)", duties_data_rows)
 
     con.commit()

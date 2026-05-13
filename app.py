@@ -12,8 +12,7 @@ def get_db_service():
 def home():
     duty_list = [f"Duty {i}" for i in range(1, 14)]
     updated_duty_list = []
-    added_duties = []
-
+    service = get_db_service()
 
     if request.method == "POST":
         if 'duties' not in request.form:
@@ -21,11 +20,11 @@ def home():
 
         selected_duties = request.form.getlist("duties")
         selected_ids = [int(name.split(" ")[1]) for name in selected_duties]
+        service.save_duties(selected_ids)
 
-        service = get_db_service()
-        added_duties = service.get_duty_descriptions(selected_ids)
-        for duty in added_duties:
-            updated_duty_list.append(duty["Duty"])
+    added_duties = service.get_saved_duties()
+    for duty in added_duties:
+        updated_duty_list.append(duty["Duty"])
 
     available_duties = [duty for duty in duty_list if duty not in updated_duty_list]
     return render_template('index.html', duties=available_duties, added_duties=added_duties)
