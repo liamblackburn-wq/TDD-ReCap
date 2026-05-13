@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from db import DatabaseService
 
 app = Flask(__name__)
@@ -28,3 +28,5 @@ def home():
 
     available_duties = [duty for duty in duty_list if duty not in updated_duty_list]
     return render_template('index.html', duties=available_duties, added_duties=added_duties)
+
+
