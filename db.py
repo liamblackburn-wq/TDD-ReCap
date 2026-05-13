@@ -45,5 +45,5 @@ class DatabaseService:
 
         cursor = self.connection.cursor()
 
-        cursor.execute(query, duty_id)
+        cursor.execute(query, (duty_id,))
         self.connection.commit()
