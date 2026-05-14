@@ -22,10 +22,11 @@ header h1 {
 .listed_duty {
     background: #fff;
     margin-bottom: 15px;
-    padding: 15px;
+    padding: 15px 50px 15px 15px;
     border-left: 5px solid #3498db;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 .listed_duty strong {
@@ -98,4 +99,22 @@ button:hover {
 
 #clear-duties:hover {
     background-color: #8b0000 ;
+}
+
+.remove-duty {
+    background: #ff4040;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 10px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.remove-duty-btn:hover {
+    background-color: #8b0000;
 }
