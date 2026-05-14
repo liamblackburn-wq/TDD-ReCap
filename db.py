@@ -20,7 +20,7 @@ class DatabaseService:
 
         duties_to_save = [(duty_id,) for duty_id in duty_ids]
 
-        query = f"INSERT OR IGNORE INTO saved_duties (id) VALUES (?)"
+        query = "INSERT OR IGNORE INTO saved_duties (id) VALUES (?)"
 
         cursor = self.connection.cursor()
 
