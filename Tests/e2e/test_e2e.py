@@ -75,3 +75,30 @@ def test_clear_duties_button(revealed_form: Page):
     expect(clear_duties_button).to_be_visible()
     clear_duties_button.click()
     expect(automate_duties_list).to_be_empty()
+
+def test_remove_duties_button(revealed_form: Page):
+    automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
+    submit_button = revealed_form.get_by_role("button", name="Submit")
+
+    duty_5 = revealed_form.get_by_label("Duty 5")
+    duty_6 = revealed_form.get_by_label("Duty 6")
+    duty_7 = revealed_form.get_by_label("Duty 7")
+
+    duty_5.check()
+    duty_6.check()
+    duty_7.check()
+
+    submit_button.click()
+
+    list_items = automate_duties_list.get_by_role("listitem")
+    expect(list_items).to_have_count(3)
+
+    duty_5_list_item = list_items.filter(has_text="Duty 5")
+
+    remove_duty_5_button = duty_5_list_item.get_by_role("button", name="X")
+    remove_duty_5_button.click()
+
+    expect(list_items).to_have_count(2)
+    expect(automate_duties_list).not_to_contain_text("Duty 5")
+    expect(automate_duties_list).to_contain_text("Duty 6")
+    expect(automate_duties_list).to_contain_text("Duty 7")
