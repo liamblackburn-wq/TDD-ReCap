@@ -2,8 +2,8 @@ import sqlite3
 from duties import duties_data_rows
 
 
-def setup_database():
-    con = sqlite3.connect("duties.db")
+def setup_database(db_name='duties.db'):
+    con = sqlite3.connect(db_name)
     cur = con.cursor()
 
     cur.execute("""
