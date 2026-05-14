@@ -43,7 +43,6 @@ jobs:
         run: |
           docker buildx build --platform linux/amd64 -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest --push .
 
-      - name: Deploy to App Runner
+      - name: Deploy to ECS Express Mode
         run: |
-          aws apprunner start-deployment --service-arn arn:aws:apprunner:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:service/liam-tdd-recap
-
+          aws ecs update-service --cluster default --service liam-tdd-recap --force-new-deployment
