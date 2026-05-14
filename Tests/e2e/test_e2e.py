@@ -55,3 +55,23 @@ def test_submit_button(revealed_form: Page):
     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
     revealed_form.get_by_role("button", name="Add Duties").click()
     expect(duty_5).not_to_be_attached()
+
+def test_clear_duties_button(revealed_form: Page):
+    automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
+    submit_button = revealed_form.get_by_role("button", name="Submit")
+    clear_duties_button = revealed_form.get_by_role("button", name="Clear Duties")
+
+    duty_5 = revealed_form.get_by_label("Duty 5")
+    duty_6 = revealed_form.get_by_label("Duty 6")
+    duty_7 = revealed_form.get_by_label("Duty 7")
+
+    duty_5.check()
+    duty_6.check()
+    duty_7.check()
+
+    submit_button.click()
+
+    expect(automate_duties_list.get_by_role("listitem")).to_have_count(3)
+    expect(clear_duties_button).to_be_visible()
+    clear_duties_button.click()
+    expect(automate_duties_list).to_be_empty()
