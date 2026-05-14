@@ -23,6 +23,7 @@
       {% for duty in added_duties %}
         <li class="listed_duty">
           <strong>{{ duty.Duty }}</strong> {{ duty.Description }}
+          <a href="/remove/{{ duty.id }}" role="button" class="remove-duty">X</a>
         </li>
       {% endfor %}
     </ul>
