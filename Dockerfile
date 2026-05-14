@@ -11,4 +11,4 @@ RUN python seed_db.py
 
 EXPOSE 80
 
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port==80"]
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=80"]
