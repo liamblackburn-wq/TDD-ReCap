@@ -1,12 +1,16 @@
+import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 from db import DatabaseService
 
+# setup env variable with path to use default or test
+# use before all in tests
+
 app = Flask(__name__)
 
-
 def get_db_service():
-    connection = sqlite3.connect('duties.db', check_same_thread=False)
+    db_path = os.environ.get('TEST_DATABASE_PATH', 'duties.db')
+    connection = sqlite3.connect(db_path, check_same_thread=False)
     return DatabaseService(connection)
 
 
