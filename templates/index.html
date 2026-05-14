@@ -10,9 +10,15 @@
     <h1>Apprentice Duties</h1>
   </header>
     <h2>Automate!</h2>
-    <button id="add-duties">
+    <div class="button-group">
+      <button id="add-duties">
       Add Duties
-    </button>
+      </button>
+      {% if added_duties %}
+      <a href="/clear-duties" role="button" id="clear-duties">Clear Duties</a>
+      {% endif %}
+    </div>
+
     <ul id="automate_list" aria-label="Automate Duties List">
       {% for duty in added_duties %}
         <li class="listed_duty">
