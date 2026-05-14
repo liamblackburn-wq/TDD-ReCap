@@ -4,16 +4,10 @@ from db import DatabaseService
 import sqlite3
 
 @pytest.fixture
-def app():
-    connection = sqlite3.connect("duties.db")
-    service = DatabaseService(connection)
-    service.clear_saved_duties()
-    yield my_app
-    connection.close()
-
-@pytest.fixture
 def client(app):
-    return app.test_client()
+    test_client = app.test_client()
+    test_client.get('/clear-duties', follow_redirects=True)
+    return test_client
 
 def test_app_post_method_returns_200(client):
     form_data = {"duties": ["Duty 1", "Duty 2", "Duty 3"]}

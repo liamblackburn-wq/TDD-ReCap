@@ -1,10 +1,5 @@
 from playwright.sync_api import Page, expect
-from app import app as my_app
 import pytest
-
-@pytest.fixture(scope="session")
-def app():
-    return my_app
 
 @pytest.fixture
 def homepage(page: Page, live_server):
