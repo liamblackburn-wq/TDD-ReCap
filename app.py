@@ -3,9 +3,6 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 from db import DatabaseService
 
-# setup env variable with path to use default or test
-# use before all in tests
-
 app = Flask(__name__)
 
 def get_db_service():
