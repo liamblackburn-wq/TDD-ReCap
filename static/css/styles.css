@@ -22,10 +22,11 @@ header h1 {
 .listed_duty {
     background: #fff;
     margin-bottom: 15px;
-    padding: 15px;
+    padding: 15px 50px 15px 15px;
     border-left: 5px solid #3498db;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 .listed_duty strong {
@@ -58,6 +59,15 @@ header h1 {
     display: none;
 }
 
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    text-align: center;
+    max-width: 100px;
+}
+
 button {
     background-color: #3498db;
     color: white;
@@ -67,8 +77,44 @@ button {
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease;
+    font-family: inherit;
+    font-size: 1rem;
 }
 
 button:hover {
     background-color: #2980b9;
+}
+
+#clear-duties {
+    background-color: #ff4040;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+#clear-duties:hover {
+    background-color: #8b0000 ;
+}
+
+.remove-duty {
+    background: #ff4040;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 10px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.remove-duty-btn:hover {
+    background-color: #8b0000;
 }
