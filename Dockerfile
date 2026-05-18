@@ -9,10 +9,7 @@ COPY . .
 
 RUN python seed_db.py
 
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_PORT=80
-ENV FLASK_RUN_HOST=0.0.0.0
 
 EXPOSE 80
 
-CMD ["flask", "run"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
