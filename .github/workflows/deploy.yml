@@ -45,4 +45,4 @@ jobs:
 
       - name: Deploy to ECS Express Mode
         run: |
-          aws ecs update-service --cluster default --service liam-tdd-recap-a980 --force-new-deployment
+          aws ecs update-service --cluster default --service liam-tdd-recap-v2 --force-new-deployment
