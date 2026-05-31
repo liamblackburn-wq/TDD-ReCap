@@ -1,4 +1,4 @@
-name: Deploy to App Runner
+name: Deploy to ECS
 
 on:
   push:
@@ -45,4 +45,4 @@ jobs:
 
       - name: Deploy to ECS Express Mode
         run: |
-          aws ecs update-service --cluster liam-tdd --service liam-tdd-recap-service --force-new-deployment
+          aws ecs update-service --cluster liam-tdd --service liam-tdd-recap-v2-service --force-new-deployment
