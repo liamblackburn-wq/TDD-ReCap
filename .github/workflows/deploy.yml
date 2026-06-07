@@ -52,4 +52,5 @@ jobs:
           container-port: 80
           execution-role-arn: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsTaskExecutionRole
           infrastructure-role-arn: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsInfrastructureRoleForExpressServices
-          subnets: subnet-0eb6c0157b2f0b13c,subnet-0d1005e741f91c82c
+          subnets: "subnet-0eb6c0157b2f0b13c,subnet-0d1005e741f91c82c"
+          security-groups: "sg-06a0a25c3b9b57495"
