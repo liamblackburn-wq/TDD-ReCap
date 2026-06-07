@@ -58,5 +58,5 @@ jobs:
               --execution-role-arn "arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsTaskExecutionRole" \
               --infrastructure-role-arn "arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsInfrastructureRoleForExpressServices" \
               --primary-container "image=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest,containerPort=80" \
-              --network-configuration "subnets=[subnet-0eb6c0157b2f0b13c,subnet-0d1005e741f91c82c],securityGroups=[sg-06a0a25c3b9b57495]"
+              --network-configuration '{"subnets":["subnet-0eb6c0157b2f0b13c","subnet-0d1005e741f91c82c"],"securityGroups":["sg-06a0a25c3b9b57495"]}'
           fi
