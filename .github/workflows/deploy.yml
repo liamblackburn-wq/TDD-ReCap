@@ -43,20 +43,9 @@ jobs:
         run: |
           docker buildx build --platform linux/amd64 -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest --push .
 
-      - name: Deploy to ECS Express Mode (Native CLI)
+      - name: Deploy to ECS Standard Fargate
         run: |
-          if aws ecs describe-services --cluster liam-tdd --services liam-tdd-recap-v2-service --query "services[0].status" --output text 2>/dev/null | grep -q "ACTIVE"; then
-            echo "Service found"
-            aws ecs update-express-gateway-service \
-              --service-arn "arn:aws:ecs:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:service/liam-tdd/liam-tdd-recap-v2-service" \
-              --primary-container "image=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest,containerPort=80"
-          else
-            echo "Service not found Building a brand-new automated infrastructure stack..."
-            aws ecs create-express-gateway-service \
-              --cluster liam-tdd \
-              --service-name liam-tdd-recap-v2-service \
-              --execution-role-arn "arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsTaskExecutionRole" \
-              --infrastructure-role-arn "arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsInfrastructureRoleForExpressServices" \
-              --primary-container "image=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest,containerPort=80" \
-              --network-configuration '{"subnets":["subnet-0eb6c0157b2f0b13c","subnet-0d1005e741f91c82c"],"securityGroups":["sg-06a0a25c3b9b57495"]}'
-          fi
+          aws ecs update-service \
+            --cluster liam-tdd \
+            --service liam-tdd-recap-v2-service \
+            --force-new-deployment
