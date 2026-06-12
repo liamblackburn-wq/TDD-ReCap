@@ -1,7 +1,7 @@
 class Duty:
-    def __init__(self, name):
+    def __init__(self, name, description):
         self.name = name
-
+        self.description = description
 
 duties_data_rows = [
     (1, "Duty 1", "Script and code in at least one general purpose language and at least one domain-specific language "
