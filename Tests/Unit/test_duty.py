@@ -1,10 +1,7 @@
 from duties import Duty
 
-def test_duty_name():
-    test_duty = Duty("Duty 1")
-    assert test_duty.name ==  "Duty 1"
-
-def test_duty_description():
+def test_duty_features():
     test_duty = Duty("Duty 1", "Test Description")
-    test_duty.description = "Test Description"
+    assert test_duty.name ==  "Duty 1"
     assert test_duty.description == "Test Description"
+
