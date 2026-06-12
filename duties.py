@@ -3,6 +3,12 @@ class Duty:
         self.name = name
         self.description = description
 
+    def __eq__(self, other):
+        if not isinstance(other, Duty):
+            return False
+        return self.name == other.name
+
+
 duties_data_rows = [
     (1, "Duty 1", "Script and code in at least one general purpose language and at least one domain-specific language "
                   "to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage."),
