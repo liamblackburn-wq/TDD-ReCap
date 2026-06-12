@@ -23,5 +23,7 @@ def test_duties_with_different_features_are_not_equal():
     assert duty_3 != duty_4
 
 def test_invalid_duty_raises_error():
-    with pytest.raises(ValueError) as exc_info:
+    error_message = "Duty name must start with 'Duty' followed by a number."
+
+    with pytest.raises(ValueError, match=error_message) as exc_info:
         Duty("TEAPOT", "Test Description")

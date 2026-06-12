@@ -1,10 +1,10 @@
 class Duty:
     def __init__(self, name, description):
-        self.name = name
-        self.description = description
-
         if not name.startswith("Duty ") or not name[5:].isdigit():
             raise ValueError("Duty name must start with 'Duty' followed by a number.")
+        
+        self.name = name
+        self.description = description
 
     def __eq__(self, other):
         if not isinstance(other, Duty):
