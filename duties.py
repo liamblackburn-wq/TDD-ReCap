@@ -1,3 +1,8 @@
+class Duty:
+    def __init__(self, name):
+        self.name = name
+
+
 duties_data_rows = [
     (1, "Duty 1", "Script and code in at least one general purpose language and at least one domain-specific language "
                   "to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage."),
