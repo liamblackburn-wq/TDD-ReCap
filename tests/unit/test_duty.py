@@ -1,6 +1,6 @@
 import pytest
 
-from duties import Duty
+from src.duties import Duty
 
 def test_duty_features():
     test_duty = Duty("Duty 1", "Test Description")

@@ -1,25 +1,37 @@
-import os
-
-os.environ['TEST_DATABASE_PATH'] = 'test_duties.db'
-
 import pytest
-from seed_db import setup_database
-from app import app as my_app
+import uuid
+
+@pytest.fixture(scope='session', autouse=True)
+def setup_test_database_tables():
+    from src.db import db
+    from src.models import Duty
 
 
-@pytest.fixture(scope="session", autouse=True)
-def setup_test_database():
-    test_db = os.environ['TEST_DATABASE_PATH']
+    getattr(Duty, '_meta').table_name = 'tdd-safari-test_duties'
 
-    setup_database(test_db)
-    print("Database setup complete.")
+    db.connect(reuse_if_open=True)
+
+    db.drop_tables([Duty])
+    db.create_tables([Duty])
 
     yield
 
-    if os.path.exists(test_db):
-        os.remove(test_db)
+    db.drop_tables([Duty])
+    db.close()
 
+@pytest.fixture
+def client():
+    from app import app
 
-@pytest.fixture(scope="session")
-def app():
-    return my_app
+    app.config['TESTING'] = True
+
+    with app.test_client() as client:
+        yield client
+
+@pytest.fixture
+def test_duty():
+    from src.models import Duty
+    # ARRANGE: Create the test duty with an uuid
+    test_duty = Duty.create(id=uuid.uuid4(), name='DUTY_TEST', description='TEST DESCRIPTION')
+    yield test_duty
+    Duty.delete().where(Duty.id == test_duty.id).execute()

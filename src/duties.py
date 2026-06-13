@@ -25,7 +25,7 @@ duties_data_rows = [
                   "rapidly responding to changing user needs and with a relentless focus on the user experience. "
                   "Understand the importance of continual improvement within a blameless culture."),
 
-    (5, "Duty 5", "Build and operate a Continuous Integration (CI) capability, "
+    (5, "Duty 5", "Build and operate a Continuous integration (CI) capability, "
                   "employing version control of source code and related artefacts."),
 
     (6, "Duty 6", "Implement and improve release automation & orchestration, often using "

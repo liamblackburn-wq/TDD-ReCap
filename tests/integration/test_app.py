@@ -1,7 +1,4 @@
 import pytest
-from app import app as my_app
-from db import DatabaseService
-import sqlite3
 
 @pytest.fixture
 def client(app):
