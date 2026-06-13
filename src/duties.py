@@ -1,17 +1,3 @@
-class Duty:
-    def __init__(self, name, description):
-        if not name.startswith("Duty ") or not name[5:].isdigit():
-            raise ValueError("Duty name must start with 'Duty' followed by a number.")
-        
-        self.name = name
-        self.description = description
-
-    def __eq__(self, other):
-        if not isinstance(other, Duty):
-            return False
-        return self.name == other.name and self.description == other.description
-
-
 duties_data_rows = [
     (1, "Duty 1", "Script and code in at least one general purpose language and at least one domain-specific language "
                   "to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage."),

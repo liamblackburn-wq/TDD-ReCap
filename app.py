@@ -33,7 +33,11 @@ def duties_table_reqs():
             duty_name = payload.get("name")
             duty_description = payload.get("description")
 
-            duty = Duty.create(id=duty_id, name=duty_name, description=duty_description)
+            duty = Duty(id=duty_id, name=duty_name, description=duty_description)
+
+            duty.validate()
+
+            duty.save(force_insert=True)
 
             new_duty = {
                 "id": duty.id,
@@ -42,6 +46,10 @@ def duties_table_reqs():
             }
 
             return jsonify(new_duty), 201
+
+        except ValueError as val_err:
+            print(val_err)
+            return jsonify({"error": str(val_err)}), 400
 
         except IntegrityError:
             return jsonify({"error": "Duty already exists"}), 409
@@ -56,4 +64,4 @@ def duties_table_reqs():
             for duty in all_duties
         ]
 
-        return jsonify(duty_list)
+        return jsonify(duty_list), 200
