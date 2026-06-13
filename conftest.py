@@ -31,7 +31,9 @@ def client():
 @pytest.fixture
 def test_duty():
     from src.models import Duty
+    Duty.delete().where(Duty.name == 'DUTY_TEST').execute()
     # ARRANGE: Create the test duty with an uuid
     test_duty = Duty.create(id=uuid.uuid4(), name='DUTY_TEST', description='TEST DESCRIPTION')
     yield test_duty
+
     Duty.delete().where(Duty.id == test_duty.id).execute()
