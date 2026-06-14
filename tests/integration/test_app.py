@@ -1,8 +1,4 @@
-import pytest
 import uuid
-
-from peewee import Model
-
 from src.models import Duty
 
 def test_home_route_returns_200(client):
@@ -26,6 +22,7 @@ def test_duty_delete_endpoint_returns_200(client):
     response = client.delete(f'/duties/{duty_1_id}')
 
     assert response.status_code == 200
+    assert response.get_json()["message"] == "Duty deleted successfully"
 
 
 def test_duty_removed_from_homepage_render(client):

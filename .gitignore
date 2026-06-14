@@ -1,6 +1,5 @@
 *.iml
 .idea/
-/.coveragerc
 /.coverage
 .env
 *.log

@@ -1,0 +1,7 @@
+[run]
+source =
+    app
+    src
+
+[report]
+skip_empty = True

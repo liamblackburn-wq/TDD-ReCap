@@ -12,7 +12,7 @@ def test_get_duties_endpoint(client, test_duty):
         print(data)
         returned_duty = next(item for item in data if item['id'] == str(test_duty.id))
 
-        assert returned_duty['name'] == 'DUTY_TEST'
+        assert returned_duty['name'] == 'Duty 1'
         assert returned_duty['description'] == 'TEST DESCRIPTION'
 
 def test_create_duty_returns_201(client):
