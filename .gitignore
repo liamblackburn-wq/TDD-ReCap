@@ -2,3 +2,4 @@
 .idea/
 /.coveragerc
 /.env
+*.log
