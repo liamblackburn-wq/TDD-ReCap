@@ -20,7 +20,10 @@ def _db_close(exc):
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+
+    all_duties = Duty.select()
+
+    return render_template("index.html", added_duties=all_duties)
 
 
 @app.route('/duties', methods=['GET', 'POST'])
@@ -65,3 +68,19 @@ def duties_table_reqs():
         ]
 
         return jsonify(duty_list), 200
+
+@app.route('/duties/<uuid:duty_id>', methods=['DELETE'])
+def delete_duty(duty_id):
+    try:
+        delete_query = Duty.delete().where(Duty.id == duty_id)
+        deleted_duty = delete_query.execute()
+
+        if deleted_duty == 0:
+            return jsonify({"error": "Duty does not exist"}), 404
+        else:
+            return jsonify({"message": "Duty deleted successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+

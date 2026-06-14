@@ -1,54 +1,48 @@
 import pytest
+import uuid
 
-@pytest.fixture
-def client(app):
-    return app.test_client()
+from peewee import Model
 
+from src.models import Duty
 
-
-def test_app_post_method_returns_200(client):
-    form_data = {"duties": ["Duty 1", "Duty 2", "Duty 3"]}
-    response = client.post('/', data=form_data)
-    assert response.status_code == 200
-
-def test_app_post_method_returns_400(client):
-    form_data = {}
-    response = client.post('/', data=form_data)
-    assert response.status_code == 400
-
-def test_duties_persistence_after_refresh(client):
-    form_data = {"duties": ["Duty 1"]}
-    client.post('/', data=form_data)
+def test_home_route_returns_200(client):
     response = client.get('/')
+    assert response.status_code == 200
+
+def test_created_duty_in_homepage_render(client):
+    duty_id = uuid.uuid4()
+    Duty.create(id=duty_id, name='Duty 1', description='DESCRIPTION')
+    response = client.get('/')
+    assert response.status_code == 200
     assert b"<strong>Duty 1</strong>" in response.data
+    assert b"DESCRIPTION" in response.data
 
-def test_remove_app_route_returns_200(client):
-    response = client.get('/remove/1', follow_redirects=True)
+    Duty.delete().where(Duty.id == duty_id).execute()
 
-    assert response.status_code == 200
+def test_duty_delete_endpoint_returns_200(client):
+    duty_1_id = uuid.uuid4()
+    Duty.create(id=duty_1_id, name='Duty 1', description='DESCRIPTION')
 
-def test_duty_removed(client):
-    form_data = {"duties": ["Duty 1", "Duty 2"]}
-    submitted_duties_response = client.post('/', data=form_data)
-    assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
-
-    response = client.get('/remove/1', follow_redirects=True)
-    assert b"Automate!" in response.data
-    assert response.data.count(b"class=\"listed_duty\"") == 1
-    assert b"<strong>Duty 2</strong>" in response.data
-    assert b"<strong>Duty 1</strong>" not in response.data
-
-def test_clear_app_route_returns_200(client):
-    response = client.get('/clear-duties', follow_redirects=True)
+    response = client.delete(f'/duties/{duty_1_id}')
 
     assert response.status_code == 200
 
-def test_duties_cleared(client):
-    form_data = {"duties": ["Duty 1", "Duty 2"]}
-    submitted_duties_response = client.post('/', data=form_data)
-    assert submitted_duties_response.data.count(b"class=\"listed_duty\"") == 2
 
-    response = client.get('/clear-duties', follow_redirects=True)
-    assert b"Automate!" in response.data
+def test_duty_removed_from_homepage_render(client):
+    duty_1_id = uuid.uuid4()
+    duty_2_id = uuid.uuid4()
+    Duty.create(id=duty_1_id, name='Duty 1', description='KEEP')
+    Duty.create(id=duty_2_id, name='Duty 2', description='DELETE')
+    initial_response = client.get('/')
 
-    assert response.data.count(b"class=\"listed_duty\"") == 0
+    assert b"<strong>Duty 1</strong>" in initial_response.data
+    assert b"<strong>Duty 2</strong>" in initial_response.data
+
+    client.delete(f'/duties/{duty_2_id}')
+
+    updated_response = client.get('/')
+
+    assert b"<strong>Duty 1</strong>" in updated_response.data
+    assert b"<strong>Duty 2</strong>" not in updated_response.data
+
+    Duty.delete().where(Duty.id == duty_1_id).execute()

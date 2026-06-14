@@ -1,4 +1,4 @@
-const addDutiesButton = document.getElementById("add-duties")
+const addDutiesButton = document.getElementById("add-duty")
 const form = document.getElementById("form")
 
 const displayDutySelectDropdown = () => {
