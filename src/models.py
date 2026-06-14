@@ -1,3 +1,4 @@
+import os
 from src.db import BaseModel
 from peewee import *
 
@@ -7,8 +8,11 @@ class Duty(BaseModel):
     description = TextField()
 
     class Meta:
-        table_name = 'tdd-safari-duties'
         schema = 'coins'
+        if os.environ.get('TESTING') == 'True':
+            table_name = 'tdd-safari-test-duties'
+        else:
+            table_name = 'tdd-safari-duties'
 
     def validate(self):
         if not self.name.startswith("Duty ") or not self.name[5:].isdigit():

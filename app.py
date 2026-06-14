@@ -1,3 +1,4 @@
+import uuid
 from flask import Flask, render_template, request, jsonify
 from peewee import IntegrityError
 
@@ -32,7 +33,7 @@ def duties_table_reqs():
         try:
             payload = request.get_json()
 
-            duty_id = payload.get("id")
+            duty_id = payload.get("id") or str(uuid.uuid4())
             duty_name = payload.get("name")
             duty_description = payload.get("description")
 

@@ -1,5 +1,6 @@
-import pytest
 import uuid
+import pytest
+
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_test_database_tables():
@@ -7,7 +8,7 @@ def setup_test_database_tables():
     from src.models import Duty
 
 
-    getattr(Duty, '_meta').table_name = 'tdd-safari-test_duties'
+    getattr(Duty, '_meta').table_name = 'tdd-safari-test-duties'
 
     db.connect(reuse_if_open=True)
 
@@ -19,12 +20,14 @@ def setup_test_database_tables():
     db.drop_tables([Duty])
     db.close()
 
+@pytest.fixture(scope='session')
+def app():
+    from app import app as flask_app
+    flask_app.config['TESTING'] = True
+    return flask_app
+
 @pytest.fixture
-def client():
-    from app import app
-
-    app.config['TESTING'] = True
-
+def client(app):
     with app.test_client() as client:
         yield client
 
@@ -37,3 +40,11 @@ def test_duty():
     yield test_duty
 
     Duty.delete().where(Duty.id == test_duty.id).execute()
+
+@pytest.fixture(scope='session')
+def live_server():
+    class ExternalServer:
+        def url(self, path=""):
+            # Point this to whatever port your local Flask app is running on
+            return f"http://127.0.0.1:5000{path}"
+    return ExternalServer()
