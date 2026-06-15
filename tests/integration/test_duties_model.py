@@ -25,7 +25,6 @@ def test_create_duty_returns_201(client):
 
     response = client.post('/duties', json=payload)
     data = response.get_json()
-    print(data)
     assert response.status_code == 201
     assert data['name'] == 'Duty 1'
 
