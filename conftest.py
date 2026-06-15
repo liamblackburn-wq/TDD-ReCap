@@ -11,6 +11,8 @@ def setup_test_database_tables():
 
     db.connect(reuse_if_open=True)
 
+    db.execute_sql('CREATE SCHEMA IF NOT EXISTS coins;')
+
     db.drop_tables([Duty], safe=True)
     db.create_tables([Duty], safe=True)
 
