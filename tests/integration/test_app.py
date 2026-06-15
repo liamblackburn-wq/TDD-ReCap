@@ -43,3 +43,14 @@ def test_duty_removed_from_homepage_render(client):
     assert b"<strong>Duty 2</strong>" not in updated_response.data
 
     Duty.delete().where(Duty.id == duty_1_id).execute()
+
+
+def test_delete_duty_returns_404_if_id_does_not_exist(client):
+    non_existent_id = uuid.uuid4()
+
+    response = client.delete(f'/duties/{non_existent_id}')
+
+    assert response.status_code == 404
+
+    json_data = response.get_json()
+    assert json_data["error"] == "Duty does not exist"
