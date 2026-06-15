@@ -8,11 +8,13 @@ class Duty(BaseModel):
     description = TextField()
 
     class Meta:
-        schema = 'coins'
+
         if os.environ.get('TESTING') == 'True':
-            table_name = 'tdd-safari-test-duties'
+            schema = 'coins_test'
+            table_name = 'tdd_safari_test_duties'
         else:
-            table_name = 'tdd-safari-duties'
+            schema = 'coins'
+            table_name = 'tdd_safari_duties'
 
     def validate(self):
         if not self.name.startswith("Duty ") or not self.name[5:].isdigit():

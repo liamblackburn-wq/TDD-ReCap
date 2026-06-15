@@ -45,7 +45,6 @@ def test_invalid_duty_returns_400(client):
     assert "Duty name must start with 'Duty' followed by a number." in data['error']
 
 def test_db_can_not_have_duplicate_duty_names(client, test_duty):
-
     #first duty created in pytest test_duty fixture
     payload = {
         'id': str(uuid.uuid4()),
