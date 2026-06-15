@@ -39,53 +39,27 @@ def test_submit_button_creates_and_renders_duty(revealed_form: Page):
 
     expect(automate_duties_list).to_contain_text("Duty 5")
     expect(automate_duties_list).to_contain_text("Test description")
-
     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
-    revealed_form.get_by_role("button", name="Add Duty").click()
 
-# def test_clear_duties_button(revealed_form: Page):
-#     automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
-#     submit_button = revealed_form.get_by_role("button", name="Submit")
-#     clear_duties_button = revealed_form.get_by_role("button", name="Clear Duties")
-#
-#     duty_5 = revealed_form.get_by_label("Duty 5")
-#     duty_6 = revealed_form.get_by_label("Duty 6")
-#     duty_7 = revealed_form.get_by_label("Duty 7")
-#
-#     duty_5.check()
-#     duty_6.check()
-#     duty_7.check()
-#
-#     submit_button.click()
-#
-#     expect(automate_duties_list.get_by_role("listitem")).to_have_count(3)
-#     expect(clear_duties_button).to_be_visible()
-#     clear_duties_button.click()
-#     expect(automate_duties_list).to_be_empty()
-#
-# def test_remove_duties_button(revealed_form: Page):
-#     automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
-#     submit_button = revealed_form.get_by_role("button", name="Submit")
-#
-#     duty_5 = revealed_form.get_by_label("Duty 5")
-#     duty_6 = revealed_form.get_by_label("Duty 6")
-#     duty_7 = revealed_form.get_by_label("Duty 7")
-#
-#     duty_5.check()
-#     duty_6.check()
-#     duty_7.check()
-#
-#     submit_button.click()
-#
-#     list_items = automate_duties_list.get_by_role("listitem")
-#     expect(list_items).to_have_count(3)
-#
-#     duty_5_list_item = list_items.filter(has_text="Duty 5")
-#
-#     remove_duty_5_button = duty_5_list_item.get_by_role("button", name="X")
-#     remove_duty_5_button.click()
-#
-#     expect(list_items).to_have_count(2)
-#     expect(automate_duties_list).not_to_contain_text("Duty 5")
-#     expect(automate_duties_list).to_contain_text("Duty 6")
-#     expect(automate_duties_list).to_contain_text("Duty 7")
+def test_remove_duties_button(revealed_form: Page):
+    automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
+    submit_button = revealed_form.get_by_role("button", name="Submit")
+
+    revealed_form.get_by_label("Duty Name:", exact=True).fill("Duty 5")
+    revealed_form.get_by_label("Duty Description:").fill("Test description")
+
+    expect(automate_duties_list).to_be_attached()
+    expect(submit_button).to_be_visible()
+
+    submit_button.click()
+
+    list_items = automate_duties_list.get_by_role("listitem")
+    expect(list_items).to_have_count(1)
+
+    duty_5_list_item = list_items.filter(has_text="Duty 5")
+
+    remove_duty_5_button = duty_5_list_item.get_by_role("button", name="X")
+    remove_duty_5_button.click()
+
+    expect(list_items).to_have_count(0)
+    expect(automate_duties_list).not_to_contain_text("Duty 5")

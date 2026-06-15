@@ -31,7 +31,7 @@ const handleFormSubmission = () => {
             if (response.ok) {
                 window.location.reload()
             } else {
-                const errorData = response.json()
+                const errorData = await response.json()
                 alert(`Error: ${errorData}`)
             }
         } catch (error) {
