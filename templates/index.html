@@ -11,29 +11,39 @@
   </header>
     <h2>Automate!</h2>
     <div class="button-group">
-      <button id="add-duties">
-      Add Duties
+      <button id="add-duty">
+      Add Duty
       </button>
-      {% if added_duties %}
-      <a href="/clear-duties" role="button" id="clear-duties">Clear Duties</a>
-      {% endif %}
     </div>
 
     <ul id="automate_list" aria-label="Automate Duties List">
       {% for duty in added_duties %}
         <li class="listed_duty">
-          <strong>{{ duty.Duty }}</strong> {{ duty.Description }}
-          <a href="/remove/{{ duty.id }}" role="button" class="remove-duty">X</a>
+          <strong>{{ duty.name }}</strong> {{ duty.description }}
+          <button type="button" class="remove-duty" data-id="{{ duty.id }}">X</button>
         </li>
       {% endfor %}
     </ul>
+
     <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
-      <div class="checkbox-group">
-        {% for duty in duties %}
-          <input type="checkbox" id="{{ duty.replace(' ', '_') | lower }}" name="duties" value="{{ duty }}">
-          <label for="{{ duty.replace(' ', '_') | lower }}">{{ duty }}</label>
-        {% endfor %}
-      </div>
+      <label for="duty_name">Duty Name:</label>
+      <input
+              type="text"
+              id="duty_name"
+              name="name"
+              placeholder="e.g., Duty 1"
+              required
+      >
+
+      <label for="duty_description">Duty Description:</label>
+      <input
+              type="text"
+              id="duty_description"
+              name="description"
+              placeholder="Look to automate any manual tasks that are repeated, often using APIs."
+              required
+      >
+
       <button type="submit">Submit</button>
     </form>
 </body>

@@ -1,46 +1,87 @@
-import os
-import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
-from db import DatabaseService
+import uuid
+from flask import Flask, render_template, request, jsonify
+from peewee import IntegrityError
+
+from src.models import Duty
+from src.db import db
 
 app = Flask(__name__)
 
-def get_db_service():
-    db_path = os.environ.get('TEST_DATABASE_PATH', 'duties.db')
-    connection = sqlite3.connect(db_path, check_same_thread=False)
-    return DatabaseService(connection)
+@app.before_request
+def _db_connect():
+    if db.is_closed():
+        db.connect()
+
+
+@app.teardown_request
+def _db_close(exc):
+    if not db.is_closed():
+        db.close()
 
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    duty_list = [f"Duty {i}" for i in range(1, 14)]
-    updated_duty_list = []
-    service = get_db_service()
 
-    if request.method == "POST":
-        if 'duties' not in request.form:
-            return "Bad Request", 400
+    all_duties = Duty.select()
 
-        selected_duties = request.form.getlist("duties")
-        selected_ids = [int(name.split(" ")[1]) for name in selected_duties]
-        service.save_duties(selected_ids)
-
-    added_duties = service.get_saved_duties()
-    for duty in added_duties:
-        updated_duty_list.append(duty["Duty"])
-
-    available_duties = [duty for duty in duty_list if duty not in updated_duty_list]
-    return render_template('index.html', duties=available_duties, added_duties=added_duties)
+    return render_template("index.html", added_duties=all_duties)
 
 
-@app.route("/remove/<duty_id>", methods=["GET", "POST"])
-def remove_duty(duty_id):
-    service = get_db_service()
-    service.remove_saved_duty(duty_id)
-    return redirect(url_for('home'))
+@app.route('/duties', methods=['GET', 'POST'])
+def duties_table_reqs():
+    if request.method == 'POST':
+        try:
+            payload = request.get_json()
 
-@app.route("/clear-duties", methods=["GET", "POST"])
-def clear_duties():
-    service = get_db_service()
-    service.clear_saved_duties()
-    return redirect(url_for('home'))
+            duty_id = payload.get("id") or str(uuid.uuid4())
+            duty_name = payload.get("name")
+            duty_description = payload.get("description")
+
+            duty = Duty(id=duty_id, name=duty_name, description=duty_description)
+
+            duty.validate()
+
+            duty.save(force_insert=True)
+
+            new_duty = {
+                "id": duty.id,
+                "name": duty.name,
+                "description": duty.description
+            }
+
+            return jsonify(new_duty), 201
+
+        except ValueError as val_err:
+            print(val_err)
+            return jsonify({"error": str(val_err)}), 400
+
+        except IntegrityError:
+            return jsonify({"error": "Duty already exists"}), 409
+
+    else:
+        all_duties = Duty.select()
+
+        duty_list = [
+            {
+                "id": duty.id, "name": duty.name, "description": duty.description
+            }
+            for duty in all_duties
+        ]
+
+        return jsonify(duty_list), 200
+
+@app.route('/duties/<uuid:duty_id>', methods=['DELETE'])
+def delete_duty(duty_id):
+    try:
+        delete_query = Duty.delete().where(Duty.id == duty_id)
+        deleted_duty = delete_query.execute()
+
+        if deleted_duty == 0:
+            return jsonify({"error": "Duty does not exist"}), 404
+        else:
+            return jsonify({"message": "Duty deleted successfully"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+

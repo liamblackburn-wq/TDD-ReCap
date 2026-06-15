@@ -1,25 +1,50 @@
-import os
-
-os.environ['TEST_DATABASE_PATH'] = 'test_duties.db'
-
+import uuid
 import pytest
-from seed_db import setup_database
-from app import app as my_app
 
 
-@pytest.fixture(scope="session", autouse=True)
-def setup_test_database():
-    test_db = os.environ['TEST_DATABASE_PATH']
+@pytest.fixture(scope='session', autouse=True)
+def setup_test_database_tables():
+    from src.db import db
+    from src.models import Duty
 
-    setup_database(test_db)
-    print("Database setup complete.")
+
+    getattr(Duty, '_meta').table_name = 'tdd-safari-test-duties'
+
+    db.connect(reuse_if_open=True)
+
+    db.drop_tables([Duty])
+    db.create_tables([Duty])
 
     yield
 
-    if os.path.exists(test_db):
-        os.remove(test_db)
+    db.drop_tables([Duty])
+    db.close()
 
-
-@pytest.fixture(scope="session")
+@pytest.fixture(scope='session')
 def app():
-    return my_app
+    from app import app as flask_app
+    flask_app.config['TESTING'] = True
+    return flask_app
+
+@pytest.fixture
+def client(app):
+    with app.test_client() as client:
+        yield client
+
+@pytest.fixture
+def test_duty():
+    from src.models import Duty
+    Duty.delete().where(Duty.name == 'Duty 1').execute()
+    # ARRANGE: Create the test duty with an uuid
+    test_duty = Duty.create(id=uuid.uuid4(), name='Duty 1', description='TEST DESCRIPTION')
+    yield test_duty
+
+    Duty.delete().where(Duty.id == test_duty.id).execute()
+
+@pytest.fixture(scope='session')
+def live_server():
+    class ExternalServer:
+        def url(self, path=""):
+            # Point this to whatever port your local Flask app is running on
+            return f"http://127.0.0.1:5000{path}"
+    return ExternalServer()

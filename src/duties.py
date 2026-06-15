@@ -1,17 +1,3 @@
-class Duty:
-    def __init__(self, name, description):
-        if not name.startswith("Duty ") or not name[5:].isdigit():
-            raise ValueError("Duty name must start with 'Duty' followed by a number.")
-        
-        self.name = name
-        self.description = description
-
-    def __eq__(self, other):
-        if not isinstance(other, Duty):
-            return False
-        return self.name == other.name and self.description == other.description
-
-
 duties_data_rows = [
     (1, "Duty 1", "Script and code in at least one general purpose language and at least one domain-specific language "
                   "to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage."),
@@ -25,7 +11,7 @@ duties_data_rows = [
                   "rapidly responding to changing user needs and with a relentless focus on the user experience. "
                   "Understand the importance of continual improvement within a blameless culture."),
 
-    (5, "Duty 5", "Build and operate a Continuous Integration (CI) capability, "
+    (5, "Duty 5", "Build and operate a Continuous integration (CI) capability, "
                   "employing version control of source code and related artefacts."),
 
     (6, "Duty 6", "Implement and improve release automation & orchestration, often using "
