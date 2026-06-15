@@ -10,6 +10,10 @@ def homepage(page: Page, live_server):
 def revealed_form(homepage: Page):
     homepage.get_by_role("button", name="Add Duty").click()
     return homepage
+#
+# @pytest.fixture
+# def setup_duty(revealed_form: Page):
+#
 
 def test_home_page_is_reachable(page: Page, live_server):
     response = page.goto(live_server.url())

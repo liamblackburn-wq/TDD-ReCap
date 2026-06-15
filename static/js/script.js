@@ -32,7 +32,7 @@ const handleFormSubmission = () => {
                 window.location.reload()
             } else {
                 const errorData = await response.json()
-                alert(`Error: ${errorData}`)
+                alert(`Error: ${JSON.stringify(errorData)}`)
             }
         } catch (error) {
             console.error("Network communication error", error)
@@ -40,5 +40,33 @@ const handleFormSubmission = () => {
     })
 }
 
+const handleDutyRemoval = () => {
+    const removeButtons = document.querySelectorAll(".remove-duty")
+
+    removeButtons.forEach(button => {
+        button.addEventListener("click", async (event) => {
+            event.preventDefault()
+
+            const dutyId = button.dataset.id
+
+            try {
+                const response = await fetch(`/duties/${dutyId}`, {
+                    method: "DELETE"
+                })
+
+                if (response.ok) {
+                    window.location.reload()
+                } else {
+                    const errorData = await response.json()
+                    alert(`Failed to delete: ${JSON.stringify(errorData)}`)
+                }
+            } catch (error) {
+                console.error("Network communication error", error)
+            }
+        })
+    })
+}
+
 displayDutySelectDropdown()
 handleFormSubmission()
+handleDutyRemoval()

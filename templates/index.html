@@ -14,16 +14,13 @@
       <button id="add-duty">
       Add Duty
       </button>
-      {% if added_duties %}
-      <a href="/clear-duties" role="button" id="clear-duties">Clear Duties</a>
-      {% endif %}
     </div>
 
     <ul id="automate_list" aria-label="Automate Duties List">
       {% for duty in added_duties %}
         <li class="listed_duty">
           <strong>{{ duty.name }}</strong> {{ duty.description }}
-          <a href="/remove/{{ duty.id }}" role="button" class="remove-duty">X</a>
+          <button type="button" class="remove-duty" data-id="{{ duty.id }}">X</button>
         </li>
       {% endfor %}
     </ul>
