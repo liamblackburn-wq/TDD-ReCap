@@ -47,7 +47,10 @@ jobs:
           DATABASE_USER: liam
           DATABASE_PASSWORD: ci_test_password
           DATABASE_HOST: localhost
+          FLASK_APP: app.py
         run: |
+          flask run --port 5000 &    # <─── Note the '&' to run it in the background!
+          sleep 3                    # Gives the Flask server 3 seconds to spin up safely
           pytest
 
       - name: Configure AWS credentials
