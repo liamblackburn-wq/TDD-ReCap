@@ -13,6 +13,21 @@ jobs:
       id-token: write
       contents: read
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: liam
+          POSTGRES_USER: liam
+          POSTGRES_PASSWORD: ci_test_password
+        ports:
+          - 25060:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +41,12 @@ jobs:
           playwright install --with-deps
 
       - name: Run tests
+        env:
+          TESTING: "True"
+          DATABASE: liam
+          DATABASE_USER: liam
+          DATABASE_PASSWORD: ci_test_password
+          DATABASE_HOST: localhost
         run: |
           pytest
 
