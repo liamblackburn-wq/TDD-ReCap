@@ -55,5 +55,6 @@ def test_db_can_not_have_duplicate_duty_names(client, test_duty):
 
     response = client.post('/duties', json=payload)
     data = response.get_json()
+
     assert response.status_code == 409
     assert data['error'] == 'Duty already exists'

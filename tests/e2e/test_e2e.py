@@ -1,6 +1,9 @@
 from playwright.sync_api import Page, expect
 import pytest
 
+from src.models import Duty
+
+
 @pytest.fixture
 def homepage(page: Page, live_server):
     page.goto(live_server.url())
@@ -9,11 +12,12 @@ def homepage(page: Page, live_server):
 @pytest.fixture
 def revealed_form(homepage: Page):
     homepage.get_by_role("button", name="Add Duty").click()
-    return homepage
-#
-# @pytest.fixture
-# def setup_duty(revealed_form: Page):
-#
+    yield homepage
+    try:
+        Duty.delete().execute()
+    except Exception as e:
+        print(f"Teardown database failed: {e}")
+
 
 def test_home_page_is_reachable(page: Page, live_server):
     response = page.goto(live_server.url())
@@ -45,7 +49,9 @@ def test_submit_button_creates_and_renders_duty(revealed_form: Page):
     expect(automate_duties_list).to_contain_text("Test description")
     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
 
+
 def test_remove_duties_button(revealed_form: Page):
+
     automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
     submit_button = revealed_form.get_by_role("button", name="Submit")
 

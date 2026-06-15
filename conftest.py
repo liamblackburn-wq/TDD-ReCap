@@ -1,19 +1,18 @@
+import os
 import uuid
 import pytest
 
+os.environ['TESTING'] = 'True'
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_test_database_tables():
     from src.db import db
     from src.models import Duty
 
-
-    getattr(Duty, '_meta').table_name = 'tdd-safari-test-duties'
-
     db.connect(reuse_if_open=True)
 
-    db.drop_tables([Duty])
-    db.create_tables([Duty])
+    db.drop_tables([Duty], safe=True)
+    db.create_tables([Duty], safe=True)
 
     yield
 
