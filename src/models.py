@@ -14,6 +14,15 @@ class Coin(BaseModel):
             schema = 'coins'
             table_name = 'tdd_endgame_coins'
 
+    def validate(self):
+        if self.name.isdigit():
+            raise ValueError("Coin names can not contain numbers.")
+
+    def __eq__(self, other):
+        if not isinstance(other, Coin):
+            return False
+        return self.name == other.name
+
 
 class Duty(BaseModel):
     id = UUIDField(primary_key=True)

@@ -1,62 +1,43 @@
 import pytest
 import uuid
-from src.models import Duty
+from src.models import Duty, Coin
+
 
 def test_coin_features():
     test_coin = Coin(
         id=uuid.uuid4(),
-        name="Coin 1",
-        description="Test Description"
+        name="Automate!",
     )
-    assert test_coin.name ==  "Coin 1"
-    assert test_coin.description == "Test Description"
+    assert test_coin.name ==  "Automate!"
 
 def test_coins_with_same_features_are_equal():
     coin_1 = Coin(
         id=uuid.uuid4(),
-        name="Coin 5",
-        description="CI/CD"
+        name="Automate!",
     )
     coin_2 = Coin(
         id=uuid.uuid4(),
-        name="Coin 5",
-        description="CI/CD"
+        name="Automate!",
     )
-
     assert coin_1 == coin_2
 
 def test_coins_with_different_features_are_not_equal():
     coin_1 = Coin(
         id=uuid.uuid4(),
-        name="Coin 5",
-        description="CI/CD"
+        name="Automate!",
     )
     coin_2 = Coin(
         id=uuid.uuid4(),
-        name="Coin 5",
-        description="Different Description"
-    )
-
-    coin_3 = Coin(
-        id=uuid.uuid4(),
-        name="Coin 5",
-        description="CI/CD"
-    )
-    coin_4 = Coin(
-        id=uuid.uuid4(),
-        name="Coin 6",
-        description="CI/CD"
+        name="Going Deeper",
     )
 
     assert coin_1 != coin_2
-    assert coin_3 != coin_4
 
 def test_invalid_coin_raises_error():
-    error_message = "Coin name must start with 'Coin' followed by a number."
+    error_message = "Coin names can not contain numbers."
     invalid_coin = Coin(
         id=uuid.uuid4(),
-        name="WRONG",
-        description="WRONG"
+        name="12345",
     )
 
     with pytest.raises(ValueError, match=error_message):
