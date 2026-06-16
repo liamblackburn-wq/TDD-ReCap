@@ -2,13 +2,25 @@ import os
 from src.db import BaseModel
 from peewee import *
 
+class Coin(BaseModel):
+    id = UUIDField(primary_key=True)
+    name = CharField(unique=True)
+
+    class Meta:
+        if os.environ.get('TESTING') == 'True':
+            schema = 'coins_test'
+            table_name = 'tdd_safari_test_duties'
+        else:
+            schema = 'coins'
+            table_name = 'tdd_safari_duties'
+
+
 class Duty(BaseModel):
     id = UUIDField(primary_key=True)
     name = CharField(unique=True)
     description = TextField()
 
     class Meta:
-
         if os.environ.get('TESTING') == 'True':
             schema = 'coins_test'
             table_name = 'tdd_safari_test_duties'
@@ -24,3 +36,15 @@ class Duty(BaseModel):
         if not isinstance(other, Duty):
             return False
         return self.name == other.name and self.description == other.description
+
+class CoinsDutiesJunction(BaseModel):
+    coin = ForeignKeyField(Coin, backref="assigned_duties")
+    duty = ForeignKeyField(Duty, backref="assigned_coins")
+
+    class Meta:
+        if os.environ.get('TESTING') == 'True':
+            schema = 'coins_test'
+            table_name = 'tdd_safari_test_duties'
+        else:
+            schema = 'coins'
+            table_name = 'tdd_safari_duties'
