@@ -2,6 +2,8 @@ import os
 import uuid
 import pytest
 
+from src.models import CoinsDutiesJunction, Coin
+
 os.environ['TESTING'] = 'True'
 
 @pytest.fixture(scope='session', autouse=True)
@@ -13,12 +15,12 @@ def setup_test_database_tables():
 
     db.execute_sql('CREATE SCHEMA IF NOT EXISTS coins_test;')
 
-    db.drop_tables([Duty], safe=True)
-    db.create_tables([Duty], safe=False)
+    db.drop_tables([Coin, Duty, CoinsDutiesJunction], safe=True)
+    db.create_tables([Coin, Duty, CoinsDutiesJunction], safe=False)
 
     yield
 
-    db.drop_tables([Duty])
+    db.drop_tables([Coin, Duty, CoinsDutiesJunction])
     db.close()
 
 @pytest.fixture(scope='session')
@@ -41,6 +43,15 @@ def test_duty():
     yield test_duty
 
     Duty.delete().where(Duty.id == test_duty.id).execute()
+
+@pytest.fixture
+def test_coin():
+    from src.models import Coin
+    # ARRANGE: Create the test coin with an uuid
+    test_coin = Coin.create(id=uuid.uuid4(), name='COIN_TEST')
+    yield test_coin
+    Coin.delete().where(Coin.id == test_coin.id).execute()
+
 
 @pytest.fixture(scope='session')
 def live_server():

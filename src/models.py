@@ -9,10 +9,10 @@ class Coin(BaseModel):
     class Meta:
         if os.environ.get('TESTING') == 'True':
             schema = 'coins_test'
-            table_name = 'tdd_safari_test_duties'
+            table_name = 'tdd_endgame_test_coins'
         else:
             schema = 'coins'
-            table_name = 'tdd_safari_duties'
+            table_name = 'tdd_endgame_coins'
 
 
 class Duty(BaseModel):
@@ -44,7 +44,7 @@ class CoinsDutiesJunction(BaseModel):
     class Meta:
         if os.environ.get('TESTING') == 'True':
             schema = 'coins_test'
-            table_name = 'tdd_safari_test_duties'
+            table_name = 'tdd_endgame_test_junction'
         else:
             schema = 'coins'
-            table_name = 'tdd_safari_duties'
+            table_name = 'tdd_endgame_junction'
