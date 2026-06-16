@@ -37,7 +37,7 @@ def test_invalid_coin_raises_error():
     error_message = "Coin names can not contain numbers."
     invalid_coin = Coin(
         id=uuid.uuid4(),
-        name="12345",
+        name="Coin 12345",
     )
 
     with pytest.raises(ValueError, match=error_message):

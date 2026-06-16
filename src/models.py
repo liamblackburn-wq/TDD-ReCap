@@ -15,7 +15,7 @@ class Coin(BaseModel):
             table_name = 'tdd_endgame_coins'
 
     def validate(self):
-        if self.name.isdigit():
+        if any(char.isdigit() for char in self.name):
             raise ValueError("Coin names can not contain numbers.")
 
     def __eq__(self, other):
