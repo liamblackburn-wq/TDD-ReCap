@@ -2,7 +2,7 @@ import uuid
 from flask import Flask, render_template, request, jsonify
 from peewee import IntegrityError
 
-from src.models import Duty
+from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
 
 app = Flask(__name__)
@@ -25,6 +25,31 @@ def home():
     all_duties = Duty.select()
 
     return render_template("index.html", added_duties=all_duties)
+
+
+@app.route("/coins", methods=["GET", "POST"])
+def coins_table_reqs():
+    if request.method == 'POST':
+        try:
+            payload = request.get_json()
+
+            coin_id = payload.get("id")
+            coin_name = payload.get("name")
+
+            coin = Coin.create(id=coin_id, name=coin_name)
+
+            new_coin = {"id": coin.id, "name": coin.name}
+
+            return jsonify(new_coin), 201
+        except IntegrityError:
+            return jsonify({"error": "Coin already exists"}), 409
+
+    else:
+        all_coins = Coin.select()
+
+        coin_list = [{"id": coin.id, "name": coin.name} for coin in all_coins]
+
+        return jsonify(coin_list)
 
 
 @app.route('/duties', methods=['GET', 'POST'])
@@ -83,5 +108,23 @@ def delete_duty(duty_id):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+
+
+@app.route('/coin-duties', methods=['POST'])
+def coin_duties_table_reqs():
+    try:
+        payload = request.get_json()
+        coin_id = payload.get("coin_id")
+        duty_id = payload.get("duty_id")
+        CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
+
+        new_association = {
+            "coin_id": coin_id,
+            "duty_id": duty_id
+        }
+
+        return jsonify(new_association), 201
+
+    except IntegrityError:
+        return jsonify({"error": "placeholder"}), 409
 
