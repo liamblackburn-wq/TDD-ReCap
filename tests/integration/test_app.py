@@ -1,9 +1,25 @@
 import uuid
-from src.models import Duty
+from src.models import Duty, Coin, CoinsDutiesJunction
+
 
 def test_home_route_returns_200(client):
     response = client.get('/')
     assert response.status_code == 200
+
+def test_coins_endpoint_returns_assigned_duties_status(client):
+    coin = Coin.create(id=uuid.uuid4(), name='Test Coin')
+    duty = Duty.create(id=uuid.uuid4(), name='Duty 1', description='Test Description')
+    CoinsDutiesJunction.create(coin=coin, duty=duty, is_complete=False)
+
+    response = client.get('/coins')
+    data = response.get_json()
+
+    assert response.status_code == 200
+
+    target_coin = next((coin for coin in data if coin['name'] == 'Test Coin'), None)
+
+    assert target_coin is not None
+    assert target_coin["status"] == "IN_PROGRESS"
 
 def test_created_duty_in_homepage_render(client):
     duty_id = uuid.uuid4()
@@ -54,3 +70,4 @@ def test_delete_duty_returns_404_if_id_does_not_exist(client):
 
     json_data = response.get_json()
     assert json_data["error"] == "Duty does not exist"
+

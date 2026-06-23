@@ -1,6 +1,5 @@
-import os
 from src.db import db
-from src.models import Duty
+from src.models import Duty, Coin, CoinsDutiesJunction
 
 
 def initialise_database():
@@ -8,7 +7,7 @@ def initialise_database():
     db.connect(reuse_if_open=True)
 
     print("Creating table")
-    db.create_tables([Duty], safe=True)
+    db.create_tables([Duty, Coin, CoinsDutiesJunction], safe=True)
 
     db.close()
     print("Database initialisation complete! 🚀")

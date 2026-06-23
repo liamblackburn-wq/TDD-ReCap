@@ -35,10 +35,11 @@ def coins_table_reqs():
 
             coin_id = payload.get("id")
             coin_name = payload.get("name")
+            coin_status = payload.get("status")
 
             coin = Coin.create(id=coin_id, name=coin_name)
 
-            new_coin = {"id": coin.id, "name": coin.name}
+            new_coin = {"id": coin.id, "name": coin.name, "status": coin_status}
 
             return jsonify(new_coin), 201
         except IntegrityError:
@@ -47,7 +48,12 @@ def coins_table_reqs():
     else:
         all_coins = Coin.select()
 
-        coin_list = [{"id": coin.id, "name": coin.name} for coin in all_coins]
+        coin_list = [
+            {"id": coin.id,
+             "name": coin.name,
+             "status": coin.status
+             }
+            for coin in all_coins]
 
         return jsonify(coin_list)
 

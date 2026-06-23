@@ -1,10 +1,21 @@
 import os
+import uuid
 from src.db import BaseModel
 from peewee import *
 
 class Coin(BaseModel):
-    id = UUIDField(primary_key=True)
+
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
     name = CharField(unique=True)
+
+    @property
+    def status(self):
+        links = list(self.assigned_duties)
+        if not links:
+            return "IN_PROGRESS"
+
+        all_duties_done = all(link.is_complete for link in links)
+        return "COMPLETED" if all_duties_done else "IN_PROGRESS"
 
     class Meta:
         if os.environ.get('TESTING') == 'True':
@@ -47,8 +58,11 @@ class Duty(BaseModel):
         return self.name == other.name and self.description == other.description
 
 class CoinsDutiesJunction(BaseModel):
-    coin = ForeignKeyField(Coin, backref="assigned_duties")
-    duty = ForeignKeyField(Duty, backref="assigned_coins")
+
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
+    coin = ForeignKeyField(Coin, backref="assigned_duties", on_delete="CASCADE")
+    duty = ForeignKeyField(Duty, backref="assigned_coins", on_delete="CASCADE")
+    is_complete = BooleanField(default=False)
 
     class Meta:
         if os.environ.get('TESTING') == 'True':
@@ -57,3 +71,7 @@ class CoinsDutiesJunction(BaseModel):
         else:
             schema = 'coins'
             table_name = 'tdd_endgame_junction'
+
+        indexes = (
+            (('coin', 'duty'), True),
+        )
