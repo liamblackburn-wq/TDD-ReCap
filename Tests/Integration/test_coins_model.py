@@ -44,3 +44,14 @@ def test_db_can_not_have_duplicate_coin_names(client, test_coin):
     data = response.get_json()
     assert response.status_code == 409
     assert data['error'] == 'Coin already exists'
+
+def test_db_rejects_coin_names_that_contain_numbers(client):
+    payload = {
+        'id': str(uuid.uuid4()),
+        'name': 'COIN_TEST_123'
+    }
+
+    response = client.post('/coins', json=payload)
+    data = response.get_json()
+    assert response.status_code == 400
+    assert data['error'] == 'Coin names cannot contain numbers.'

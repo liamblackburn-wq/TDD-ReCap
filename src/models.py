@@ -27,7 +27,7 @@ class Coin(BaseModel):
 
     def validate(self):
         if any(char.isdigit() for char in self.name):
-            raise ValueError("Coin names can not contain numbers.")
+            raise ValueError("Coin names cannot contain numbers.")
 
     def __eq__(self, other):
         if not isinstance(other, Coin):

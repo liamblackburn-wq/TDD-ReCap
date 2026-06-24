@@ -35,13 +35,20 @@ def coins_table_reqs():
 
             coin_id = payload.get("id")
             coin_name = payload.get("name")
-            coin_status = payload.get("status")
 
-            coin = Coin.create(id=coin_id, name=coin_name)
+            coin = Coin(id=coin_id, name=coin_name)
 
-            new_coin = {"id": coin.id, "name": coin.name, "status": coin_status}
+            coin.validate()
+
+            coin.save(force_insert=True)
+
+            new_coin = {"id": coin.id, "name": coin.name, "status": coin.status}
 
             return jsonify(new_coin), 201
+
+        except ValueError as val_err:
+            return jsonify({"error": str(val_err)}), 400
+
         except IntegrityError:
             return jsonify({"error": "Coin already exists"}), 409
 
