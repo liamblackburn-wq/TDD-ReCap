@@ -78,6 +78,36 @@ def delete_coin(coin_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/coins/<uuid:coin_id>', methods=['PUT'])
+def update_coin(coin_id):
+    try:
+        coin = Coin.get_or_none(Coin.id == coin_id)
+
+        if coin is None:
+            return jsonify({"error": "Coin does not exist"}), 404
+
+        payload = request.get_json()
+        new_coin_name = payload.get("name")
+
+        coin.name = new_coin_name
+
+        coin.validate()
+
+        coin.save()
+
+        updated_coin = {'id': coin.id, 'name': coin.name, 'status': coin.status}
+
+        return jsonify(updated_coin), 200
+
+    except ValueError as val_err:
+        return jsonify({"error": str(val_err)}), 400
+
+    except IntegrityError:
+        return jsonify({"error": "Coin already exists"}), 409
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/duties', methods=['GET', 'POST'])
 def duties_table_reqs():

@@ -91,6 +91,16 @@ def test_put_request_updates_coin_name(client):
     assert data['name'] == 'NIOC_TSET'
     assert db_coin.name == 'NIOC_TSET'
 
+def test_update_coin_endpoint_returns_404_if_uuid_not_found(client):
+    random_uuid = uuid.uuid4()
+    payload = {'name': 'NON_EXISTENT_COIN'}
+
+    response = client.put(f'/coins/{random_uuid}', json=payload)
+    data = response.get_json()
+
+    assert response.status_code == 404
+    assert data['error'] == 'Coin does not exist'
+
 
 
 
