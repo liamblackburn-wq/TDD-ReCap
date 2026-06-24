@@ -64,6 +64,20 @@ def coins_table_reqs():
 
         return jsonify(coin_list)
 
+@app.route('/coins/<uuid:coin_id>', methods=['DELETE'])
+def delete_coin(coin_id):
+    try:
+        delete_query = Coin.delete().where(Coin.id == coin_id)
+        deleted_coin = delete_query.execute()
+
+        if deleted_coin == 0:
+            return jsonify({"error": "Coin does not exist"}), 404
+        else:
+            return jsonify({'message': 'Coin deleted successfully'}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/duties', methods=['GET', 'POST'])
 def duties_table_reqs():
@@ -107,6 +121,7 @@ def duties_table_reqs():
         ]
 
         return jsonify(duty_list), 200
+
 
 @app.route('/duties/<uuid:duty_id>', methods=['DELETE'])
 def delete_duty(duty_id):
