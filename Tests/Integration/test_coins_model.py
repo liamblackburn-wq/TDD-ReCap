@@ -55,3 +55,17 @@ def test_db_rejects_coin_names_that_contain_numbers(client):
     data = response.get_json()
     assert response.status_code == 400
     assert data['error'] == 'Coin names cannot contain numbers.'
+
+def test_delete_coin_succesfully(client, test_coin):
+    coin = Coin.create(name='COIN_TEST')
+
+    response = client.delete(f'/coins/{coin.id}')
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert data['message'] == 'Coin deleted successfully'
+
+    assert Coin.select().where(Coin.id == coin.id).count() == 0
+
+
+
