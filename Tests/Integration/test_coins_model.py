@@ -75,6 +75,23 @@ def test_delete_coin_endpoint_returns_404(client):
 
     assert data['error'] == 'Coin does not exist'
 
+def test_put_request_updates_coin_name(client):
+    coin = Coin.create(name='COIN_TEST')
+
+    json_payload = {
+        "name": "NIOC_TSET"
+    }
+
+    response = client.put(f'/coins/{coin.id}', json=json_payload)
+    data = response.get_json()
+
+    db_coin = Coin.get_by_id(coin.id)
+
+    assert response.status_code == 200
+    assert data['name'] == 'NIOC_TSET'
+    assert db_coin.name == 'NIOC_TSET'
+
+
 
 
 
