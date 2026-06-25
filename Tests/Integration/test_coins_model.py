@@ -30,9 +30,6 @@ def test_add_coin(client):
     assert data['name'] == 'POST_COIN_TEST'
     assert data['id'] == str(payload['id'])
 
-    Coin.delete().where(Coin.id == payload['id']).execute()
-
-
 def test_db_can_not_have_duplicate_coin_names(client, test_coin):
     # first coin created in pytest test_coin fixture
     payload = {
