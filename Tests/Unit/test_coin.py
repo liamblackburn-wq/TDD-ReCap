@@ -34,7 +34,7 @@ def test_coins_with_different_features_are_not_equal():
     assert coin_1 != coin_2
 
 def test_invalid_coin_raises_error():
-    error_message = "Coin names can not contain numbers."
+    error_message = "Coin names cannot contain numbers."
     invalid_coin = Coin(
         id=uuid.uuid4(),
         name="Coin 12345",

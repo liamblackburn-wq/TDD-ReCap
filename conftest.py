@@ -53,6 +53,16 @@ def test_coin():
     Coin.delete().where(Coin.id == test_coin.id).execute()
 
 
+@pytest.fixture(autouse=True)
+def clean_database_between_tests():
+    yield
+
+    from src.models import Duty, CoinsDutiesJunction, Coin
+
+    CoinsDutiesJunction.delete().execute()
+    Coin.delete().execute()
+    Duty.delete().execute()
+
 @pytest.fixture(scope='session')
 def live_server():
     class ExternalServer:

@@ -21,8 +21,6 @@ def test_coins_endpoint_returns_assigned_duties_status(client):
     assert target_coin is not None
     assert target_coin["status"] == "IN_PROGRESS"
 
-
-
 def test_created_duty_in_homepage_render(client):
     duty_id = uuid.uuid4()
     Duty.create(id=duty_id, name='Duty 1', description='DESCRIPTION')
@@ -30,8 +28,6 @@ def test_created_duty_in_homepage_render(client):
     assert response.status_code == 200
     assert b"<strong>Duty 1</strong>" in response.data
     assert b"DESCRIPTION" in response.data
-
-    Duty.delete().where(Duty.id == duty_id).execute()
 
 def test_duty_delete_endpoint_returns_200(client):
     duty_1_id = uuid.uuid4()
@@ -41,7 +37,6 @@ def test_duty_delete_endpoint_returns_200(client):
 
     assert response.status_code == 200
     assert response.get_json()["message"] == "Duty deleted successfully"
-
 
 def test_duty_removed_from_homepage_render(client):
     duty_1_id = uuid.uuid4()
@@ -59,9 +54,6 @@ def test_duty_removed_from_homepage_render(client):
 
     assert b"<strong>Duty 1</strong>" in updated_response.data
     assert b"<strong>Duty 2</strong>" not in updated_response.data
-
-    Duty.delete().where(Duty.id == duty_1_id).execute()
-
 
 def test_delete_duty_returns_404_if_id_does_not_exist(client):
     non_existent_id = uuid.uuid4()

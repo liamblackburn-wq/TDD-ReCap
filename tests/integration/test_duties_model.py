@@ -28,8 +28,6 @@ def test_create_duty_returns_201(client):
     assert response.status_code == 201
     assert data['name'] == 'Duty 1'
 
-    Duty.delete().where(Duty.id == payload['id']).execute()
-
 def test_invalid_duty_returns_400(client):
     payload = {
         'id': str(uuid.uuid4()),
