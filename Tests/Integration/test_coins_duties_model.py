@@ -1,3 +1,5 @@
+import uuid
+
 from src.models import CoinsDutiesJunction
 
 
@@ -30,3 +32,30 @@ def test_duplicate_duty_returns_409(test_coin, test_duty, client):
 
     assert response.status_code == 409
     assert response.json['error'] == 'Duty is already assigned to coin'
+
+
+def test_missing_coin_returns_404(client, test_duty):
+    random_coin_uuid = uuid.uuid4()
+
+    payload = {
+        "coin_id": str(random_coin_uuid),
+        "duty_id": str(test_duty.id)
+    }
+
+    response = client.post('/coin-duties', json=payload)
+
+    assert response.status_code == 404
+    assert response.json['error'] == 'Coin does not exist'
+
+def test_missing_duty_returns_404(client, test_coin):
+    random_duty_uuid = uuid.uuid4()
+
+    payload = {
+        "coin_id": str(test_coin.id),
+        "duty_id": str(random_duty_uuid)
+    }
+
+    response = client.post('/coin-duties', json=payload)
+
+    assert response.status_code == 404
+    assert response.json['error'] == 'Duty does not exist'

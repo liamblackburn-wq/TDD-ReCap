@@ -174,6 +174,15 @@ def coin_duties_table_reqs():
         payload = request.get_json()
         coin_id = payload.get("coin_id")
         duty_id = payload.get("duty_id")
+
+        coin = Coin.get_or_none(Coin.id == coin_id)
+        duty = Duty.get_or_none(Duty.id == duty_id)
+
+        if coin is None:
+            return jsonify({"error": "Coin does not exist"}), 404
+        if duty is None:
+            return jsonify({"error": "Duty does not exist"}), 404
+
         CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
 
         new_association = {
@@ -184,5 +193,6 @@ def coin_duties_table_reqs():
         return jsonify(new_association), 201
 
     except IntegrityError:
-        return jsonify({"error": "placeholder"}), 409
+        return jsonify({"error": "Duty is already assigned to coin"}), 409
+
 
