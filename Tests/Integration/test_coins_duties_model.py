@@ -36,10 +36,7 @@ def test_duplicate_duty_returns_409(test_coin, test_duty, client):
 def test_missing_coin_returns_404(client, test_duty):
     random_coin_uuid = uuid.uuid4()
 
-    payload = {
-        "coin_id": str(random_coin_uuid),
-        "duty_id": str(test_duty.id)
-    }
+    payload = {"coin_id": str(random_coin_uuid), "duty_id": str(test_duty.id)}
 
     response = client.post("/coin-duties", json=payload)
 
@@ -57,10 +54,10 @@ def test_missing_duty_returns_404(client, test_coin):
     assert response.status_code == 404
     assert response.json["error"] == "Duty does not exist"
 
+
 def test_duty_complete_returns_200(client, test_coin, test_duty):
 
     link = CoinsDutiesJunction.create(coin=test_coin.id, duty=test_duty.id)
-
 
     payload = {
         "is_complete": True,
@@ -72,15 +69,14 @@ def test_duty_complete_returns_200(client, test_coin, test_duty):
     assert response.status_code == 200
     assert updated_link.is_complete is True
 
+
 def test_put_request_with_missing_link_returns_404(client, test_coin, test_duty):
     random_link_uuid = uuid.uuid4()
 
-    payload =  {
+    payload = {
         "is_complete": True,
     }
 
     response = client.put(f"/coin-duties/{random_link_uuid}", json=payload)
     assert response.status_code == 404
     assert response.json["error"] == "Link does not exist"
-
-

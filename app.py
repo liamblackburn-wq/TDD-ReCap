@@ -192,6 +192,7 @@ def coin_duties_table_reqs():
     except IntegrityError:
         return jsonify({"error": "Duty is already assigned to coin"}), 409
 
+
 @app.route("/coin-duties/<uuid:link_id>", methods=["PUT"])
 def update_coin_duties(link_id):
     try:
@@ -204,10 +205,15 @@ def update_coin_duties(link_id):
             return jsonify({"error": "Link does not exist"}), 404
 
         link.is_complete = update_progress
-        
+
         link.save()
 
-        updated_link = {"id": link.id, "coin_id": link.coin_id, "duty_id": link.duty_id, "is_complete": link.is_complete}
+        updated_link = {
+            "id": link.id,
+            "coin_id": link.coin_id,
+            "duty_id": link.duty_id,
+            "is_complete": link.is_complete,
+        }
         return jsonify(updated_link), 200
 
     except Exception as e:
