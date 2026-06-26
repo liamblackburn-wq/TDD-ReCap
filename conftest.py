@@ -38,7 +38,6 @@ def client(app):
 def test_duty():
     from src.models import Duty
     Duty.delete().where(Duty.name == 'Duty 1').execute()
-    # ARRANGE: Create the test duty with an uuid
     test_duty = Duty.create(id=uuid.uuid4(), name='Duty 1', description='TEST DESCRIPTION')
     yield test_duty
 
@@ -47,7 +46,6 @@ def test_duty():
 @pytest.fixture
 def test_coin():
     from src.models import Coin
-    # ARRANGE: Create the test coin with an uuid
     test_coin = Coin.create(id=uuid.uuid4(), name='COIN_TEST')
     yield test_coin
     Coin.delete().where(Coin.id == test_coin.id).execute()

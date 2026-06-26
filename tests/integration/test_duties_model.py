@@ -1,5 +1,4 @@
 import uuid
-from src.models import Duty
 
 def test_get_duties_endpoint(client, test_duty):
 

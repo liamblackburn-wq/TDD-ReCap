@@ -17,7 +17,7 @@ def test_associate_duty_to_coin(test_coin, test_duty, client):
         CoinsDutiesJunction.duty == test_duty.id
     ).exists()
 
-    assert associated_ids == True
+    assert associated_ids is True
 
 def test_duplicate_duty_returns_409(test_coin, test_duty, client):
 
