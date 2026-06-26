@@ -1,10 +1,12 @@
 import os
 import uuid
+
+from peewee import BooleanField, CharField, ForeignKeyField, TextField, UUIDField
+
 from src.db import BaseModel
-from peewee import *
+
 
 class Coin(BaseModel):
-
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     name = CharField(unique=True)
 
@@ -18,12 +20,12 @@ class Coin(BaseModel):
         return "COMPLETED" if all_duties_done else "IN_PROGRESS"
 
     class Meta:
-        if os.environ.get('TESTING') == 'True':
-            schema = 'coins_test'
-            table_name = 'tdd_endgame_test_coins'
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "tdd_endgame_test_coins"
         else:
-            schema = 'coins'
-            table_name = 'tdd_endgame_coins'
+            schema = "coins"
+            table_name = "tdd_endgame_coins"
 
     def validate(self):
         if any(char.isdigit() for char in self.name):
@@ -41,12 +43,12 @@ class Duty(BaseModel):
     description = TextField()
 
     class Meta:
-        if os.environ.get('TESTING') == 'True':
-            schema = 'coins_test'
-            table_name = 'tdd_safari_test_duties'
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "tdd_safari_test_duties"
         else:
-            schema = 'coins'
-            table_name = 'tdd_safari_duties'
+            schema = "coins"
+            table_name = "tdd_safari_duties"
 
     def validate(self):
         if not self.name.startswith("Duty ") or not self.name[5:].isdigit():
@@ -57,21 +59,19 @@ class Duty(BaseModel):
             return False
         return self.name == other.name and self.description == other.description
 
-class CoinsDutiesJunction(BaseModel):
 
+class CoinsDutiesJunction(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
     coin = ForeignKeyField(Coin, backref="assigned_duties", on_delete="CASCADE")
     duty = ForeignKeyField(Duty, backref="assigned_coins", on_delete="CASCADE")
     is_complete = BooleanField(default=False)
 
     class Meta:
-        if os.environ.get('TESTING') == 'True':
-            schema = 'coins_test'
-            table_name = 'tdd_endgame_test_junction'
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "tdd_endgame_test_junction"
         else:
-            schema = 'coins'
-            table_name = 'tdd_endgame_junction'
+            schema = "coins"
+            table_name = "tdd_endgame_junction"
 
-        indexes = (
-            (('coin', 'duty'), True),
-        )
+        indexes = ((("coin", "duty"), True),)

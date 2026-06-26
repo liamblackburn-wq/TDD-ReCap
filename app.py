@@ -7,6 +7,7 @@ from src.db import db
 
 app = Flask(__name__)
 
+
 @app.before_request
 def _db_connect():
     if db.is_closed():
@@ -29,7 +30,7 @@ def home():
 
 @app.route("/coins", methods=["GET", "POST"])
 def coins_table_reqs():
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
             payload = request.get_json()
 
@@ -56,15 +57,14 @@ def coins_table_reqs():
         all_coins = Coin.select()
 
         coin_list = [
-            {"id": coin.id,
-             "name": coin.name,
-             "status": coin.status
-             }
-            for coin in all_coins]
+            {"id": coin.id, "name": coin.name, "status": coin.status}
+            for coin in all_coins
+        ]
 
         return jsonify(coin_list)
 
-@app.route('/coins/<uuid:coin_id>', methods=['DELETE'])
+
+@app.route("/coins/<uuid:coin_id>", methods=["DELETE"])
 def delete_coin(coin_id):
     try:
         delete_query = Coin.delete().where(Coin.id == coin_id)
@@ -73,12 +73,13 @@ def delete_coin(coin_id):
         if deleted_coin == 0:
             return jsonify({"error": "Coin does not exist"}), 404
         else:
-            return jsonify({'message': 'Coin deleted successfully'}), 200
+            return jsonify({"message": "Coin deleted successfully"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/coins/<uuid:coin_id>', methods=['PUT'])
+
+@app.route("/coins/<uuid:coin_id>", methods=["PUT"])
 def update_coin(coin_id):
     try:
         coin = Coin.get_or_none(Coin.id == coin_id)
@@ -95,7 +96,7 @@ def update_coin(coin_id):
 
         coin.save()
 
-        updated_coin = {'id': coin.id, 'name': coin.name, 'status': coin.status}
+        updated_coin = {"id": coin.id, "name": coin.name, "status": coin.status}
 
         return jsonify(updated_coin), 200
 
@@ -109,9 +110,9 @@ def update_coin(coin_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/duties', methods=['GET', 'POST'])
+@app.route("/duties", methods=["GET", "POST"])
 def duties_table_reqs():
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
             payload = request.get_json()
 
@@ -128,7 +129,7 @@ def duties_table_reqs():
             new_duty = {
                 "id": duty.id,
                 "name": duty.name,
-                "description": duty.description
+                "description": duty.description,
             }
 
             return jsonify(new_duty), 201
@@ -144,16 +145,14 @@ def duties_table_reqs():
         all_duties = Duty.select()
 
         duty_list = [
-            {
-                "id": duty.id, "name": duty.name, "description": duty.description
-            }
+            {"id": duty.id, "name": duty.name, "description": duty.description}
             for duty in all_duties
         ]
 
         return jsonify(duty_list), 200
 
 
-@app.route('/duties/<uuid:duty_id>', methods=['DELETE'])
+@app.route("/duties/<uuid:duty_id>", methods=["DELETE"])
 def delete_duty(duty_id):
     try:
         delete_query = Duty.delete().where(Duty.id == duty_id)
@@ -168,7 +167,7 @@ def delete_duty(duty_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/coin-duties', methods=['POST'])
+@app.route("/coin-duties", methods=["POST"])
 def coin_duties_table_reqs():
     try:
         payload = request.get_json()
@@ -185,14 +184,9 @@ def coin_duties_table_reqs():
 
         CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
 
-        new_association = {
-            "coin_id": coin_id,
-            "duty_id": duty_id
-        }
+        new_association = {"coin_id": coin_id, "duty_id": duty_id}
 
         return jsonify(new_association), 201
 
     except IntegrityError:
         return jsonify({"error": "Duty is already assigned to coin"}), 409
-
-
