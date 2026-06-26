@@ -1,6 +1,7 @@
 import uuid
 from flask import Flask, render_template, request, jsonify
 from peewee import IntegrityError
+from pip._internal.models.link import Link
 
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
@@ -190,3 +191,24 @@ def coin_duties_table_reqs():
 
     except IntegrityError:
         return jsonify({"error": "Duty is already assigned to coin"}), 409
+
+@app.route("/coin-duties/<uuid:link_id>", methods=["PUT"])
+def update_coin_duties(link_id):
+    try:
+        payload = request.get_json()
+        update_progress = payload.get("is_complete")
+
+        link = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
+
+        if link is None:
+            return jsonify({"error": "Link does not exist"}), 404
+
+        link.is_complete = update_progress
+        
+        link.save()
+
+        updated_link = {"id": link.id, "coin_id": link.coin_id, "duty_id": link.duty_id, "is_complete": link.is_complete}
+        return jsonify(updated_link), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
