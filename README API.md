@@ -86,7 +86,14 @@ To get a full coverage report, you must use the `TESTING=True` prefix so E2E tes
     coverage run -m pytest -s tests
     coverage report
     ```
-**Currently, coverage is sitting at a very healthy 94%**
+**Currently, coverage is sitting at a very healthy 90%!**
+
+| Name | Stmts | Miss | Cover |
+| :--- | ---: | ---: | ---: |
+| app.py | 128 | 12 | 91% |
+| src/db.py | 8 | 0 | 100% |
+| src/models.py | 56 | 8 | 86% |
+| **TOTAL** | **192** | **20** | **90%** |
 
 ### Why does each coin have a unique non-integer ID?
 
@@ -101,3 +108,4 @@ To get a full coverage report, you must use the `TESTING=True` prefix so E2E tes
 * **Data Masking:**
 
   Integer IDs expose your business metrics. If a competitor signs up and sees their coin ID is 14, they know you've only ever had 14 items created.
+

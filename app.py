@@ -20,12 +20,9 @@ def _db_close(exc):
         db.close()
 
 
-@app.route("/", methods=["GET", "POST"])
-def home():
-
-    all_duties = Duty.select()
-
-    return render_template("index.html", added_duties=all_duties)
+@app.route("/", methods=["GET"])
+def health_check():
+    return jsonify({"status": "healthy", "api": "coins-duties-v2"}), 200
 
 
 @app.route("/coins", methods=["GET", "POST"])

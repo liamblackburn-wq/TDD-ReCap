@@ -1,0 +1,71 @@
+name: Deploy to ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: liam
+          POSTGRES_USER: liam
+          POSTGRES_PASSWORD: ci_test_password
+        ports:
+          - 25060:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run tests
+        env:
+          TESTING: "True"
+          DATABASE: liam
+          DATABASE_USER: liam
+          DATABASE_PASSWORD: ci_test_password
+          DATABASE_HOST: localhost
+          FLASK_APP: app.py
+        run: |
+          flask run --port 5000 &   
+          sleep 3                    
+          pytest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/liam-tdd-recap
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        run: |
+          docker buildx build --platform linux/amd64 -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest --push .
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster liam-tdd \
+            --service liam-tdd-recap-v2-service \
+            --force-new-deployment
