@@ -1,7 +1,6 @@
 import uuid
 from flask import Flask, render_template, request, jsonify
 from peewee import IntegrityError
-from pip._internal.models.link import Link
 
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
