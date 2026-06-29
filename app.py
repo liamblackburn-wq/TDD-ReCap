@@ -53,7 +53,10 @@ def coins_table_reqs():
     else:
         all_coins = Coin.select()
 
-        coin_list = [{"name": coin.name, "status": coin.status} for coin in all_coins]
+        coin_list = [
+            {"id": coin.id, "name": coin.name, "status": coin.status}
+            for coin in all_coins
+        ]
 
         return jsonify(coin_list)
 
@@ -139,7 +142,8 @@ def duties_table_reqs():
         all_duties = Duty.select()
 
         duty_list = [
-            {"name": duty.name, "description": duty.description} for duty in all_duties
+            {"id": duty.id, "name": duty.name, "description": duty.description}
+            for duty in all_duties
         ]
 
         return jsonify(duty_list), 200
@@ -180,6 +184,8 @@ def coin_duties_table_reqs():
 
             new_association = {
                 "id": new_link.id,
+                "coin_id": coin_id,
+                "duty_id": duty_id,
             }
 
             return jsonify(new_association), 201
