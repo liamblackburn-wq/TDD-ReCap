@@ -54,21 +54,6 @@ To prevent database table collisions across environments, the database utilises 
 
 ## Running the Test Suite
 
-The test suite features **18 automated tests** spanning unit, integration and E2E testing.
-
-Given there are 4 unit tests, 9 integration tests and 5 E2E tests, we can calculate the percentage of those tests:
-
-| Test Type | Count | Percentage  |
-| :--- | :--- |:------------|
-| **Integration Tests** | 9 | 50%         |
-| **End-to-End (E2E) Tests** | 5 | ~28%        |
-| **Unit Tests** | 4 | ~22%        |
-| **Total** | **18** | **100.00%** |
-
-This highlights that due to the apps heavy reliance on database interactions, integration tests surpass both E2E and unit tests.
-### Running Backend Unit & Integration Tests
-For standard backend tests, you do not need to boot a background server. The `tests/conftest.py` setup automatically flags the environment and isolates everything cleanly inside the `coins_test` schema:
-
 ```bash
 pytest
 ```
@@ -86,14 +71,14 @@ To get a full coverage report, you must use the `TESTING=True` prefix so E2E tes
     coverage run -m pytest -s tests
     coverage report
     ```
-**Currently, coverage is sitting at a very healthy 90%!**
+**Currently, coverage is sitting at a very healthy 88%!**
 
 | Name | Stmts | Miss | Cover |
 | :--- | ---: | ---: | ---: |
-| app.py | 128 | 12 | 91% |
+| app.py | 132 | 15 | 89% |
 | src/db.py | 8 | 0 | 100% |
 | src/models.py | 56 | 8 | 86% |
-| **TOTAL** | **192** | **20** | **90%** |
+| **TOTAL** | **196** | **23** | **88%** |
 
 ### Why does each coin have a unique non-integer ID?
 
@@ -109,3 +94,6 @@ To get a full coverage report, you must use the `TESTING=True` prefix so E2E tes
 
   Integer IDs expose your business metrics. If a competitor signs up and sees their coin ID is 14, they know you've only ever had 14 items created.
 
+### Hitting the endpoints using Bruno
+
+Ensure you have Bruno installed and import the `bruno collection` folder that is attached to the repo. It contains examples of `GET`, `POST`, `DELETE` and `PUT` requests for all endpoints. Edit the payload as you like and experiment with creating coins and duties, and then link them, update them, delete them etc.
