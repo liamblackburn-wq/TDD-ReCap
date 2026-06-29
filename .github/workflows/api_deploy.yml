@@ -61,7 +61,7 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         run: |
-          docker buildx build --platform linux/amd64 -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest --push .
+          docker buildx build --platform linux/amd64 -t ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_ENDGAME_REPOSITORY }}:latest --push .
 
       - name: Deploy to ECS
         run: |
