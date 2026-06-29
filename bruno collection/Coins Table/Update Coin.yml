@@ -1,0 +1,21 @@
+info:
+  name: Update Coin
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:5000/coins/1d9c97ee-c1ec-4670-b841-f9e01acffa11"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Automate!"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

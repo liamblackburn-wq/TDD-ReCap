@@ -1,0 +1,21 @@
+info:
+  name: Create Coin
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5000/coins
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Automate!"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

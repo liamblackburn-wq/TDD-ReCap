@@ -1,6 +1,7 @@
 import uuid
 from flask import Flask, render_template, request, jsonify
 from peewee import IntegrityError
+from pip._internal.models import link
 
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
@@ -31,7 +32,7 @@ def coins_table_reqs():
         try:
             payload = request.get_json()
 
-            coin_id = payload.get("id")
+            coin_id = payload.get("id") or str(uuid.uuid4())
             coin_name = payload.get("name")
 
             coin = Coin(id=coin_id, name=coin_name)
@@ -164,29 +165,38 @@ def delete_duty(duty_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/coin-duties", methods=["POST"])
+@app.route("/coin-duties", methods=["GET", "POST"])
 def coin_duties_table_reqs():
-    try:
-        payload = request.get_json()
-        coin_id = payload.get("coin_id")
-        duty_id = payload.get("duty_id")
+    if request.method == "POST":
+        try:
+            payload = request.get_json()
+            coin_id = payload.get("coin_id")
+            duty_id = payload.get("duty_id")
 
-        coin = Coin.get_or_none(Coin.id == coin_id)
-        duty = Duty.get_or_none(Duty.id == duty_id)
+            coin = Coin.get_or_none(Coin.id == coin_id)
+            duty = Duty.get_or_none(Duty.id == duty_id)
 
-        if coin is None:
-            return jsonify({"error": "Coin does not exist"}), 404
-        if duty is None:
-            return jsonify({"error": "Duty does not exist"}), 404
+            if coin is None:
+                return jsonify({"error": "Coin does not exist"}), 404
+            if duty is None:
+                return jsonify({"error": "Duty does not exist"}), 404
 
-        CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
+            CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
 
-        new_association = {"coin_id": coin_id, "duty_id": duty_id}
+            new_association = {"coin_id": coin_id, "duty_id": duty_id}
 
-        return jsonify(new_association), 201
+            return jsonify(new_association), 201
 
-    except IntegrityError:
-        return jsonify({"error": "Duty is already assigned to coin"}), 409
+        except IntegrityError:
+            return jsonify({"error": "Duty is already assigned to coin"}), 409
+    else:
+        all_links = CoinsDutiesJunction.select()
+
+        linked_list = [
+            {"id": linked.id, "coin_id": linked.coin_id, "duty_id": linked.duty_id, "is_complete": linked.is_complete}
+            for linked in all_links
+        ]
+        return jsonify(linked_list), 200
 
 
 @app.route("/coin-duties/<uuid:link_id>", methods=["PUT"])
@@ -195,20 +205,20 @@ def update_coin_duties(link_id):
         payload = request.get_json()
         update_progress = payload.get("is_complete")
 
-        link = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
+        linked_id = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
 
-        if link is None:
+        if linked_id is None:
             return jsonify({"error": "Link does not exist"}), 404
 
-        link.is_complete = update_progress
+        linked_id.is_complete = update_progress
 
-        link.save()
+        linked_id.save()
 
         updated_link = {
-            "id": link.id,
-            "coin_id": link.coin_id,
-            "duty_id": link.duty_id,
-            "is_complete": link.is_complete,
+            "id": linked_id.id,
+            "coin_id": linked_id.coin_id,
+            "duty_id": linked_id.duty_id,
+            "is_complete": linked_id.is_complete,
         }
         return jsonify(updated_link), 200
 
