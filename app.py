@@ -1,7 +1,6 @@
 import uuid
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from peewee import IntegrityError
-from pip._internal.models import link
 
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
@@ -54,10 +53,7 @@ def coins_table_reqs():
     else:
         all_coins = Coin.select()
 
-        coin_list = [
-            {"id": coin.id, "name": coin.name, "status": coin.status}
-            for coin in all_coins
-        ]
+        coin_list = [{"name": coin.name, "status": coin.status} for coin in all_coins]
 
         return jsonify(coin_list)
 
@@ -94,7 +90,7 @@ def update_coin(coin_id):
 
         coin.save()
 
-        updated_coin = {"id": coin.id, "name": coin.name, "status": coin.status}
+        updated_coin = {"name": coin.name, "status": coin.status}
 
         return jsonify(updated_coin), 200
 
@@ -143,8 +139,7 @@ def duties_table_reqs():
         all_duties = Duty.select()
 
         duty_list = [
-            {"id": duty.id, "name": duty.name, "description": duty.description}
-            for duty in all_duties
+            {"name": duty.name, "description": duty.description} for duty in all_duties
         ]
 
         return jsonify(duty_list), 200
@@ -181,9 +176,11 @@ def coin_duties_table_reqs():
             if duty is None:
                 return jsonify({"error": "Duty does not exist"}), 404
 
-            CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
+            new_link = CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
 
-            new_association = {"coin_id": coin_id, "duty_id": duty_id}
+            new_association = {
+                "id": new_link.id,
+            }
 
             return jsonify(new_association), 201
 
@@ -193,8 +190,7 @@ def coin_duties_table_reqs():
         all_links = CoinsDutiesJunction.select()
 
         linked_list = [
-            {"id": linked.id, "coin_id": linked.coin_id, "duty_id": linked.duty_id, "is_complete": linked.is_complete}
-            for linked in all_links
+            {"id": linked.id, "is_complete": linked.is_complete} for linked in all_links
         ]
         return jsonify(linked_list), 200
 
@@ -216,8 +212,6 @@ def update_coin_duties(link_id):
 
         updated_link = {
             "id": linked_id.id,
-            "coin_id": linked_id.coin_id,
-            "duty_id": linked_id.duty_id,
             "is_complete": linked_id.is_complete,
         }
         return jsonify(updated_link), 200
