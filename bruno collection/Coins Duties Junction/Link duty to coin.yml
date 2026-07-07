@@ -1,0 +1,22 @@
+info:
+  name: Link duty to coin
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5000/coin-duties
+  body:
+    type: json
+    data: |-
+      {
+        "coin_id": "1d9c97ee-c1ec-4670-b841-f9e01acffa11",
+        "duty_id": "a898eebe-fd81-401a-9aa4-8db0cd003799"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

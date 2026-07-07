@@ -1,0 +1,15 @@
+info:
+  name: Delete Duty
+  type: http
+  seq: 3
+
+http:
+  method: DELETE
+  url: http://localhost:5000/duties/0ac63081-26c7-4935-a0c8-c78ab9c22854
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
