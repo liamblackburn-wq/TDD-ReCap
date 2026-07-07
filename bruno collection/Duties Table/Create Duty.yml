@@ -1,0 +1,22 @@
+info:
+  name: Create Duty
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:5000/duties
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Duty 1",
+        "description": "Script and code in at least one general purpose language and at least one domain-specific language to orchestrate infrastructure, follow test driven development and ensure appropriate test coverage."
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

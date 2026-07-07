@@ -1,0 +1,7 @@
+info:
+  name: Coins Duties Junction
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit
