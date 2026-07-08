@@ -2,13 +2,32 @@
 <html lang="en">
 <head>
   <title>Apprentice Duties</title>
-  <link rel="stylesheet" href="/static/css/styles.css">
-  <script src="/static/js/script.js" defer></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/script.js" defer></script>
+  <script src="/js/login.js" defer></script>
 </head>
 <body>
+
   <header>
     <h1>Apprentice Duties</h1>
   </header>
+
+  <div id="login-view" class="container">
+    <h2>Sign In</h2>
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Username">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Password">
+      <button type="submit">Login</button>
+    </form>
+    <button id="guest-login">Login as guest</button>
+  </div>
+
+  <div id="dashboard-view" class="container hidden">
+        <ul id="automate_list" aria-label="Automate Duties List"></ul>
+  </div>
+
     <h2>Automate!</h2>
     <div class="button-group">
       <button id="add-duty">
@@ -16,14 +35,7 @@
       </button>
     </div>
 
-    <ul id="automate_list" aria-label="Automate Duties List">
-      {% for duty in added_duties %}
-        <li class="listed_duty">
-          <strong>{{ duty.name }}</strong> {{ duty.description }}
-          <button type="button" class="remove-duty" data-id="{{ duty.id }}">X</button>
-        </li>
-      {% endfor %}
-    </ul>
+
 
     <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
       <label for="duty_name">Duty Name:</label>

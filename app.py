@@ -7,7 +7,6 @@ from src.db import db
 
 app = Flask(__name__)
 
-
 @app.before_request
 def _db_connect():
     if db.is_closed():
@@ -22,7 +21,7 @@ def _db_close(exc):
 
 @app.route("/", methods=["GET"])
 def health_check():
-    return jsonify({"status": "healthy", "api": "coins-duties-v2"}), 200
+    return jsonify({"status": "healthy", "api": "coins-duties"}), 200
 
 
 @app.route("/coins", methods=["GET", "POST"])
