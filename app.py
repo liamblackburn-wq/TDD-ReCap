@@ -1,11 +1,34 @@
 import uuid
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from peewee import IntegrityError
 
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
 
 app = Flask(__name__)
+app.secret_key = 'secret key'
+
+class User(UserMixin):
+    def __init__(self, id, role):
+        self.id = id
+        self.role = role
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+mock_users = {
+    "admin": {"role": "admin"},
+    "user": {"role": "user"},
+}
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id in mock_users:
+        return User(
+            id=user_id, role=mock_users[user_id]["role"]
+        )
+    return None
 
 @app.before_request
 def _db_connect():
@@ -19,9 +42,30 @@ def _db_close(exc):
         db.close()
 
 
+@app.route("/api/login", methods=["POST"])
+def api_login():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    # 1. Verify credentials (mocking for now)
+    if username == "admin" and password == "admin123":
+        user = User(id="admin", role="admin")
+
+        # 2. Let the library securely log them in and handle the session cookie
+        login_user(user)
+        return jsonify({"message": "Logged in!", "role": "admin"}), 200
+
+    elif username == "user" and password == "user123":
+        user = User(id="user", role="user")
+        login_user(user)
+        return jsonify({"message": "Logged in successfully!", "role": "user"}), 200
+
+    return jsonify({"error": "Invalid credentials"}), 401
+
 @app.route("/", methods=["GET"])
-def health_check():
-    return jsonify({"status": "healthy", "api": "coins-duties"}), 200
+def home():
+    return render_template("index.html")
 
 
 @app.route("/coins", methods=["GET", "POST"])
