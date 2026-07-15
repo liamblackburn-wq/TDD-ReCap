@@ -1,13 +1,14 @@
 import uuid
 from flask import Flask, request, jsonify, render_template
-from flask_login import LoginManager, current_user, login_user, logout_user
+from flask_login import LoginManager, login_user
 from peewee import IntegrityError
 
 from src.user_auth import User
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
+
 app = Flask(__name__)
-app.secret_key = 'secret key'
+app.secret_key = "secret key"
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -17,12 +18,14 @@ mock_users = {
     "user": {"role": "user"},
 }
 
+
 @login_manager.user_loader
 def load_user(user_id):
     if user_id in mock_users:
         user_role = mock_users[user_id]["role"]
         return User(id=user_id, role=user_role)
     return None
+
 
 @app.before_request
 def _db_connect():
@@ -35,13 +38,14 @@ def _db_close(exc):
     if not db.is_closed():
         db.close()
 
+
 @app.route("/api/login", methods=["POST"])
 def api_login():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
 
-    if username == "admin" and password == "admin 123":
+    if username == "admin" and password == "admin123":
         user = User(id="admin", role="admin")
         login_user(user)
         return jsonify({"message": "Logged in successfully", "role": "admin"}), 200
@@ -50,6 +54,7 @@ def api_login():
         login_user(user)
         return jsonify({"message": "Logged in successfully", "role": "user"}), 200
     return jsonify({"message": "Invalid username or password"}), 401
+
 
 @app.route("/", methods=["GET"])
 def home():
