@@ -232,7 +232,7 @@ def coin_duties_table_reqs():
         all_links = CoinsDutiesJunction.select()
 
         linked_list = [
-            {"id": linked.id, "is_complete": linked.is_complete} for linked in all_links
+            {"id": linked.id, "is_complete": linked.is_complete, "duty_name": linked.duty.name} for linked in all_links
         ]
         return jsonify(linked_list), 200
 

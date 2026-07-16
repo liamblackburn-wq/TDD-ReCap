@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Apprentice Duties</title>
   <link rel="stylesheet" href="../static/css/styles.css">
   <script src="../static/js/login.js" defer></script>
   <script src="../static/js/script.js" defer></script>
 </head>
+
 <body>
 
   <header>
@@ -28,14 +30,16 @@
     <h2>Automate!</h2>
 
     <ul id="automate_list" aria-label="Automate Duties List">
-
+      <li class="listed_duty">
+      </li>
     </ul>
+  </div>
 
+  <div id="user-view" class="container" hidden>
     <div class="button-group">
       <button id="add-duty">
-      Add Duty
+        Add Duty
       </button>
-
       <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
         <label for="duty_name">Duty Name:</label>
         <input
@@ -45,7 +49,6 @@
                 placeholder="e.g., Duty 1"
                 required
         >
-
         <label for="duty_description">Duty Description:</label>
         <input
                 type="text"
@@ -54,11 +57,9 @@
                 placeholder="Look to automate any manual tasks that are repeated, often using APIs."
                 required
         >
-
         <button type="submit">Submit</button>
       </form>
     </div>
-
   </div>
 
 </body>

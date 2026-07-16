@@ -1,5 +1,46 @@
 const addDutiesButton = document.getElementById("add-duty")
 const form = document.getElementById("form")
+const loginView = document.getElementById('login-view')
+const guestView = document.getElementById('dashboard-view');
+
+const showDashboard = () => {
+    loginView.classList.add('hidden')
+    guestView.classList.remove('hidden')
+}
+
+const handleCoinCompletionToggle = () => {
+    const coinCheckbox = document.querySelectorAll('.coin-checkbox')
+
+    for (let checkbox = 0; checkbox < coinCheckbox.length; checkbox++) {
+        coinCheckbox[checkbox].addEventListener('change', (e) => {
+            const isChecked = e.target.checked;
+            const linkedId = e.target.dataset.linkId
+            console.log(isChecked, linkedId)
+        })
+    }
+}
+
+const fetchAndRenderDuties = async (role) => {
+    const response = await fetch("/coin-duties")
+    const data = await response.json()
+    const automateList = document.getElementById('automate_list')
+    let htmlTemplate = ""
+
+    data.forEach(linkedDuty => {
+        const isDisabled = (role === "user" || role === "admin") ? "" : "disabled"
+        const isChecked = linkedDuty.is_complete ? "checked" : ""
+
+        htmlTemplate += `
+        <li class="listed_duty">
+            <span>${linkedDuty.duty_name}</span>
+            <input type="checkbox" class="coin-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
+        </li>
+        `
+    })
+    automateList.innerHTML = htmlTemplate
+
+    handleCoinCompletionToggle()
+}
 
 const displayDutySelectDropdown = () => {
     addDutiesButton.addEventListener("click", (event) => {
@@ -67,6 +108,14 @@ const handleDutyRemoval = () => {
     })
 }
 
-displayDutySelectDropdown()
-handleFormSubmission()
-handleDutyRemoval()
+const initialiseDashboard = async (role) => {
+    showDashboard()
+    await fetchAndRenderDuties(role)
+
+    if (role === "admin") {
+        displayDutySelectDropdown()
+        handleFormSubmission()
+        handleDutyRemoval()
+    }
+}
+
