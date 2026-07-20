@@ -12,10 +12,26 @@ const handleCoinCompletionToggle = () => {
     const coinCheckbox = document.querySelectorAll('.coin-checkbox')
 
     for (let checkbox = 0; checkbox < coinCheckbox.length; checkbox++) {
-        coinCheckbox[checkbox].addEventListener('change', (e) => {
+        coinCheckbox[checkbox].addEventListener('change', async (e) => {
             const isChecked = e.target.checked;
             const linkedId = e.target.dataset.linkId
-            console.log(isChecked, linkedId)
+
+            try {
+                const response = await fetch(`/coin-duties/${linkedId}`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                        },
+                    body: JSON.stringify({is_complete: isChecked}),
+
+                })
+                if (!response.ok) {
+                        const errorData = await response.json();
+                        alert(errorData.error)
+                    }
+            } catch (error) {
+                console.error("Network error", error)
+            }
         })
     }
 }
@@ -23,7 +39,7 @@ const handleCoinCompletionToggle = () => {
 const fetchAndRenderDuties = async (role) => {
     const response = await fetch("/coin-duties")
     const data = await response.json()
-    const automateList = document.getElementById('automate_list')
+    const automateList = document.getElementById('automate-list')
     let htmlTemplate = ""
 
     data.forEach(linkedDuty => {
@@ -31,7 +47,7 @@ const fetchAndRenderDuties = async (role) => {
         const isChecked = linkedDuty.is_complete ? "checked" : ""
 
         htmlTemplate += `
-        <li class="listed_duty">
+        <li class="listed-duty">
             <span>${linkedDuty.duty_name}</span>
             <input type="checkbox" class="coin-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
         </li>
