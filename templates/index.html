@@ -27,30 +27,30 @@
   </div>
 
   <div id="dashboard-view" class="container hidden">
-    <h2>Automate!</h2>
+    <h1>Coins</h1>
 
-    <ul id="automate-list" aria-label="Automate Duties List">
+    <ul id="coins-list" aria-label="Coin List">
     </ul>
   </div>
 
   <div id="user-view" class="container" hidden>
     <div class="button-group">
-      <button id="add-duty">
-        Add Duty
+      <button id="create-duty">
+        Create Duty
       </button>
-      <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
-        <label for="duty_name">Duty Name:</label>
+      <form id="duty-form" class="hidden" aria-label="Create Duty Form" method="POST">
+        <label for="duty-name">Duty Name:</label>
         <input
                 type="text"
-                id="duty_name"
+                id="duty-name"
                 name="name"
                 placeholder="e.g., Duty 1"
                 required
         >
-        <label for="duty_description">Duty Description:</label>
+        <label for="duty-description">Duty Description:</label>
         <input
                 type="text"
-                id="duty_description"
+                id="duty-description"
                 name="description"
                 placeholder="Look to automate any manual tasks that are repeated, often using APIs."
                 required
@@ -60,5 +60,25 @@
     </div>
   </div>
 
+  <div id="admin-view" class="container hidden">
+    <div class="button-group">
+      <button id="create-coin">
+        Create Coin
+      </button>
+      <form id="coin-form" class="hidden" aria-label="Create Coin Form" method="POST">
+        <label for="coin-name">Duty Name:</label>
+        <input
+                type="text"
+                id="coin-name"
+                name="name"
+                placeholder="e.g., Automate!"
+                required
+        >
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
 </body>
+
 </html>

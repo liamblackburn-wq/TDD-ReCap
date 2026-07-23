@@ -1,19 +1,140 @@
-const addDutiesButton = document.getElementById("add-duty")
-const form = document.getElementById("form")
-const loginView = document.getElementById('login-view')
+const createDutyButton = document.getElementById("create-duty");
+const createCoinButton = document.getElementById("create-coin");
+const dutyForm = document.getElementById("duty-form");
+const coinForm = document.getElementById("coin-form");
+const loginView = document.getElementById('login-view');
 const guestView = document.getElementById('dashboard-view');
+const coinsList = document.getElementById('coins-list');
 
 const showDashboard = () => {
     loginView.classList.add('hidden')
     guestView.classList.remove('hidden')
 }
 
-const handleCoinCompletionToggle = () => {
-    const coinCheckbox = document.querySelectorAll('.coin-checkbox')
 
-    for (let checkbox = 0; checkbox < coinCheckbox.length; checkbox++) {
-        coinCheckbox[checkbox].addEventListener('change', async (e) => {
-            const isChecked = e.target.checked;
+const fetchAndRenderCoins = async (role) => {
+    const response = await fetch('/coins')
+    const dutyResponse = await fetch('/duties');
+    const duties = await dutyResponse.json();
+    const data = await response.json()
+    let coinsListHtml = "";
+    let optionsHtml = `<option value="">-- Select Duty --</option>`;
+
+    duties.forEach(duty => {
+        optionsHtml += `<option value="${duty.id}">${duty.name}</option>`
+    })
+
+
+    data.forEach((coin) => {
+        const coinName = coin.name;
+        const coinId = coin.id;
+
+        const dutyDropdown = (role === "admin") ?
+            `<select id="${coinId}-duty-dropdown" data-id="${coinId}">
+                ${optionsHtml}
+            </select>
+            <button class="assign-duty-btn" data-coin-id="${coinId}">
+                Assign
+            </button>
+            ` : ""
+
+        coinsListHtml += `
+        <li class="listed-coin" id="${coinId}-duty-list">
+            <h2>${coinName}</h2>
+            <span class="assign-duty-dropdown">
+                ${dutyDropdown}
+            </span>
+            <ul class="duty-list" id="linked-duty-${coinId}">
+            </ul>
+        </li>
+        `
+    })
+    coinsList.innerHTML = coinsListHtml;
+}
+
+const handleDutyAssignment = (role) => {
+    coinsList.addEventListener('click', async (event) => {
+        if (!event.target.classList.contains("assign-duty-btn")) return;
+
+        const coinId = event.target.dataset.coinId;
+
+        const dutyDropdown = document.getElementById(`${coinId}-duty-dropdown`);
+        const dutyId = dutyDropdown.value;
+
+        if (!dutyId) {
+            alert("Please select a duty first!");
+            return;
+        }
+
+        const payload = {
+            coin_id: coinId,
+            duty_id: dutyId,
+        }
+
+        try {
+            const response = await fetch('/coin-duties', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            if (response.ok) {
+               await fetchAndRenderDuties(role)
+            } else {
+                const errorData = await response.json()
+                alert(`Error: ${errorData.error}`)
+            }
+        } catch (error) {
+            console.error("Network communication error", error)
+        }
+    })
+}
+
+const displayCreateCoinForm = () => {
+    createCoinButton.addEventListener('click', () => {
+        coinForm.classList.remove("hidden")
+    });
+}
+
+const createCoin = (role) => {
+    coinForm.addEventListener('submit', async (event)  => {
+        event.preventDefault()
+
+        const coinName = document.getElementById('coin-name').value;
+
+        const payload = {
+            name: coinName,
+        }
+
+        try {
+            const response = await fetch('/coins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            if (!response.ok) {
+                const errorData = await response.json()
+                alert(errorData.error)
+            } else {
+                coinForm.reset()
+                coinForm.classList.add('hidden')
+                await fetchAndRenderCoins(role)
+            }
+        } catch (error) {
+            console.error("Network error", error)
+        }
+    })
+}
+
+const handleCoinCompletionToggle = () => {
+    const dutyCheckbox = document.querySelectorAll('.duty-checkbox')
+
+    for (let checkbox = 0; checkbox < dutyCheckbox.length; checkbox++) {
+        dutyCheckbox[checkbox].addEventListener('change', async (e) => {
+            let isChecked = e.target.checked;
             const linkedId = e.target.dataset.linkId
 
             try {
@@ -27,9 +148,11 @@ const handleCoinCompletionToggle = () => {
                 })
                 if (!response.ok) {
                         const errorData = await response.json();
+                        e.target.checked = !isChecked;
                         alert(errorData.error)
                     }
             } catch (error) {
+                e.target.checked = !isChecked;
                 console.error("Network error", error)
             }
         })
@@ -39,37 +162,44 @@ const handleCoinCompletionToggle = () => {
 const fetchAndRenderDuties = async (role) => {
     const response = await fetch("/coin-duties")
     const data = await response.json()
-    const automateList = document.getElementById('automate-list')
-    let htmlTemplate = ""
+
+    document.querySelectorAll('.duty-list').forEach(list => list.innerHTML = "")
 
     data.forEach(linkedDuty => {
+        const linkedDutyList = document.getElementById(`linked-duty-${linkedDuty.coin_id}`)
+
+        if (!linkedDutyList) return;
+
         const isDisabled = (role === "user" || role === "admin") ? "" : "disabled"
         const isChecked = linkedDuty.is_complete ? "checked" : ""
 
-        htmlTemplate += `
+        const deleteButtonHtml = (role === "admin") ? `<button class="remove-duty" data-id="${linkedDuty.id}">X</button>` : ""
+
+        const dutyHtml = `
         <li class="listed-duty">
             <span>${linkedDuty.duty_name}</span>
-            <input type="checkbox" class="coin-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
+            <input type="checkbox" class="duty-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
+            ${deleteButtonHtml}
         </li>
         `
-    })
-    automateList.innerHTML = htmlTemplate
 
+        linkedDutyList.innerHTML += dutyHtml
+    })
     handleCoinCompletionToggle()
 }
 
-const displayDutySelectDropdown = () => {
-    addDutiesButton.addEventListener("click", (event) => {
-        form.classList.remove("hidden")
+const displayCreateDutyForm = () => {
+    createDutyButton.addEventListener("click", () => {
+        dutyForm.classList.remove("hidden")
     })
 }
 
-const handleFormSubmission = () => {
-    form.addEventListener("submit", async (event) => {
+const createDuty = (role) => {
+    dutyForm.addEventListener("submit", async (event) => {
         event.preventDefault()
 
-        const nameValue = document.getElementById("duty_name").value
-        const descriptionValue = document.getElementById("duty_description").value
+        const nameValue = document.getElementById("duty-name").value
+        const descriptionValue = document.getElementById("duty-description").value
 
         const payload = {
             name: nameValue,
@@ -86,7 +216,7 @@ const handleFormSubmission = () => {
             })
 
             if (response.ok) {
-                window.location.reload()
+                await fetchAndRenderDuties(role)
             } else {
                 const errorData = await response.json()
                 alert(`Error: ${JSON.stringify(errorData)}`)
@@ -97,41 +227,43 @@ const handleFormSubmission = () => {
     })
 }
 
-const handleDutyRemoval = () => {
-    const removeButtons = document.querySelectorAll(".remove-duty")
+const handleDutyRemoval = (role) => {
+    const coinsList = document.getElementById('coins-list');
+    if (!coinsList) return;
 
-    removeButtons.forEach(button => {
-        button.addEventListener("click", async (event) => {
-            event.preventDefault()
+    coinsList.addEventListener("click", async (event) => {
+        if (!event.target.classList.contains("remove-duty")) return;
 
-            const dutyId = button.dataset.id
-
-            try {
-                const response = await fetch(`/duties/${dutyId}`, {
-                    method: "DELETE"
-                })
-
-                if (response.ok) {
-                    window.location.reload()
-                } else {
-                    const errorData = await response.json()
-                    alert(`Failed to delete: ${JSON.stringify(errorData)}`)
-                }
-            } catch (error) {
-                console.error("Network communication error", error)
+        const button = event.target;
+        const dutyId = button.dataset.id
+        try {
+            const response = await fetch(`/duties/${dutyId}`, {
+                method: "DELETE"
+            })
+            if (response.ok) {
+                await fetchAndRenderDuties(role)
+            } else {
+                const errorData = await response.json()
+                alert(`Failed to delete: ${errorData.error || JSON.stringify(errorData)}`)
             }
-        })
+        } catch (error) {
+            console.error("Network communication error", error)
+        }
     })
 }
 
 const initialiseDashboard = async (role) => {
     showDashboard()
+    await fetchAndRenderCoins(role)
     await fetchAndRenderDuties(role)
 
     if (role === "admin") {
-        displayDutySelectDropdown()
-        handleFormSubmission()
-        handleDutyRemoval()
+        displayCreateDutyForm()
+        displayCreateCoinForm()
+        createDuty(role)
+        createCoin(role)
+        handleDutyAssignment(role)
+        handleDutyRemoval(role)
     }
 }
 

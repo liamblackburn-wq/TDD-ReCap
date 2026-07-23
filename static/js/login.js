@@ -3,9 +3,9 @@ const loginForm = document.getElementById('login-form');
 const loginButton = document.getElementById('login-button');
 const guestLogin = document.getElementById('guest-login');
 
-document.addEventListener('DOMContentLoaded', () => {
-    guestLogin.addEventListener('click', () => {
-        showDashboard()
+document.addEventListener('DOMContentLoaded',  () => {
+    guestLogin.addEventListener('click', async() => {
+         await initialiseDashboard('guest')
     })
 
     loginForm.addEventListener('submit', async (event) => {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             console.log(data.role)
             if (data.role === "user" || data.role === "admin") {
-                showDashboard()
+                await initialiseDashboard(data.role)
             }
         }
         else {

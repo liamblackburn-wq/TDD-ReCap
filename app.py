@@ -1,6 +1,6 @@
 import uuid
 from flask import Flask, request, jsonify, render_template
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, current_user
 from peewee import IntegrityError
 
 from src.user_auth import User
@@ -63,7 +63,14 @@ def home():
 
 @app.route("/coins", methods=["GET", "POST"])
 def coins_table_reqs():
+    
     if request.method == "POST":
+        if not current_user.is_authenticated:
+            return jsonify({"error": "User is not logged in"}), 401
+
+        if current_user.role != "admin":
+            return jsonify({"error": "User does not have required permissions"}), 403
+
         try:
             payload = request.get_json()
 
@@ -187,6 +194,13 @@ def duties_table_reqs():
 
 @app.route("/duties/<uuid:duty_id>", methods=["DELETE"])
 def delete_duty(duty_id):
+
+    if not current_user.is_authenticated:
+        return jsonify({"error": "User is not logged in"}), 401
+
+    if not current_user.role == "admin":
+        return jsonify({"error": "User does not have required permissions"}), 403
+
     try:
         delete_query = Duty.delete().where(Duty.id == duty_id)
         deleted_duty = delete_query.execute()
@@ -232,7 +246,7 @@ def coin_duties_table_reqs():
         all_links = CoinsDutiesJunction.select()
 
         linked_list = [
-            {"id": linked.id, "is_complete": linked.is_complete, "duty_name": linked.duty.name} for linked in all_links
+            {"id": linked.id, "coin_id": linked.coin.id, "is_complete": linked.is_complete, "duty_name": linked.duty.name} for linked in all_links
         ]
         return jsonify(linked_list), 200
 
