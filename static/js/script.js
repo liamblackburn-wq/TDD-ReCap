@@ -3,6 +3,7 @@ const createCoinButton = document.getElementById("create-coin");
 const dutyForm = document.getElementById("duty-form");
 const coinForm = document.getElementById("coin-form");
 const loginView = document.getElementById('login-view');
+const adminView = document.getElementById('admin-view');
 const guestView = document.getElementById('dashboard-view');
 const coinsList = document.getElementById('coins-list');
 
@@ -216,6 +217,9 @@ const createDuty = (role) => {
             })
 
             if (response.ok) {
+                dutyForm.reset()
+                dutyForm.classList.add('hidden')
+                await fetchAndRenderCoins(role)
                 await fetchAndRenderDuties(role)
             } else {
                 const errorData = await response.json()
@@ -253,11 +257,13 @@ const handleDutyRemoval = (role) => {
 }
 
 const initialiseDashboard = async (role) => {
+    console.log("INIT DASHBOARD")
     showDashboard()
     await fetchAndRenderCoins(role)
     await fetchAndRenderDuties(role)
 
     if (role === "admin") {
+        adminView.classList.remove("hidden")
         displayCreateDutyForm()
         displayCreateCoinForm()
         createDuty(role)
