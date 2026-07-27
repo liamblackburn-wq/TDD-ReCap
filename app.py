@@ -29,12 +29,17 @@ def load_user(user_id):
 
 @app.before_request
 def _db_connect():
-    if db.is_closed():
-        db.connect()
+    if request.endpoint == "static":
+        return
+
+    db.connect(reuse_if_open=True)
 
 
 @app.teardown_request
 def _db_close(exc):
+    if request.endpoint == 'static':
+        return
+
     if not db.is_closed():
         db.close()
 
@@ -243,10 +248,21 @@ def coin_duties_table_reqs():
         except IntegrityError:
             return jsonify({"error": "Duty is already assigned to coin"}), 409
     else:
-        all_links = CoinsDutiesJunction.select()
+        all_links = (
+            CoinsDutiesJunction.select(CoinsDutiesJunction, Duty, Coin)
+            .join(Duty)
+            .switch(CoinsDutiesJunction)
+            .join(Coin)
+        )
 
         linked_list = [
-            {"id": linked.id, "coin_id": linked.coin.id, "is_complete": linked.is_complete, "duty_name": linked.duty.name} for linked in all_links
+            {
+                "id": linked.id,
+                "coin_id": linked.coin.id,
+                "is_complete": linked.is_complete,
+                "duty_name": linked.duty.name,
+            }
+            for linked in all_links
         ]
         return jsonify(linked_list), 200
 

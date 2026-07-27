@@ -1,4 +1,3 @@
-
 const loginForm = document.getElementById('login-form');
 const guestLogin = document.getElementById('guest-login');
 

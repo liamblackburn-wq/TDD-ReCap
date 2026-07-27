@@ -17,6 +17,7 @@
   <div id="login-view" class="container">
     <h2>Sign In</h2>
     <form id="login-form">
+<!--      TODO: Strip whitespace from username-->
       <label for="username">Username</label>
       <input type="text" id="username" name="username" placeholder="Username">
       <label for="password">Password</label>
@@ -34,11 +35,19 @@
   </div>
 
   <div id="user-view" class="container" hidden>
+
+  </div>
+
+  <div id="admin-view" class="container hidden">
     <div class="button-group">
       <button id="create-duty">
         Create Duty
       </button>
-      <form id="duty-form" class="hidden" aria-label="Create Duty Form" method="POST">
+      <button id="create-coin">
+        Create Coin
+      </button>
+    </div>
+    <form id="duty-form" class="hidden" aria-label="Create Duty Form" method="POST">
         <label for="duty-name">Duty Name:</label>
         <input
                 type="text"
@@ -53,18 +62,11 @@
                 id="duty-description"
                 name="description"
                 placeholder="Look to automate any manual tasks that are repeated, often using APIs."
+                autocomplete="off"
                 required
         >
         <button type="submit">Submit</button>
       </form>
-    </div>
-  </div>
-
-  <div id="admin-view" class="container hidden">
-    <div class="button-group">
-      <button id="create-coin">
-        Create Coin
-      </button>
       <form id="coin-form" class="hidden" aria-label="Create Coin Form" method="POST">
         <label for="coin-name">Coin Name:</label>
         <input
@@ -72,11 +74,11 @@
                 id="coin-name"
                 name="name"
                 placeholder="e.g., Automate!"
+                autocomplete="off"
                 required
         >
         <button type="submit">Submit</button>
       </form>
-    </div>
   </div>
 
 </body>
