@@ -29,10 +29,10 @@ input {
     padding: 10px;
 }
 
-[id$="-duty-list"] {
+.listed-coin {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
+    margin: 20px 0;
 }
 
 .listed-duty {
@@ -83,7 +83,7 @@ form {
     max-width: 100px;
 }
 
-button {
+.assign-duty-btn, .login-btn, .guest-login-btn {
     background-color: #3498db;
     color: white;
     border: none;
@@ -97,7 +97,7 @@ button {
     font-size: 1rem;
 }
 
-button:hover {
+.assign-duty-btn:hover, .login-btn:hover, .guest-login-btn:hover {
     background-color: #2980b9;
 }
 
@@ -117,10 +117,6 @@ button:hover {
     background-color: #8b0000 ;
 }
 
-.assign-duty-dropdown {
-
-}
-
 .duty-option {
     margin: 10px 0;
     padding: 10px;
@@ -133,21 +129,50 @@ button:hover {
     gap: 8px;
 }
 
+.coin-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.coin-header h2 {
+    margin: 0;
+}
+
+.delete-coin-btn {
+    background: #ff4040;
+    color: white;
+    padding: 5px 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    transition: background 0.3s ease;
+}
+
+.delete-coin-btn:hover {
+    background: #8b0000;
+}
+
 .remove-duty {
     background: #ff4040;
     color: white;
-    padding: 1px 5px;
+    padding: 5px 5px;
     border-radius: 4px;
-    text-decoration: none;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
     margin: 10px;
     position: absolute;
     right: 5px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%);]
 }
 
-.remove-duty-btn:hover {
+.remove-duty:hover {
     background-color: #8b0000;
 }
 
