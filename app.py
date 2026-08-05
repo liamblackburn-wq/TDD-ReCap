@@ -34,6 +34,8 @@ def _db_connect():
 
     db.connect(reuse_if_open=True)
 
+@app.after_request
+
 
 @app.teardown_request
 def _db_close(exc):

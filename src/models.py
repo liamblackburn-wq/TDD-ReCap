@@ -1,7 +1,16 @@
+import datetime
 import os
 import uuid
 
-from peewee import BooleanField, CharField, ForeignKeyField, TextField, UUIDField
+from peewee import (
+    BooleanField,
+    CharField,
+    ForeignKeyField,
+    TextField,
+    UUIDField,
+    IntegerField,
+    DateTimeField,
+)
 
 from src.db import BaseModel
 
@@ -75,3 +84,16 @@ class CoinsDutiesJunction(BaseModel):
             table_name = "tdd_endgame_junction"
 
         indexes = ((("coin", "duty"), True),)
+
+class RequestLog(BaseModel):
+    endpoint = CharField()
+    status_code = IntegerField()
+    timestamp = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "test_request_log"
+        else:
+            schema = "coins"
+            table_name = "request_log"
