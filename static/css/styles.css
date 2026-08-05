@@ -83,7 +83,7 @@ form {
     max-width: 100px;
 }
 
-.assign-duty-btn, .login-btn, .guest-login-btn {
+.assign-duty-btn, .login-btn, .guest-login-btn, .submit-btn, #create-coin, #create-duty {
     background-color: #3498db;
     color: white;
     border: none;

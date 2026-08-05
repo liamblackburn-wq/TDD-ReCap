@@ -7,6 +7,8 @@ from src.user_auth import User
 from src.models import Duty, CoinsDutiesJunction, Coin
 from src.db import db
 
+import time
+
 app = Flask(__name__)
 app.secret_key = "secret key"
 
@@ -31,8 +33,10 @@ def load_user(user_id):
 def _db_connect():
     if request.endpoint == "static":
         return
-
-    db.connect(reuse_if_open=True)
+    t0 = time.time()
+    if db.is_closed():
+        db.connect()
+    print(f"⏱️ DB Connection time: {time.time() - t0:.3f}s")
 
 
 @app.teardown_request
@@ -68,6 +72,16 @@ def home():
 
 @app.route("/coins", methods=["GET", "POST"])
 def coins_table_reqs():
+    if request.method == "GET":
+        t0 = time.time()
+        all_coins = list(Coin.select())
+        print(f"⏱️ Coin Query execution time: {time.time() - t0:.3f}s")
+
+        coin_list = [
+            {"id": coin.id, "name": coin.name, "status": coin.status}
+            for coin in all_coins
+        ]
+        return jsonify(coin_list)
     
     if request.method == "POST":
         if not current_user.is_authenticated:
