@@ -21,6 +21,14 @@ header h1 {
     padding-bottom: 10px;
 }
 
+.duty-list {
+    padding: 0;
+}
+
+input {
+    padding: 10px;
+}
+
 [id$="-duty-list"] {
     list-style: none;
     padding: 0;
@@ -59,13 +67,6 @@ form {
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
-}
-
-.duty-checkbox{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
 }
 
 .duty-checkbox label {
@@ -114,6 +115,22 @@ button:hover {
 
 #clear-duties:hover {
     background-color: #8b0000 ;
+}
+
+.assign-duty-dropdown {
+
+}
+
+.duty-option {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.complete-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
 
 .remove-duty {

@@ -259,8 +259,10 @@ def coin_duties_table_reqs():
             {
                 "id": linked.id,
                 "coin_id": linked.coin.id,
+                "duty_id": linked.duty.id,
                 "is_complete": linked.is_complete,
                 "duty_name": linked.duty.name,
+                "duty_description": linked.duty.description,
             }
             for linked in all_links
         ]
@@ -287,6 +289,29 @@ def update_coin_duties(link_id):
             "is_complete": linked_id.is_complete,
         }
         return jsonify(updated_link), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/coin-duties/<uuid:link_id>", methods=["DELETE"])
+def delete_coin_duties(link_id):
+    if not current_user.is_authenticated:
+        return jsonify({"error": "User is not logged in"}), 401
+
+    if not current_user.role == "admin":
+        return jsonify({"error": "User does not have required permissions"}), 403
+
+    link = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
+
+    if link is None:
+        return jsonify({"error": "Link does not exist"}), 404
+
+    try:
+        link.delete_instance()
+
+        return jsonify(
+            {"message": "Duty unlinked successfully", "id": str(link_id)}
+        ), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

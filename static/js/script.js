@@ -31,7 +31,7 @@ const fetchAndRenderCoins = async (role) => {
         const coinId = coin.id;
 
         const dutyDropdown = (role === "admin") ?
-            `<select id="${coinId}-duty-dropdown" data-id="${coinId}">
+            `<select class="duty-option" id="${coinId}-duty-dropdown" data-id="${coinId}">
                 ${optionsHtml}
             </select>
             <button class="assign-duty-btn" data-coin-id="${coinId}">
@@ -174,12 +174,16 @@ const fetchAndRenderDuties = async (role) => {
         const isDisabled = (role === "user" || role === "admin") ? "" : "disabled"
         const isChecked = linkedDuty.is_complete ? "checked" : ""
 
-        const deleteButtonHtml = (role === "admin") ? `<button class="remove-duty" data-id="${linkedDuty.id}">X</button>` : ""
+        const deleteButtonHtml = (role === "admin") ? `<button class="remove-duty" data-id="${linkedDuty.id}">Unassign</button>` : ""
 
         const dutyHtml = `
         <li class="listed-duty">
             <span>${linkedDuty.duty_name}</span>
-            <input type="checkbox" class="duty-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
+            <p>${linkedDuty.duty_description}</p>
+            <div class="complete-checkbox">
+                <label for="duty-check-${linkedDuty.id}">Complete?</label>
+                <input type="checkbox" id="duty-check-${linkedDuty.id}" class="duty-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>
+            </div>
             ${deleteButtonHtml}
         </li>
         `
@@ -241,7 +245,7 @@ const handleDutyRemoval = (role) => {
         const button = event.target;
         const dutyId = button.dataset.id
         try {
-            const response = await fetch(`/duties/${dutyId}`, {
+            const response = await fetch(`/coin-duties/${dutyId}`, {
                 method: "DELETE"
             })
             if (response.ok) {
