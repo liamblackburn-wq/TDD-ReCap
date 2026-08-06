@@ -1,10 +1,11 @@
 import uuid
+
 from flask import Flask, request, jsonify, render_template
 from flask_login import LoginManager, login_user, current_user
 from peewee import IntegrityError
 
 from src.user_auth import User
-from src.models import Duty, CoinsDutiesJunction, Coin
+from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog
 from src.db import db
 
 app = Flask(__name__)
@@ -35,7 +36,23 @@ def _db_connect():
     db.connect(reuse_if_open=True)
 
 @app.after_request
+def request_logger(response):
+    ignored_prefixes = ("/.well-known/", "/static", "/favicon.ico")
 
+    if request.path.startswith(ignored_prefixes):
+        return response
+
+    path = request.path
+    status_code = response.status_code
+    request_method = request.method
+
+    RequestLog.create(
+        endpoint= path,
+        status_code=status_code,
+        request_method=request_method,
+    )
+
+    return response
 
 @app.teardown_request
 def _db_close(exc):
@@ -62,6 +79,25 @@ def api_login():
         return jsonify({"message": "Logged in successfully", "role": "user"}), 200
     return jsonify({"message": "Invalid username or password"}), 401
 
+@app.route("/api/logs", methods=["GET"])
+def get_logs():
+    if not current_user.is_authenticated or current_user.role != "admin":
+        return jsonify({"error": "User does not have required permissions"}), 403
+
+    logs = RequestLog.select().order_by(RequestLog.timestamp.desc()).limit(100)
+
+    log_list = [
+        {
+            "id": log.id,
+            "path": log.endpoint,
+            "request method": log.request_method,
+            "status code": log.status_code,
+            "timestamp": log.timestamp.isoformat()
+        }
+        for log in logs
+    ]
+
+    return jsonify(log_list)
 
 @app.route("/", methods=["GET"])
 def home():
@@ -317,3 +353,4 @@ def delete_coin_duties(link_id):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+

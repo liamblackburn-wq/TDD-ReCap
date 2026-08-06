@@ -86,7 +86,9 @@ class CoinsDutiesJunction(BaseModel):
         indexes = ((("coin", "duty"), True),)
 
 class RequestLog(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
     endpoint = CharField()
+    request_method = CharField()
     status_code = IntegerField()
     timestamp = DateTimeField(default=datetime.datetime.now)
 
