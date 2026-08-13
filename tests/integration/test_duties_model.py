@@ -1,5 +1,7 @@
 import uuid
 
+from src.models import Duty
+
 
 def test_get_duties_endpoint(client, test_duty):
 
@@ -16,7 +18,7 @@ def test_get_duties_endpoint(client, test_duty):
     assert returned_duty["description"] == "TEST DESCRIPTION"
 
 
-def test_create_duty_returns_201(client):
+def test_create_duty_returns_201(admin_client):
 
     payload = {
         "id": str(uuid.uuid4()),
@@ -24,27 +26,27 @@ def test_create_duty_returns_201(client):
         "description": "TEST DESCRIPTION",
     }
 
-    response = client.post("/duties", json=payload)
+    response = admin_client.post("/duties", json=payload)
     data = response.get_json()
     assert response.status_code == 201
     assert data["name"] == "Duty 1"
 
 
-def test_invalid_duty_returns_400(client):
+def test_invalid_duty_returns_400(admin_client):
     payload = {
         "id": str(uuid.uuid4()),
         "name": "TEAPOT",
         "description": "TEST DESCRIPTION",
     }
 
-    response = client.post("/duties", json=payload)
+    response = admin_client.post("/duties", json=payload)
     data = response.get_json()
 
     assert response.status_code == 400
     assert "Duty name must start with 'Duty' followed by a number." in data["error"]
 
 
-def test_db_can_not_have_duplicate_duty_names(client, test_duty):
+def test_duplicate_duty_returns_409(admin_client, test_duty):
     # first duty created in pytest test_duty fixture
     payload = {
         "id": str(uuid.uuid4()),
@@ -52,8 +54,51 @@ def test_db_can_not_have_duplicate_duty_names(client, test_duty):
         "description": "TEST DESCRIPTION",
     }
 
-    response = client.post("/duties", json=payload)
+    response = admin_client.post("/duties", json=payload)
     data = response.get_json()
 
     assert response.status_code == 409
     assert data["error"] == "Duty already exists"
+
+
+def test_unauthorised_user_returns_403_for_duty_post_request(user_client):
+    response = user_client.post("/duties")
+    assert response.status_code == 403
+
+
+def test_unauthorised_user_returns_403_for_duty_delete_request(user_client):
+    response = user_client.delete(f"/duties/{uuid.uuid4()}")
+    assert response.status_code == 403
+
+
+def test_unauthenticated_user_returns_401_for_duty_post_request(client):
+    response = client.post("/duties")
+    assert response.status_code == 401
+
+
+def test_unauthenticated_user_returns_401_for_duty_delete_request(client):
+    response = client.delete(f"/duties/{uuid.uuid4()}")
+    assert response.status_code == 401
+
+
+def test_duty_delete_endpoint_returns_200(admin_client):
+
+    duty_1_id = uuid.uuid4()
+    Duty.create(id=duty_1_id, name="Duty 1", description="DESCRIPTION")
+
+    response = admin_client.delete(f"/duties/{duty_1_id}")
+
+    assert response.status_code == 200
+    assert response.get_json()["message"] == "Duty deleted successfully"
+
+
+def test_delete_duty_returns_404_if_id_does_not_exist(admin_client):
+
+    non_existent_id = uuid.uuid4()
+
+    response = admin_client.delete(f"/duties/{non_existent_id}")
+
+    assert response.status_code == 404
+
+    json_data = response.get_json()
+    assert json_data["error"] == "Duty does not exist"

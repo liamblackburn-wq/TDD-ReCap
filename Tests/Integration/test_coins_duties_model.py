@@ -3,7 +3,14 @@ import uuid
 from src.models import CoinsDutiesJunction
 
 
+def test_coin_duties_returns_200(client, test_coin, test_duty):
+    response = client.get("/coin-duties")
+    assert response.status_code == 200
+
+
 def test_associate_duty_to_coin(test_coin, test_duty, client):
+    client.post("/api/login", json={"username": "admin", "password": "admin123"})
+
     payload = {"coin_id": str(test_coin.id), "duty_id": str(test_duty.id)}
 
     response = client.post("/coin-duties", json=payload)
@@ -21,7 +28,20 @@ def test_associate_duty_to_coin(test_coin, test_duty, client):
     assert associated_ids is True
 
 
+def test_coin_duties_delete_request_returns_200(admin_client, assigned_duty):
+    response = admin_client.delete(f"/coin-duties/{assigned_duty.id}")
+    assert response.status_code == 200
+    assert response.json["message"] == "Duty unlinked successfully"
+
+
+def test_coin_duties_delete_request_returns_404_for_invalid_link_id(admin_client):
+    response = admin_client.delete(f"/coin-duties/{uuid.uuid4()}")
+    assert response.status_code == 404
+    assert response.json["error"] == "Link does not exist"
+
+
 def test_duplicate_duty_returns_409(test_coin, test_duty, client):
+    client.post("/api/login", json={"username": "admin", "password": "admin123"})
 
     CoinsDutiesJunction.create(coin=test_coin.id, duty=test_duty.id)
 
@@ -34,6 +54,8 @@ def test_duplicate_duty_returns_409(test_coin, test_duty, client):
 
 
 def test_missing_coin_returns_404(client, test_duty):
+    client.post("/api/login", json={"username": "admin", "password": "admin123"})
+
     random_coin_uuid = uuid.uuid4()
 
     payload = {"coin_id": str(random_coin_uuid), "duty_id": str(test_duty.id)}
@@ -45,6 +67,8 @@ def test_missing_coin_returns_404(client, test_duty):
 
 
 def test_missing_duty_returns_404(client, test_coin):
+    client.post("/api/login", json={"username": "admin", "password": "admin123"})
+
     random_duty_uuid = uuid.uuid4()
 
     payload = {"coin_id": str(test_coin.id), "duty_id": str(random_duty_uuid)}
@@ -56,6 +80,7 @@ def test_missing_duty_returns_404(client, test_coin):
 
 
 def test_duty_complete_returns_200(client, test_coin, test_duty):
+    client.post("/api/login", json={"username": "user", "password": "user123"})
 
     link = CoinsDutiesJunction.create(coin=test_coin.id, duty=test_duty.id)
 
@@ -71,6 +96,8 @@ def test_duty_complete_returns_200(client, test_coin, test_duty):
 
 
 def test_put_request_with_missing_link_returns_404(client, test_coin, test_duty):
+    client.post("/api/login", json={"username": "user", "password": "user123"})
+
     random_link_uuid = uuid.uuid4()
 
     payload = {
@@ -80,3 +107,28 @@ def test_put_request_with_missing_link_returns_404(client, test_coin, test_duty)
     response = client.put(f"/coin-duties/{random_link_uuid}", json=payload)
     assert response.status_code == 404
     assert response.json["error"] == "Link does not exist"
+
+
+def test_unauthenticated_user_returns_401_for_coin_duties_post_request(client):
+    response = client.post("/coin-duties")
+    assert response.status_code == 401
+
+
+def test_unauthenticated_user_returns_401_for_coin_duties_delete_request(client):
+    response = client.delete(f"/coin-duties/{uuid.uuid4()}")
+    assert response.status_code == 401
+
+
+def test_unauthenticated_user_returns_401_for_coin_duties_put_request(client):
+    response = client.put(f"/coin-duties/{uuid.uuid4()}")
+    assert response.status_code == 401
+
+
+def test_unauthorised_user_returns_403_for_coin_duties_post_request(user_client):
+    response = user_client.post("/coin-duties")
+    assert response.status_code == 403
+
+
+def test_unauthorised_user_returns_403_for_coin_duty_delete_request(user_client):
+    response = user_client.delete(f"/coin-duties/{uuid.uuid4()}")
+    assert response.status_code == 403

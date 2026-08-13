@@ -6,6 +6,7 @@ const loginView = document.getElementById('login-view');
 const adminView = document.getElementById('admin-view');
 const guestView = document.getElementById('dashboard-view');
 const coinsList = document.getElementById('coins-list');
+const logsLink = document.getElementById('logs-link');
 
 let currentRole = 'guest';
 
@@ -257,6 +258,8 @@ const initialiseDashboard = async (role) => {
 
     if (role === "admin") {
         adminView.classList.remove('hidden');
+        logsLink.classList.remove('hidden');
+
     } else {
         adminView.classList.add('hidden');
     }

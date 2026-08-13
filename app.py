@@ -1,11 +1,17 @@
 import uuid
+from functools import wraps
 
-from flask import Flask, request, jsonify, render_template
-from flask_login import LoginManager, login_user, current_user
+from flask import Flask, request, jsonify, render_template, abort
+from flask_login import (
+    LoginManager,
+    login_user,
+    current_user,
+    logout_user,
+    login_required,
+)
 from peewee import IntegrityError
 
-from src.user_auth import User
-from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog
+from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog, User
 from src.db import db
 
 app = Flask(__name__)
@@ -14,18 +20,27 @@ app.secret_key = "secret key"
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-mock_users = {
-    "admin": {"role": "admin"},
-    "user": {"role": "user"},
-}
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            abort(401)
+
+        if current_user.role != "admin":
+            abort(403)
+
+        return f(*args, **kwargs)
+
+    return decorated_function
 
 
 @login_manager.user_loader
 def load_user(user_id):
-    if user_id in mock_users:
-        user_role = mock_users[user_id]["role"]
-        return User(id=user_id, role=user_role)
-    return None
+    try:
+        return User.get_or_none(User.id == uuid.UUID(user_id))
+    except (ValueError, TypeError):
+        return None
 
 
 @app.before_request
@@ -34,6 +49,7 @@ def _db_connect():
         return
 
     db.connect(reuse_if_open=True)
+
 
 @app.after_request
 def request_logger(response):
@@ -47,16 +63,17 @@ def request_logger(response):
     request_method = request.method
 
     RequestLog.create(
-        endpoint= path,
+        endpoint=path,
         status_code=status_code,
         request_method=request_method,
     )
 
     return response
 
+
 @app.teardown_request
 def _db_close(exc):
-    if request.endpoint == 'static':
+    if request.endpoint == "static":
         return
 
     if not db.is_closed():
@@ -69,85 +86,83 @@ def api_login():
     username = data.get("username")
     password = data.get("password")
 
-    if username == "admin" and password == "admin123":
-        user = User(id="admin", role="admin")
+    user = User.get_or_none(User.username == username)
+
+    if user and user.check_password(password):
         login_user(user)
-        return jsonify({"message": "Logged in successfully", "role": "admin"}), 200
-    elif username == "user" and password == "user123":
-        user = User(id="user", role="user")
-        login_user(user)
-        return jsonify({"message": "Logged in successfully", "role": "user"}), 200
+        return jsonify({"message": "Logged in successfully", "role": user.role}), 200
+
     return jsonify({"message": "Invalid username or password"}), 401
 
-@app.route("/api/logs", methods=["GET"])
-def get_logs():
-    if not current_user.is_authenticated or current_user.role != "admin":
-        return jsonify({"error": "User does not have required permissions"}), 403
 
+# TODO: create frontend functionality for this route
+@app.route("/api/logout", methods=["POST"])
+def api_logout():
+    logout_user()
+    return jsonify({"message": "Logged out successfully"}), 200
+
+
+@app.route("/api/logs", methods=["GET"])
+@admin_required
+def get_logs():
     logs = RequestLog.select().order_by(RequestLog.timestamp.desc()).limit(100)
 
     log_list = [
         {
             "id": log.id,
             "path": log.endpoint,
-            "request method": log.request_method,
-            "status code": log.status_code,
-            "timestamp": log.timestamp.isoformat()
+            "request_method": log.request_method,
+            "status_code": log.status_code,
+            "timestamp": log.timestamp.isoformat(),
         }
         for log in logs
     ]
 
-    return jsonify(log_list)
+    return jsonify(log_list), 200
+
+
+@app.route("/logs")
+@admin_required
+def render_logs_page():
+    return render_template("logger.html")
+
 
 @app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
 
 
-@app.route("/coins", methods=["GET", "POST"])
+@app.route("/coins", methods=["GET"])
+def get_coins():
+    all_coins = Coin.select()
+
+    coin_list = [
+        {"id": coin.id, "name": coin.name, "status": coin.status} for coin in all_coins
+    ]
+
+    return jsonify(coin_list)
+
+
+@app.route("/coins", methods=["POST"])
+@admin_required
 def coins_table_reqs():
-    
-    if request.method == "POST":
-        if not current_user.is_authenticated:
-            return jsonify({"error": "User is not logged in"}), 401
-
-        if current_user.role != "admin":
-            return jsonify({"error": "User does not have required permissions"}), 403
-
-        try:
-            payload = request.get_json()
-
-            coin_id = payload.get("id") or str(uuid.uuid4())
-            coin_name = payload.get("name")
-
-            coin = Coin(id=coin_id, name=coin_name)
-
-            coin.validate()
-
-            coin.save(force_insert=True)
-
-            new_coin = {"id": coin.id, "name": coin.name, "status": coin.status}
-
-            return jsonify(new_coin), 201
-
-        except ValueError as val_err:
-            return jsonify({"error": str(val_err)}), 400
-
-        except IntegrityError:
-            return jsonify({"error": "Coin already exists"}), 409
-
-    else:
-        all_coins = Coin.select()
-
-        coin_list = [
-            {"id": coin.id, "name": coin.name, "status": coin.status}
-            for coin in all_coins
-        ]
-
-        return jsonify(coin_list)
+    try:
+        payload = request.get_json()
+        coin_id = payload.get("id") or str(uuid.uuid4())
+        coin_name = payload.get("name")
+        coin = Coin(id=coin_id, name=coin_name)
+        coin.validate()
+        coin.save(force_insert=True)
+        new_coin = {"id": coin.id, "name": coin.name, "status": coin.status}
+        return jsonify(new_coin), 201
+    except ValueError as val_err:
+        return jsonify({"error": str(val_err)}), 400
+    except IntegrityError:
+        return jsonify({"error": "Coin already exists"}), 409
 
 
 @app.route("/coins/<uuid:coin_id>", methods=["DELETE"])
+@admin_required
 def delete_coin(coin_id):
     try:
         delete_query = Coin.delete().where(Coin.id == coin_id)
@@ -163,6 +178,7 @@ def delete_coin(coin_id):
 
 
 @app.route("/coins/<uuid:coin_id>", methods=["PUT"])
+@login_required
 def update_coin(coin_id):
     try:
         coin = Coin.get_or_none(Coin.id == coin_id)
@@ -193,57 +209,44 @@ def update_coin(coin_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/duties", methods=["GET", "POST"])
+@app.route("/duties", methods=["GET"])
+def get_duties():
+    all_duties = Duty.select()
+
+    duty_list = [
+        {"id": duty.id, "name": duty.name, "description": duty.description}
+        for duty in all_duties
+    ]
+    return jsonify(duty_list), 200
+
+
+@app.route("/duties", methods=["POST"])
+@admin_required
 def duties_table_reqs():
-    if request.method == "POST":
-        try:
-            payload = request.get_json()
-
-            duty_id = payload.get("id") or str(uuid.uuid4())
-            duty_name = payload.get("name")
-            duty_description = payload.get("description")
-
-            duty = Duty(id=duty_id, name=duty_name, description=duty_description)
-
-            duty.validate()
-
-            duty.save(force_insert=True)
-
-            new_duty = {
-                "id": duty.id,
-                "name": duty.name,
-                "description": duty.description,
-            }
-
-            return jsonify(new_duty), 201
-
-        except ValueError as val_err:
-            print(val_err)
-            return jsonify({"error": str(val_err)}), 400
-
-        except IntegrityError:
-            return jsonify({"error": "Duty already exists"}), 409
-
-    else:
-        all_duties = Duty.select()
-
-        duty_list = [
-            {"id": duty.id, "name": duty.name, "description": duty.description}
-            for duty in all_duties
-        ]
-
-        return jsonify(duty_list), 200
+    try:
+        payload = request.get_json()
+        duty_id = payload.get("id") or str(uuid.uuid4())
+        duty_name = payload.get("name")
+        duty_description = payload.get("description")
+        duty = Duty(id=duty_id, name=duty_name, description=duty_description)
+        duty.validate()
+        duty.save(force_insert=True)
+        new_duty = {
+            "id": duty.id,
+            "name": duty.name,
+            "description": duty.description,
+        }
+        return jsonify(new_duty), 201
+    except ValueError as val_err:
+        print(val_err)
+        return jsonify({"error": str(val_err)}), 400
+    except IntegrityError:
+        return jsonify({"error": "Duty already exists"}), 409
 
 
 @app.route("/duties/<uuid:duty_id>", methods=["DELETE"])
+@admin_required
 def delete_duty(duty_id):
-
-    if not current_user.is_authenticated:
-        return jsonify({"error": "User is not logged in"}), 401
-
-    if not current_user.role == "admin":
-        return jsonify({"error": "User does not have required permissions"}), 403
-
     try:
         delete_query = Duty.delete().where(Duty.id == duty_id)
         deleted_duty = delete_query.execute()
@@ -257,57 +260,61 @@ def delete_duty(duty_id):
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/coin-duties", methods=["GET", "POST"])
+@app.route("/coin-duties", methods=["GET"])
+def get_coins_duties():
+    all_links = (
+        CoinsDutiesJunction.select(CoinsDutiesJunction, Duty, Coin)
+        .join(Duty)
+        .switch(CoinsDutiesJunction)
+        .join(Coin)
+    )
+
+    linked_list = [
+        {
+            "id": linked.id,
+            "coin_id": linked.coin.id,
+            "duty_id": linked.duty.id,
+            "is_complete": linked.is_complete,
+            "duty_name": linked.duty.name,
+            "duty_description": linked.duty.description,
+        }
+        for linked in all_links
+    ]
+    return jsonify(linked_list), 200
+
+
+@app.route("/coin-duties", methods=["POST"])
+@admin_required
 def coin_duties_table_reqs():
-    if request.method == "POST":
-        try:
-            payload = request.get_json()
-            coin_id = payload.get("coin_id")
-            duty_id = payload.get("duty_id")
+    try:
+        payload = request.get_json()
+        coin_id = payload.get("coin_id")
+        duty_id = payload.get("duty_id")
 
-            coin = Coin.get_or_none(Coin.id == coin_id)
-            duty = Duty.get_or_none(Duty.id == duty_id)
+        coin = Coin.get_or_none(Coin.id == coin_id)
+        duty = Duty.get_or_none(Duty.id == duty_id)
 
-            if coin is None:
-                return jsonify({"error": "Coin does not exist"}), 404
-            if duty is None:
-                return jsonify({"error": "Duty does not exist"}), 404
+        if coin is None:
+            return jsonify({"error": "Coin does not exist"}), 404
+        if duty is None:
+            return jsonify({"error": "Duty does not exist"}), 404
 
-            new_link = CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
+        new_link = CoinsDutiesJunction.create(coin=coin_id, duty=duty_id)
 
-            new_association = {
-                "id": new_link.id,
-                "coin_id": coin_id,
-                "duty_id": duty_id,
-            }
+        new_association = {
+            "id": new_link.id,
+            "coin_id": coin_id,
+            "duty_id": duty_id,
+        }
 
-            return jsonify(new_association), 201
+        return jsonify(new_association), 201
 
-        except IntegrityError:
-            return jsonify({"error": "Duty is already assigned to coin"}), 409
-    else:
-        all_links = (
-            CoinsDutiesJunction.select(CoinsDutiesJunction, Duty, Coin)
-            .join(Duty)
-            .switch(CoinsDutiesJunction)
-            .join(Coin)
-        )
-
-        linked_list = [
-            {
-                "id": linked.id,
-                "coin_id": linked.coin.id,
-                "duty_id": linked.duty.id,
-                "is_complete": linked.is_complete,
-                "duty_name": linked.duty.name,
-                "duty_description": linked.duty.description,
-            }
-            for linked in all_links
-        ]
-        return jsonify(linked_list), 200
+    except IntegrityError:
+        return jsonify({"error": "Duty is already assigned to coin"}), 409
 
 
 @app.route("/coin-duties/<uuid:link_id>", methods=["PUT"])
+@login_required
 def update_coin_duties(link_id):
     try:
         payload = request.get_json()
@@ -331,21 +338,18 @@ def update_coin_duties(link_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 @app.route("/coin-duties/<uuid:link_id>", methods=["DELETE"])
+@admin_required
 def delete_coin_duties(link_id):
-    if not current_user.is_authenticated:
-        return jsonify({"error": "User is not logged in"}), 401
-
-    if not current_user.role == "admin":
-        return jsonify({"error": "User does not have required permissions"}), 403
-
-    link = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
-
-    if link is None:
-        return jsonify({"error": "Link does not exist"}), 404
-
     try:
-        link.delete_instance()
+        delete_query = CoinsDutiesJunction.delete().where(
+            CoinsDutiesJunction.id == link_id
+        )
+        deleted_count = delete_query.execute()
+
+        if deleted_count == 0:
+            return jsonify({"error": "Link does not exist"}), 404
 
         return jsonify(
             {"message": "Duty unlinked successfully", "id": str(link_id)}
@@ -353,4 +357,3 @@ def delete_coin_duties(link_id):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-

@@ -1,3 +1,5 @@
+const loggerTableBody = document.getElementById('logs-table-body');
+
 const fetchLogs = async () => {
     try {
         const response = await fetch('/api/logs', { method: 'GET' })
@@ -9,12 +11,21 @@ const fetchLogs = async () => {
 
         const logs = await response.json()
 
+        let tableRows = ''
+
         logs.forEach(log => {
-            console.log(log)
+            tableRows += `<tr>
+                    <td>${new Date(log.timestamp).toLocaleString()}</td>
+                    <td>${log.path}</td>
+                    <td>${log.request_method}</td>
+                    <td>${log.status_code}</td>
+                </tr>
+                `
         })
+        loggerTableBody.innerHTML = tableRows;
     } catch (error) { console.error("Network error", error)}
 }
 
-document.addEventListener('change', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     await fetchLogs();
 })

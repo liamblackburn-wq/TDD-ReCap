@@ -75,3 +75,23 @@ def test_coin_status_is_in_progress_if_specific_duties_are_complete(client):
     CoinsDutiesJunction.create(coin=coin, duty=duty_b, is_complete=True)
 
     assert coin.status == "COMPLETED"
+
+
+def test_coin_equality_dunder_method_true_for_identical_coin_name(admin_client):
+    coin_a = Coin(name="Test_coin")
+    coin_b = Coin(name="Test_coin")
+
+    assert coin_a == coin_b
+
+
+def test_coin_equality_dunder_method_true_for_unidentical_coin_name(admin_client):
+    coin_a = Coin(name="Coin_a")
+    coin_b = Coin(name="Coin_b")
+
+    assert coin_a != coin_b
+
+
+def test_coin_equality_dunder_method_true_for_different_object_types(admin_client):
+    coin = Coin(name="Test")
+
+    assert coin != "Test"

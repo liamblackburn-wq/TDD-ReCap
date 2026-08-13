@@ -3,6 +3,7 @@ const guestLogin = document.getElementById('guest-login');
 
 document.addEventListener('DOMContentLoaded',  () => {
     guestLogin.addEventListener('click', async() => {
+        await fetch("/api/logout", {method: 'POST'})
          await initialiseDashboard('guest')
     })
 

@@ -14,6 +14,30 @@ from peewee import (
 
 from src.db import BaseModel
 
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+
+class User(UserMixin, BaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
+    username = CharField(unique=True)
+    password_hash = CharField()
+    role = CharField(default="user")
+
+    class Meta:
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "test_users"
+        else:
+            schema = "coins"
+            table_name = "users"
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
 
 class Coin(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
@@ -84,6 +108,7 @@ class CoinsDutiesJunction(BaseModel):
             table_name = "tdd_endgame_junction"
 
         indexes = ((("coin", "duty"), True),)
+
 
 class RequestLog(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
