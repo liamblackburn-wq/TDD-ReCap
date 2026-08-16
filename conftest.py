@@ -119,6 +119,8 @@ def live_server(app):
             return f"http://127.0.0.1:5000{path}"
 
     yield ExternalServer(app)
+    server.shutdown()
+    thread.join()
 
 
 @pytest.fixture
