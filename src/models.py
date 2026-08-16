@@ -38,6 +38,13 @@ class User(UserMixin, BaseModel):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    @classmethod
+    def create_user(cls, username, password, role):
+        user = cls(username=username, role=role)
+        user.set_password(password)
+        user.save(force_insert=True)
+        return user
+
 
 class Coin(BaseModel):
     id = UUIDField(primary_key=True, default=uuid.uuid4)

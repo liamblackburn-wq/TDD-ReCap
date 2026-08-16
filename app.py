@@ -129,6 +129,16 @@ def render_logs_page():
 
 @app.route("/", methods=["GET"])
 def home():
+    return render_template("login.html")
+
+@app.route("/api/role", methods=["GET"])
+def get_role():
+    if current_user.is_authenticated:
+        return jsonify({"role": current_user.role}), 200
+    return jsonify({"role": "guest"}), 200
+
+@app.route("/apprenticeduties", methods=["GET"])
+def render_apprentice_duties_page():
     return render_template("index.html")
 
 

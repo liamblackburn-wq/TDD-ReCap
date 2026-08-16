@@ -1,11 +1,16 @@
 import os
+import threading
+
+from werkzeug.serving import make_server
+
+os.environ["TESTING"] = "True"
 import uuid
 import pytest
 from playwright.sync_api import Page
 
 from src.models import CoinsDutiesJunction, Coin, User, RequestLog, Duty
 
-os.environ["TESTING"] = "True"
+
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -99,13 +104,21 @@ def clean_database_and_seed_users_between_tests():
 
 
 @pytest.fixture(scope="session")
-def live_server():
+def live_server(app):
+    # Start the Flask app in a background server thread on port 5000
+    server = make_server("127.0.0.1", 5000, app)
+    thread = threading.Thread(target=server.serve_forever)
+    thread.daemon = True
+    thread.start()
+
     class ExternalServer:
+        def __init__(self, flask_app):
+            self.app = flask_app
+
         def url(self, path=""):
-            # Point this to whatever port your local Flask app is running on
             return f"http://127.0.0.1:5000{path}"
 
-    return ExternalServer()
+    yield ExternalServer(app)
 
 
 @pytest.fixture

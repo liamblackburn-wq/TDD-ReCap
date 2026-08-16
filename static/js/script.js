@@ -2,7 +2,6 @@ const createDutyButton = document.getElementById("create-duty");
 const createCoinButton = document.getElementById("create-coin");
 const dutyForm = document.getElementById("duty-form");
 const coinForm = document.getElementById("coin-form");
-const loginView = document.getElementById('login-view');
 const adminView = document.getElementById('admin-view');
 const guestView = document.getElementById('dashboard-view');
 const coinsList = document.getElementById('coins-list');
@@ -11,7 +10,6 @@ const logsLink = document.getElementById('logs-link');
 let currentRole = 'guest';
 
 const showDashboard = () => {
-    loginView.classList.add('hidden')
     guestView.classList.remove('hidden')
 }
 
@@ -267,4 +265,10 @@ const initialiseDashboard = async (role) => {
     await fetchAndRenderCoins(role)
     await fetchAndRenderDuties(role)
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const response = await fetch(`/api/role`)
+    const data = await response.json()
+    await initialiseDashboard(data.role);
+});
 

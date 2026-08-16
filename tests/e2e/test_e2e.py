@@ -14,12 +14,12 @@ def revealed_form(admin_page: Page):
     yield admin_page
 
 
-def test_home_page_is_reachable(page: Page, live_server):
+def test_login_page_is_reachable(page: Page, live_server):
     response = page.goto(live_server.url())
     assert response.status == 200
 
 
-def test_heading_text_exists(homepage: Page):
+def test_login_page_heading_text_exists(homepage: Page):
     expect(homepage.get_by_role("heading", name="Apprentice Duties")).to_contain_text(
         "Apprentice Duties"
     )

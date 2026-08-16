@@ -2,12 +2,12 @@ const loginForm = document.getElementById('login-form');
 const guestLogin = document.getElementById('guest-login');
 
 document.addEventListener('DOMContentLoaded',  () => {
-    guestLogin.addEventListener('click', async() => {
+    guestLogin?.addEventListener('click', async() => {
         await fetch("/api/logout", {method: 'POST'})
-         await initialiseDashboard('guest')
+        window.location.href = "/apprenticeduties";
     })
 
-    loginForm.addEventListener('submit', async (event) => {
+    loginForm?.addEventListener('submit', async (event) => {
         event.preventDefault();
         const usernameValue = document.getElementById('username').value;
         const passwordValue= document.getElementById('password').value;
@@ -24,15 +24,11 @@ document.addEventListener('DOMContentLoaded',  () => {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log(data.role)
-            if (data.role === "user" || data.role === "admin") {
-                await initialiseDashboard(data.role)
-            }
+            window.location.href = "/apprenticeduties";
         }
         else {
            const errorData = await response.json();
-           alert(errorData.error)
+           alert(errorData.error || "Invalid Login");
         }
 
     })
