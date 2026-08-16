@@ -1,181 +1,215 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    line-height: 1.6;
+:root {
+  --bg-dark: #08090d;
+  --panel-bg: #0f121d;
+  --panel-border: #1e2638;
+  --text-main: #e0e6ed;
+  --text-muted: #8a99ad;
+
+  --neon-cyan: #00f3ff;
+  --neon-pink: #ff0055;
+  --neon-purple: #b026ff;
+
+  --glow-cyan: 0 0 10px rgba(0, 243, 255, 0.4);
+  --glow-pink: 0 0 10px rgba(255, 0, 85, 0.4);
+  --glow-purple: 0 0 12px rgba(176, 38, 255, 0.3);
 }
 
-#login-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+body {
+  font-family: 'Consolas', 'Fira Code', 'Segoe UI', monospace;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 20px;
+  line-height: 1.6;
 }
 
 header h1 {
-    color: #2c3e50;
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 10px;
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  border-bottom: 2px solid var(--neon-cyan);
+  padding-bottom: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.duty-list {
-    padding: 0;
+#login-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-input {
-    padding: 10px;
+#coins-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0;
 }
 
 .listed-coin {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.listed-duty {
-    background: #fff;
-    margin-bottom: 15px;
-    padding: 15px 50px 15px 15px;
-    border-left: 5px solid #3498db;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative;
-    list-style: none;
-}
-
-.listed-duty strong {
-    color: #2980b9;
-    display: block;
-    margin-bottom: 5px;
-}
-
-label {
-    margin: 15px 0;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    width: 100%;
-    max-width: 500px;
-    box-sizing: border-box;
-}
-
-.duty-checkbox label {
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: flex-start;
-    text-align: center;
-    max-width: 100px;
-}
-
-.assign-duty-btn, .login-btn, .guest-login-btn, .submit-btn, #create-coin, #create-duty {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-.assign-duty-btn:hover, .login-btn:hover, .guest-login-btn:hover {
-    background-color: #2980b9;
-}
-
-#clear-duties {
-    background-color: #ff4040;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-    text-decoration: none;
-}
-
-#clear-duties:hover {
-    background-color: #8b0000 ;
-}
-
-.duty-option {
-    margin: 10px 0;
-    padding: 10px;
-}
-
-.complete-checkbox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
+  list-style: none;
+  background: var(--panel-bg);
+  border: 1px solid var(--neon-purple);
+  box-shadow: var(--glow-purple);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 0;
 }
 
 .coin-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .coin-header h2 {
-    margin: 0;
+  margin: 0;
+  color: var(--neon-pink);
+  text-shadow: var(--glow-pink);
 }
 
-.delete-coin-btn {
-    background: #ff4040;
-    color: white;
-    padding: 5px 5px;
-    border-radius: 4px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    margin: 0;
-    transition: background 0.3s ease;
+.duty-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 0;
 }
 
-.delete-coin-btn:hover {
-    background: #8b0000;
+.listed-duty {
+  background: #151a28;
+  border-left: 3px solid var(--neon-cyan);
+  margin: 5px 0;
+  padding: 12px 65px 12px 12px;
+  position: relative;
+  list-style: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.listed-duty:hover {
+  box-shadow: var(--glow-cyan);
+}
+
+.listed-duty:active {
+  box-shadow: var(--glow-pink);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-bg);
+  border: 1px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+  padding: 25px;
+  border-radius: 8px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+input, select, .duty-option {
+  background: var(--bg-dark);
+  border: 1px solid var(--panel-border);
+  color: var(--neon-cyan);
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-family: inherit;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.assign-duty-btn, .login-btn, .guest-login-btn, .submit-btn, #create-coin, #create-duty {
+  background: transparent;
+  color: var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease-in-out;
+  font-family: inherit;
+}
+
+.assign-duty-btn:hover, .login-btn:hover, .guest-login-btn:hover, .submit-btn:hover, #create-coin:hover, #create-duty:hover {
+  background: var(--neon-cyan);
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+.delete-coin-btn, .remove-duty {
+  background: transparent;
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .remove-duty {
-    background: #ff4040;
-    color: white;
-    padding: 5px 5px;
-    border-radius: 4px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);]
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.remove-duty:hover {
-    background-color: #8b0000;
+.delete-coin-btn:hover, .remove-duty:hover {
+  background: var(--neon-pink);
+  color: var(--bg-dark);
+  box-shadow: var(--glow-pink);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.complete-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#logs-link {
+    color: var(--text-muted)
+}
+
+#logs-link:hover {
+    color: var(--neon-cyan)
+}
+
+#logs-link:active {
+    color: var(--neon-pink);
+}
+
+#logs-link:visited {
+    color: var(--neon-purple);
 }
 
 .hidden {
-    display: none !important;
+  display: none !important;
 }

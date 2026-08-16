@@ -11,8 +11,6 @@ from playwright.sync_api import Page
 from src.models import CoinsDutiesJunction, Coin, User, RequestLog, Duty
 
 
-
-
 @pytest.fixture(scope="session", autouse=True)
 def setup_test_database_tables():
     from src.db import db

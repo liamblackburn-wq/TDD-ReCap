@@ -77,7 +77,7 @@ const fetchAndRenderDuties = async (role) => {
         const unassignButtonHtml = (role === "admin") ? `<button class="remove-duty" data-id="${linkedDuty.id}">Unassign</button>` : ""
 
         const dutyHtml = `
-        <li class="listed-duty">
+        <li class="listed-duty" data-duty-id="${linkedDuty.duty_id}">
             <span>${linkedDuty.duty_name}</span>
             <p>${linkedDuty.duty_description}</p>
             <div class="complete-checkbox">
@@ -91,6 +91,28 @@ const fetchAndRenderDuties = async (role) => {
         linkedDutyList.innerHTML += dutyHtml
     })
 }
+
+
+
+document.getElementById('coins-list').addEventListener('click', (event) => {
+    const card = event.target.closest('.listed-duty');
+    if (!card) return;
+    if (event.target.closest('button, input')) return;
+    const dutyId = card.dataset.dutyId;
+    const associatedCoin = document.querySelectorAll(`[data-duty-id="${dutyId}"]`)
+
+    const associatedCoinNames = []
+
+    associatedCoin.forEach(duty => {
+        const coinCard = duty.closest('.listed-coin')
+        const coinName = coinCard.querySelector('h2').textContent
+        associatedCoinNames.push(coinName)
+        })
+    document.getElementById('associated-coins-text').textContent = associatedCoinNames.join(', ')
+
+    document.getElementById('associatedCoinsList').classList.remove('hidden')
+    document.getElementById('bannerMessageHeader').classList.add('hidden')
+});
 
 createCoinButton?.addEventListener('click', () => coinForm.classList.remove("hidden"));
 createDutyButton?.addEventListener("click", () => dutyForm.classList.remove("hidden"));

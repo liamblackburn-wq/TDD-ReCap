@@ -3,9 +3,7 @@ from src.models import User
 
 def test_create_apprentice_user():
     user = User.create_user(
-        username="test_apprentice",
-        password="apprentice123",
-        role="apprentice"
+        username="test_apprentice", password="apprentice123", role="apprentice"
     )
 
     assert user.id is not None
@@ -20,11 +18,7 @@ def test_create_apprentice_user():
 
 
 def test_create_admin_user():
-    user = User.create_user(
-        username="test_admin",
-        password="admin123",
-        role="admin"
-    )
+    user = User.create_user(username="test_admin", password="admin123", role="admin")
 
     assert user.id is not None
     assert user.username == "test_admin"
