@@ -60,6 +60,16 @@ def test_remove_duties_button(admin_page: Page, assigned_duty):
 def test_admin_dashboard_loads(admin_page):
     expect(admin_page.locator('#admin-view')).to_be_visible()
 
-def test_logout_button_is_visible_for_authenticated_users(admin_page: Page):
+def test_logout_button_for_authenticated_users(admin_page: Page, live_server):
     logout_button = admin_page.get_by_role("button", name="Logout")
     expect(logout_button).to_be_visible()
+
+    logout_button.click()
+
+    admin_page.wait_for_url(live_server.url("/"))
+    expect(admin_page.get_by_label("username")).to_be_visible()
+    expect(admin_page.get_by_label("password")).to_be_visible()
+
+def test_logout_button_hidden_for_unauthenticated_users(homepage: Page):
+    logout_button = homepage.get_by_role("button", name="Logout")
+    expect(logout_button).not_to_be_visible()

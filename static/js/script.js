@@ -6,6 +6,7 @@ const adminView = document.getElementById('admin-view');
 const guestView = document.getElementById('dashboard-view');
 const coinsList = document.getElementById('coins-list');
 const logsLink = document.getElementById('logs-link');
+const logoutButton = document.getElementById('logout-button');
 
 const sanitiseStringInput = (str) => {
     if (str === null || str === undefined) return "";
@@ -285,6 +286,21 @@ coinsList?.addEventListener("change", async (event) => {
     }
 })
 
+logoutButton?.addEventListener("click", async (event) => {
+    event.preventDefault()
+    try {
+        const response = await fetch(`/api/logout`, {
+            method: 'POST',
+        })
+        if (response.ok) {
+            window.location.href = "/";
+        }
+    }
+    catch (error) {
+        console.error("Network error", error)
+    }
+})
+
 const initialiseDashboard = async (role) => {
     console.log("INIT DASHBOARD")
     currentRole = role
@@ -293,7 +309,10 @@ const initialiseDashboard = async (role) => {
     if (role === "admin") {
         adminView.classList.remove('hidden');
         logsLink.classList.remove('hidden');
+        logoutButton.classList.remove('hidden');
 
+    } else if (role === "user") {
+        logoutButton.classList.remove('hidden');
     } else {
         adminView.classList.add('hidden');
     }

@@ -57,6 +57,11 @@ header h1 {
   margin: 0;
 }
 
+.coin-header h2 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .coin-header {
   display: flex;
   align-items: center;
@@ -68,6 +73,7 @@ header h1 {
 
 .coin-header h2 {
   margin: 0;
+  min-width: 0;
   color: var(--neon-pink);
   text-shadow: var(--glow-pink);
 }
@@ -106,7 +112,7 @@ form {
   box-shadow: var(--glow-cyan);
   padding: 25px;
   border-radius: 8px;
-  margin-top: 20px;
+  margin: 20px;
   width: 100%;
   max-width: 500px;
   box-sizing: border-box;
@@ -157,7 +163,7 @@ label {
   box-shadow: 0 0 15px var(--neon-cyan);
 }
 
-.delete-coin-btn, .remove-duty {
+.delete-coin-btn, .remove-duty, #logout-button:hover {
   background: transparent;
   color: var(--neon-pink);
   border: 1px solid var(--neon-pink);
@@ -169,6 +175,12 @@ label {
   font-family: inherit;
 }
 
+.delete-coin-btn {
+  flex-shrink: 0;
+  margin: 0 0 0 20px;
+  white-space: nowrap;
+}
+
 .remove-duty {
   position: absolute;
   right: 8px;
@@ -176,7 +188,7 @@ label {
   transform: translateY(-50%);
 }
 
-.delete-coin-btn:hover, .remove-duty:hover {
+.delete-coin-btn:hover, .remove-duty:hover, #logout-button {
   background: var(--neon-pink);
   color: var(--bg-dark);
   box-shadow: var(--glow-pink);
