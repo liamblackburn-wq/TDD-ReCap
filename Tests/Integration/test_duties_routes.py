@@ -1,4 +1,7 @@
 import uuid
+from unittest.mock import patch
+
+from peewee import DatabaseError
 
 from src.models import Duty
 
@@ -102,3 +105,11 @@ def test_delete_duty_returns_404_if_id_does_not_exist(admin_client):
 
     json_data = response.get_json()
     assert json_data["error"] == "Duty does not exist"
+
+def test_delete_duty_returns_500_on_database_error(admin_client, test_duty):
+    with patch("src.models.Duty.delete") as mock_delete:
+        mock_delete.side_effect = DatabaseError("Database connection failed")
+        response = admin_client.delete(f"/duties/{uuid.uuid4()}")
+    assert response.status_code == 500
+    assert response.json["error"] == "An internal server error occurred"
+

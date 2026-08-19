@@ -40,14 +40,6 @@ def test_invalid_duty_raises_error():
         invalid_duty.validate()
 
 
-def test_delete_duty_returns_500_on_database_error(admin_client, test_duty):
-    with patch("src.models.Duty.delete") as mock_delete:
-        mock_delete.side_effect = DatabaseError("Database connection failed")
-        response = admin_client.delete(f"/duties/{uuid.uuid4()}")
-    assert response.status_code == 500
-    assert response.json["error"] == "An internal server error occurred"
-
-
 def test_duty_equality_dunder_method_true_for_identical_duty_name():
     duty_a = Duty(name="Test_duty")
     duty_b = Duty(name="Test_duty")

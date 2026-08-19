@@ -16,10 +16,6 @@ from peewee import IntegrityError, DatabaseError
 from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog, User
 from src.db import db
 
-# TODO 2: create logout functionality
-# TODO 3: Fill in e2e test
-# TODO 4: coins_duties_model unit tests
-
 app = Flask(__name__)
 app.config['DEBUG'] = False
 app.secret_key = os.urandom(24)
