@@ -44,3 +44,9 @@ def test_authenticated_user_redirected_from_login_page(user_client):
 
     assert response.status_code == 302
     assert response.headers["Location"] == "/apprenticeduties"
+
+def test_authenticated_admin_redirected_from_login_page(admin_client):
+    response = admin_client.get("/")
+
+    assert response.status_code == 302
+    assert response.headers["Location"] == "/apprenticeduties"

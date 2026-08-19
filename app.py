@@ -3,7 +3,7 @@ import uuid
 from functools import wraps
 import html
 
-from flask import Flask, request, jsonify, render_template, abort
+from flask import Flask, request, jsonify, render_template, abort, redirect
 from flask_login import (
     LoginManager,
     login_user,
@@ -15,7 +15,7 @@ from peewee import IntegrityError, DatabaseError
 
 from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog, User
 from src.db import db
-# TODO 1: If user logged in, render apprentice duties page when attempting to go back to login
+
 # TODO 2: create logout functionality
 # TODO 3: Fill in e2e test
 # TODO 4: coins_duties_model unit tests
@@ -151,6 +151,8 @@ def render_logs_page():
 
 @app.route("/", methods=["GET"])
 def home():
+    if current_user.is_authenticated:
+        return redirect("/apprenticeduties")
     return render_template("login.html")
 
 
