@@ -1,75 +1,75 @@
-# from playwright.sync_api import Page, expect
-# import pytest
-#
-# from src.models import Duty
-#
-#
-# @pytest.fixture
-# def homepage(page: Page, live_server):
-#     page.goto(live_server.url())
-#     return page
-#
-# @pytest.fixture
-# def revealed_form(homepage: Page):
-#     homepage.get_by_role("button", name="Add Duty").click()
-#     yield homepage
-#     try:
-#         Duty.delete().execute()
-#     except Exception as e:
-#         print(f"Teardown database failed: {e}")
-#
-#
-# def test_home_page_is_reachable(page: Page, live_server):
-#     response = page.goto(live_server.url())
-#     assert response.status == 200
-#
-# def test_heading_text_exists(homepage: Page):
-#     expect(homepage.get_by_role("heading", name="Apprentice Duties")).to_contain_text('Apprentice Duties')
-#
-# def test_add_duties_button_is_visible_and_reveals_form_when_clicked(homepage: Page):
-#     add_duties_button = homepage.get_by_role("button", name="Add Duty")
-#     expect(add_duties_button).to_be_visible()
-#     add_duties_button.click()
-#     expect(homepage.get_by_role("form", name="Add Duty Form" )).to_be_visible()
-#
-#
-# def test_submit_button_creates_and_renders_duty(revealed_form: Page):
-#     automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
-#     submit_button = revealed_form.get_by_role("button", name="Submit")
-#
-#     revealed_form.get_by_label("Duty Name:", exact=True).fill("Duty 5")
-#     revealed_form.get_by_label("Duty Description:").fill("Test description")
-#
-#     expect(automate_duties_list).to_be_attached()
-#     expect(submit_button).to_be_visible()
-#
-#     submit_button.click()
-#
-#     expect(automate_duties_list).to_contain_text("Duty 5")
-#     expect(automate_duties_list).to_contain_text("Test description")
-#     expect(revealed_form.get_by_role("form", name="Add Duty Form" )).not_to_be_visible()
-#
-#
-# def test_remove_duties_button(revealed_form: Page):
-#
-#     automate_duties_list = revealed_form.get_by_role("list", name="Automate Duties List")
-#     submit_button = revealed_form.get_by_role("button", name="Submit")
-#
-#     revealed_form.get_by_label("Duty Name:", exact=True).fill("Duty 5")
-#     revealed_form.get_by_label("Duty Description:").fill("Test description")
-#
-#     expect(automate_duties_list).to_be_attached()
-#     expect(submit_button).to_be_visible()
-#
-#     submit_button.click()
-#
-#     list_items = automate_duties_list.get_by_role("listitem")
-#     expect(list_items).to_have_count(1)
-#
-#     duty_5_list_item = list_items.filter(has_text="Duty 5")
-#
-#     remove_duty_5_button = duty_5_list_item.get_by_role("button", name="X")
-#     remove_duty_5_button.click()
-#
-#     expect(list_items).to_have_count(0)
-#     expect(automate_duties_list).not_to_contain_text("Duty 5")
+from playwright.sync_api import Page, expect
+import pytest
+
+
+@pytest.fixture
+def homepage(page: Page, live_server):
+    page.goto(live_server.url())
+    return page
+
+
+@pytest.fixture
+def revealed_form(admin_page: Page):
+    admin_page.get_by_role("button", name="Create Duty").click()
+    yield admin_page
+
+
+def test_login_page_is_reachable(page: Page, live_server):
+    page.goto(live_server.url("/"))
+    expect(page.locator("#login-view")).to_be_visible()
+
+
+def test_login_page_heading_text_exists(homepage: Page):
+    expect(homepage.get_by_role("heading", name="Apprentice Duties")).to_contain_text(
+        "Apprentice Duties"
+    )
+
+
+def test_add_duties_button_is_visible_and_reveals_form_when_clicked(
+    revealed_form: Page,
+):
+    add_duties_button = revealed_form.get_by_role("button", name="Create Duty")
+    expect(add_duties_button).to_be_visible()
+    add_duties_button.click()
+    expect(revealed_form.get_by_role("form", name="Create Duty Form")).to_be_visible()
+
+
+def test_submit_button_creates_and_renders_duty_in_dropdown(
+    revealed_form: Page, test_coin
+):
+    duty_form = revealed_form.locator("#duty-form")
+    submit_button = duty_form.get_by_role("button", name="Submit")
+
+    duty_form.get_by_label("Duty Name:", exact=True).fill("Duty 5")
+    duty_form.get_by_label("Duty Description:").fill("Test description")
+
+    expect(submit_button).to_be_visible()
+    submit_button.click()
+
+    expect(duty_form).not_to_be_visible()
+    expect(revealed_form.locator(".duty-option")).to_contain_text("Duty 5")
+
+
+def test_remove_duties_button(admin_page: Page, assigned_duty):
+
+    duty_item = admin_page.locator(".listed-duty", has_text="Duty 1")
+    duty_item.get_by_role("button", name="Unassign").click()
+
+    expect(duty_item).not_to_be_visible()
+
+def test_admin_dashboard_loads(admin_page):
+    expect(admin_page.locator('#admin-view')).to_be_visible()
+
+def test_logout_button_for_authenticated_users(admin_page: Page, live_server):
+    logout_button = admin_page.get_by_role("button", name="Logout")
+    expect(logout_button).to_be_visible()
+
+    logout_button.click()
+
+    admin_page.wait_for_url(live_server.url("/"))
+    expect(admin_page.get_by_label("Username")).to_be_visible()
+    expect(admin_page.get_by_label("Password")).to_be_visible()
+
+def test_logout_button_hidden_for_unauthenticated_users(homepage: Page):
+    logout_button = homepage.get_by_role("button", name="Logout")
+    expect(logout_button).not_to_be_visible()

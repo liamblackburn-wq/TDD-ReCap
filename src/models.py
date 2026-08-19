@@ -1,9 +1,49 @@
+import datetime
 import os
 import uuid
 
-from peewee import BooleanField, CharField, ForeignKeyField, TextField, UUIDField
+from peewee import (
+    BooleanField,
+    CharField,
+    ForeignKeyField,
+    TextField,
+    UUIDField,
+    IntegerField,
+    DateTimeField,
+)
 
 from src.db import BaseModel
+
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
+
+class User(UserMixin, BaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
+    username = CharField(unique=True)
+    password_hash = CharField()
+    role = CharField(default="user")
+
+    class Meta:
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "test_users"
+        else:
+            schema = "coins"
+            table_name = "users"
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @classmethod
+    def create_user(cls, username, password, role):
+        user = cls(username=username, role=role)
+        user.set_password(password)
+        user.save(force_insert=True)
+        return user
 
 
 class Coin(BaseModel):
@@ -75,3 +115,19 @@ class CoinsDutiesJunction(BaseModel):
             table_name = "tdd_endgame_junction"
 
         indexes = ((("coin", "duty"), True),)
+
+
+class RequestLog(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
+    endpoint = CharField()
+    request_method = CharField()
+    status_code = IntegerField()
+    timestamp = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        if os.environ.get("TESTING") == "True":
+            schema = "coins_test"
+            table_name = "test_request_log"
+        else:
+            schema = "coins"
+            table_name = "request_log"

@@ -1,50 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Apprentice Duties</title>
-  <link rel="stylesheet" href="/static/css/styles.css">
-  <script src="/static/js/script.js" defer></script>
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <script src="../static/js/script.js" defer></script>
 </head>
+
 <body>
+
   <header>
     <h1>Apprentice Duties</h1>
+      <button id="logout-button" class="hidden">Logout</button>
+      <a id="logs-link" class="hidden" href="/logs">Logs</a>
   </header>
-    <h2>Automate!</h2>
-    <div class="button-group">
-      <button id="add-duty">
-      Add Duty
-      </button>
+
+  <div id="dashboard-view" class="container hidden">
+    <h1>Coins</h1>
+
+    <div id="associatedCoinsBanner" class="associated-coins-banner">
+      <h3 id="bannerMessageHeader">Click a duty card to see all of its associated coins</h3>
+      <div id="associatedCoinsList" class="hidden">
+        <h3>Associated Coins For Duty:</h3>
+      <p id="associated-coins-text"></p>
+      </div>
+
     </div>
 
-    <ul id="automate_list" aria-label="Automate Duties List">
-      {% for duty in added_duties %}
-        <li class="listed_duty">
-          <strong>{{ duty.name }}</strong> {{ duty.description }}
-          <button type="button" class="remove-duty" data-id="{{ duty.id }}">X</button>
-        </li>
-      {% endfor %}
+    <ul id="coins-list" aria-label="Coin List">
     </ul>
+  </div>
 
-    <form id="form" class="hidden" aria-label="Add Duty Form" method="POST">
-      <label for="duty_name">Duty Name:</label>
-      <input
-              type="text"
-              id="duty_name"
-              name="name"
-              placeholder="e.g., Duty 1"
-              required
-      >
+  <div id="user-view" class="container" hidden>
 
-      <label for="duty_description">Duty Description:</label>
-      <input
-              type="text"
-              id="duty_description"
-              name="description"
-              placeholder="Look to automate any manual tasks that are repeated, often using APIs."
-              required
-      >
+  </div>
 
-      <button type="submit">Submit</button>
-    </form>
+  <div id="admin-view" class="container hidden">
+    <div class="button-group">
+      <button id="create-duty">
+        Create Duty
+      </button>
+      <button id="create-coin">
+        Create Coin
+      </button>
+    </div>
+    <form id="duty-form" class="hidden" aria-label="Create Duty Form" method="POST">
+        <label for="duty-name">Duty Name:</label>
+        <input
+                type="text"
+                id="duty-name"
+                name="name"
+                placeholder="e.g., Duty 1"
+                required
+        >
+        <label for="duty-description">Duty Description:</label>
+        <input
+                type="text"
+                id="duty-description"
+                name="description"
+                placeholder="Look to automate any manual tasks that are repeated, often using APIs."
+                autocomplete="off"
+                required
+        >
+        <button class="submit-btn" type="submit">Submit</button>
+      </form>
+      <form id="coin-form" class="hidden" aria-label="Create Coin Form" method="POST">
+        <label for="coin-name">Coin Name:</label>
+        <input
+                type="text"
+                id="coin-name"
+                name="name"
+                placeholder="e.g., Automate!"
+                autocomplete="off"
+                required
+        >
+        <button class="submit-btn" type="submit">Submit</button>
+      </form>
+  </div>
+
 </body>
+
 </html>

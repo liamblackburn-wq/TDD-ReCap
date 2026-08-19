@@ -1,10 +1,14 @@
 import os
-import uuid
-import pytest
+import threading
 
-from src.models import CoinsDutiesJunction, Coin
+from werkzeug.serving import make_server
 
 os.environ["TESTING"] = "True"
+import uuid
+import pytest
+from playwright.sync_api import Page
+
+from src.models import CoinsDutiesJunction, Coin, User, RequestLog, Duty
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -16,12 +20,12 @@ def setup_test_database_tables():
 
     db.execute_sql("CREATE SCHEMA IF NOT EXISTS coins_test;")
 
-    db.drop_tables([Coin, Duty, CoinsDutiesJunction], safe=True)
-    db.create_tables([Coin, Duty, CoinsDutiesJunction], safe=False)
+    db.drop_tables([Coin, Duty, CoinsDutiesJunction, User, RequestLog], safe=True)
+    db.create_tables([Coin, Duty, CoinsDutiesJunction, User, RequestLog], safe=False)
 
     yield
 
-    db.drop_tables([Coin, Duty, CoinsDutiesJunction])
+    db.drop_tables([Coin, Duty, CoinsDutiesJunction, User, RequestLog])
     db.close()
 
 
@@ -37,6 +41,18 @@ def app():
 def client(app):
     with app.test_client() as client:
         yield client
+
+
+@pytest.fixture
+def admin_client(client):
+    client.post("/api/login", json={"username": "admin", "password": "admin123"})
+    return client
+
+
+@pytest.fixture
+def user_client(client):
+    client.post("/api/login", json={"username": "user", "password": "user123"})
+    return client
 
 
 @pytest.fixture
@@ -61,22 +77,75 @@ def test_coin():
     Coin.delete().where(Coin.id == test_coin.id).execute()
 
 
+@pytest.fixture
+def assigned_duty(test_coin, test_duty):
+    return CoinsDutiesJunction.create(coin=test_coin, duty=test_duty)
+
+
 @pytest.fixture(autouse=True)
-def clean_database_between_tests():
-    yield
-
-    from src.models import Duty, CoinsDutiesJunction, Coin
-
+def clean_database_and_seed_users_between_tests():
     CoinsDutiesJunction.delete().execute()
     Coin.delete().execute()
     Duty.delete().execute()
+    User.delete().execute()
+
+    # Seed test users into database with hashed passwords
+    admin = User(username="admin", role="admin")
+    admin.set_password("admin123")
+    admin.save(force_insert=True)
+
+    user = User(username="user", role="user")
+    user.set_password("user123")
+    user.save(force_insert=True)
+
+    yield
 
 
 @pytest.fixture(scope="session")
-def live_server():
+def live_server(app):
+    # Start the Flask app in a background server thread on port 5000
+    server = make_server("127.0.0.1", 5000, app)
+    thread = threading.Thread(target=server.serve_forever)
+    thread.daemon = True
+    thread.start()
+
     class ExternalServer:
+        def __init__(self, flask_app):
+            self.app = flask_app
+
         def url(self, path=""):
-            # Point this to whatever port your local Flask app is running on
             return f"http://127.0.0.1:5000{path}"
 
-    return ExternalServer()
+    yield ExternalServer(app)
+    server.shutdown()
+    thread.join()
+
+
+@pytest.fixture
+def admin_page(page: Page, live_server):
+    page.goto(live_server.url("/"))
+    username_field = page.get_by_label("Username")
+    password_field = page.get_by_label("Password")
+    login_button = page.locator("#login-button")
+
+    username_field.fill("admin")
+    password_field.fill("admin123")
+    login_button.click()
+
+    page.wait_for_url("**/apprenticeduties")
+    yield page
+
+
+@pytest.fixture
+def user_page(page: Page, live_server):
+    page.goto(live_server.url("/"))
+    username_field = page.get_by_label("Username")
+    password_field = page.get_by_label("Password")
+    login_button = page.locator("#login-button")
+    username_field.fill("user")
+    password_field.fill("")
+
+    username_field.fill("user")
+    password_field.fill("user123")
+    login_button.click()
+    yield page

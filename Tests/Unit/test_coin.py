@@ -47,7 +47,7 @@ def test_invalid_coin_raises_error():
         invalid_coin.validate()
 
 
-def test_coin_status_is_in_progress_if_specific_duties_are_incomplete(client):
+def test_coin_status_is_in_progress_if_specific_duties_are_incomplete():
     coin = Coin.create(name="Test Coin")
     duty_a = Duty.create(
         id=uuid.uuid4(), name="Duty 1", description="Test description 1"
@@ -62,7 +62,7 @@ def test_coin_status_is_in_progress_if_specific_duties_are_incomplete(client):
     assert coin.status == "IN_PROGRESS"
 
 
-def test_coin_status_is_in_progress_if_specific_duties_are_complete(client):
+def test_coin_status_is_in_progress_if_specific_duties_are_complete():
     coin = Coin.create(name="Test Coin")
     duty_a = Duty.create(
         id=uuid.uuid4(), name="Duty 1", description="Test description 1"
@@ -75,3 +75,23 @@ def test_coin_status_is_in_progress_if_specific_duties_are_complete(client):
     CoinsDutiesJunction.create(coin=coin, duty=duty_b, is_complete=True)
 
     assert coin.status == "COMPLETED"
+
+
+def test_coin_equality_dunder_method_true_for_identical_coin_name():
+    coin_a = Coin(name="Test_coin")
+    coin_b = Coin(name="Test_coin")
+
+    assert coin_a == coin_b
+
+
+def test_coin_equality_dunder_method_false_for_different_coin_names():
+    coin_a = Coin(name="Coin_a")
+    coin_b = Coin(name="Coin_b")
+
+    assert coin_a != coin_b
+
+
+def test_coin_equality_dunder_method_true_for_different_object_types():
+    coin = Coin(name="Test")
+
+    assert coin != "Test"

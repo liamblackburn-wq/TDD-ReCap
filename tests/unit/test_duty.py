@@ -1,5 +1,10 @@
+from unittest.mock import patch
+
 import pytest
 import uuid
+
+from peewee import DatabaseError
+
 from src.models import Duty
 
 
@@ -33,3 +38,23 @@ def test_invalid_duty_raises_error():
 
     with pytest.raises(ValueError, match=error_message):
         invalid_duty.validate()
+
+
+def test_duty_equality_dunder_method_true_for_identical_duty_name():
+    duty_a = Duty(name="Test_duty")
+    duty_b = Duty(name="Test_duty")
+
+    assert duty_a == duty_b
+
+
+def test_duty_equality_dunder_method_true_for_unidentical_duty_name():
+    duty_a = Duty(name="Duty_a")
+    duty_b = Duty(name="Duty_b")
+
+    assert duty_a != duty_b
+
+
+def test_duty_equality_dunder_method_true_for_different_object_types():
+    duty = Duty(name="Test")
+
+    assert duty != "Test"
