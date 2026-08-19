@@ -38,3 +38,9 @@ def test_incorrect_admin_username_returns_401(client):
         "/api/login", json={"username": "nimda", "password": "admin123"}
     )
     assert response.status_code == 401
+
+def test_authenticated_user_redirected_from_login_page(user_client):
+    response = user_client.get("/")
+
+    assert response.status_code == 302
+    assert response.headers["Location"] == "/apprenticeduties"

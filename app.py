@@ -1,6 +1,7 @@
 import os
 import uuid
 from functools import wraps
+import html
 
 from flask import Flask, request, jsonify, render_template, abort
 from flask_login import (
@@ -16,8 +17,8 @@ from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog, User
 from src.db import db
 # TODO 1: If user logged in, render apprentice duties page when attempting to go back to login
 # TODO 2: create logout functionality
-# TODO 3: Input sanitisation for frontend and backend
-
+# TODO 3: Fill in e2e test
+# TODO 4: coins_duties_model unit tests
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
@@ -76,6 +77,9 @@ def request_logger(response):
 
     response.headers["Server"] = "Protected-Server"
     response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; script-src 'self'; style-src 'self';"
+    )
 
     return response
 
@@ -91,7 +95,7 @@ def _db_close(exc):
 
 @app.route("/api/login", methods=["POST"])
 def api_login():
-    data = request.get_json()
+    data = request.get_json() or {}
     username = data.get("username")
     password = data.get("password")
 
@@ -177,9 +181,9 @@ def get_coins():
 @admin_required
 def coins_table_reqs():
     try:
-        payload = request.get_json()
+        payload = request.get_json() or {}
         coin_id = payload.get("id") or str(uuid.uuid4())
-        coin_name = payload.get("name")
+        coin_name = html.escape((payload.get("name") or "").strip())
         coin = Coin(id=coin_id, name=coin_name)
         coin.validate()
         coin.save(force_insert=True)
@@ -215,8 +219,8 @@ def update_coin(coin_id):
         if coin is None:
             return jsonify({"error": "Coin does not exist"}), 404
 
-        payload = request.get_json()
-        new_coin_name = payload.get("name")
+        payload = request.get_json() or {}
+        new_coin_name = html.escape((payload.get("name") or "").strip())
 
         coin.name = new_coin_name
 
@@ -253,10 +257,10 @@ def get_duties():
 @admin_required
 def duties_table_reqs():
     try:
-        payload = request.get_json()
+        payload = request.get_json() or {}
         duty_id = payload.get("id") or str(uuid.uuid4())
-        duty_name = payload.get("name")
-        duty_description = payload.get("description")
+        duty_name = html.escape((payload.get("name") or "").strip())
+        duty_description = html.escape((payload.get("description") or "").strip())
         duty = Duty(id=duty_id, name=duty_name, description=duty_description)
         duty.validate()
         duty.save(force_insert=True)
@@ -314,7 +318,7 @@ def get_coins_duties():
 @admin_required
 def coin_duties_table_reqs():
     try:
-        payload = request.get_json()
+        payload = request.get_json() or {}
         coin_id = payload.get("coin_id")
         duty_id = payload.get("duty_id")
 
@@ -344,7 +348,7 @@ def coin_duties_table_reqs():
 @login_required
 def update_coin_duties(link_id):
     try:
-        payload = request.get_json()
+        payload = request.get_json() or {}
         update_progress = payload.get("is_complete")
         linked_id = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
         if linked_id is None:
