@@ -7,6 +7,20 @@ const guestView = document.getElementById('dashboard-view');
 const coinsList = document.getElementById('coins-list');
 const logsLink = document.getElementById('logs-link');
 
+const sanitiseStringInput = (str) => {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/[&<>"']/g, (match) => {
+        const unsafeCharLookup = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return unsafeCharLookup[match]
+    })
+}
+
 let currentRole = 'guest';
 
 const showDashboard = () => {
@@ -22,7 +36,7 @@ const fetchAndRenderCoins = async (role) => {
     let optionsHtml = `<option value="">-- Select Duty --</option>`;
 
     duties.forEach(duty => {
-        optionsHtml += `<option value="${duty.id}">${duty.name}</option>`
+        optionsHtml += `<option value="${duty.id}">${sanitiseStringInput(duty.name)}</option>`
     })
 
 
@@ -46,7 +60,7 @@ const fetchAndRenderCoins = async (role) => {
         coinsListHtml += `
         <li class="listed-coin" id="${coinId}-duty-list">
             <div class="coin-header">
-                <h2>${coinName}</h2>
+                <h2>${sanitiseStringInput(coinName)}</h2>
                 ${deleteCoinBtn}
             </div>
             <span class="assign-duty-dropdown">
@@ -78,8 +92,8 @@ const fetchAndRenderDuties = async (role) => {
 
         const dutyHtml = `
         <li class="listed-duty" data-duty-id="${linkedDuty.duty_id}">
-            <span>${linkedDuty.duty_name}</span>
-            <p>${linkedDuty.duty_description}</p>
+            <span>${sanitiseStringInput(linkedDuty.duty_name)}</span>
+            <p>${sanitiseStringInput(linkedDuty.duty_description)}</p>
             <div class="complete-checkbox">
                 <label for="duty-check-${linkedDuty.id}">Complete?</label>
                 <input type="checkbox" id="duty-check-${linkedDuty.id}" class="duty-checkbox" data-link-id="${linkedDuty.id}" ${isDisabled} ${isChecked}>

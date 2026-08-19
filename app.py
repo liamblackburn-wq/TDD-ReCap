@@ -10,10 +10,14 @@ from flask_login import (
     logout_user,
     login_required,
 )
-from peewee import IntegrityError
+from peewee import IntegrityError, DatabaseError
 
 from src.models import Duty, CoinsDutiesJunction, Coin, RequestLog, User
 from src.db import db
+# TODO 1: If user logged in, render apprentice duties page when attempting to go back to login
+# TODO 2: create logout functionality
+# TODO 3: Input sanitisation for frontend and backend
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
@@ -110,7 +114,6 @@ def internal_error(error):
     return jsonify({"error": "An internal server error occurred"}), 500
 
 
-# TODO: create frontend functionality for this route
 @app.route("/api/logout", methods=["POST"])
 def api_logout():
     logout_user()
@@ -191,13 +194,16 @@ def coins_table_reqs():
 @app.route("/coins/<uuid:coin_id>", methods=["DELETE"])
 @admin_required
 def delete_coin(coin_id):
-    delete_query = Coin.delete().where(Coin.id == coin_id)
-    deleted_coin = delete_query.execute()
+    try:
+        delete_query = Coin.delete().where(Coin.id == coin_id)
+        deleted_coin = delete_query.execute()
 
-    if deleted_coin == 0:
-        return jsonify({"error": "Coin does not exist"}), 404
-    else:
-        return jsonify({"message": "Coin deleted successfully"}), 200
+        if deleted_coin == 0:
+            return jsonify({"error": "Coin does not exist"}), 404
+        else:
+            return jsonify({"message": "Coin deleted successfully"}), 200
+    except DatabaseError:
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 
 @app.route("/coins/<uuid:coin_id>", methods=["PUT"])
@@ -227,6 +233,9 @@ def update_coin(coin_id):
 
     except IntegrityError:
         return jsonify({"error": "Coin already exists"}), 409
+
+    except DatabaseError:
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 
 @app.route("/duties", methods=["GET"])
@@ -267,12 +276,15 @@ def duties_table_reqs():
 @app.route("/duties/<uuid:duty_id>", methods=["DELETE"])
 @admin_required
 def delete_duty(duty_id):
-    delete_query = Duty.delete().where(Duty.id == duty_id)
-    deleted_duty = delete_query.execute()
-    if deleted_duty == 0:
-        return jsonify({"error": "Duty does not exist"}), 404
-    else:
-        return jsonify({"message": "Duty deleted successfully"}), 200
+    try:
+        delete_query = Duty.delete().where(Duty.id == duty_id)
+        deleted_duty = delete_query.execute()
+        if deleted_duty == 0:
+            return jsonify({"error": "Duty does not exist"}), 404
+        else:
+            return jsonify({"message": "Duty deleted successfully"}), 200
+    except DatabaseError:
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 
 @app.route("/coin-duties", methods=["GET"])
@@ -331,34 +343,28 @@ def coin_duties_table_reqs():
 @app.route("/coin-duties/<uuid:link_id>", methods=["PUT"])
 @login_required
 def update_coin_duties(link_id):
-
-    payload = request.get_json()
-    update_progress = payload.get("is_complete")
-    linked_id = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
-    if linked_id is None:
-        return jsonify({"error": "Link does not exist"}), 404
-    linked_id.is_complete = update_progress
-    linked_id.save()
-    updated_link = {
-        "id": linked_id.id,
-        "is_complete": linked_id.is_complete,
-    }
-    return jsonify(updated_link), 200
+    try:
+        payload = request.get_json()
+        update_progress = payload.get("is_complete")
+        linked_id = CoinsDutiesJunction.get_or_none(CoinsDutiesJunction.id == link_id)
+        if linked_id is None:
+            return jsonify({"error": "Link does not exist"}), 404
+        linked_id.is_complete = update_progress
+        linked_id.save()
+        return jsonify({"id": linked_id.id, "is_complete": linked_id.is_complete}), 200
+    except DatabaseError:
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 
 @app.route("/coin-duties/<uuid:link_id>", methods=["DELETE"])
 @admin_required
 def delete_coin_duties(link_id):
-    delete_query = CoinsDutiesJunction.delete().where(
-        CoinsDutiesJunction.id == link_id
-    )
-    deleted_count = delete_query.execute()
-
-    if deleted_count == 0:
-        return jsonify({"error": "Link does not exist"}), 404
-
-    return jsonify(
-        {"message": "Duty unlinked successfully", "id": str(link_id)}
-    ), 200
+    try:
+        deleted_count = CoinsDutiesJunction.delete_by_id(link_id)
+        if deleted_count == 0:
+            return jsonify({"error": "Link does not exist"}), 404
+        return jsonify({"message": "Duty unlinked successfully", "id": str(link_id)}), 200
+    except DatabaseError:
+        return jsonify({"error": "An internal server error occurred"}), 500
 
 

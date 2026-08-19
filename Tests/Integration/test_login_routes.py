@@ -1,0 +1,40 @@
+def test_user_logs_in_successfully(client):
+    response = client.post(
+        "/api/login", json={"username": "user", "password": "user123"}
+    )
+    assert response.status_code == 200
+
+
+def test_admin_logs_in_successfully(client):
+    response = client.post(
+        "/api/login", json={"username": "admin", "password": "admin123"}
+    )
+    assert response.status_code == 200
+
+
+def test_incorrect_user_password_returns_401(client):
+    response = client.post(
+        "/api/login", json={"username": "user", "password": "user321"}
+    )
+    assert response.status_code == 401
+
+
+def test_incorrect_admin_password_returns_401(client):
+    response = client.post(
+        "/api/login", json={"username": "admin", "password": "admin321"}
+    )
+    assert response.status_code == 401
+
+
+def test_incorrect_user_username_returns_401(client):
+    response = client.post(
+        "/api/login", json={"username": "resu", "password": "user123"}
+    )
+    assert response.status_code == 401
+
+
+def test_incorrect_admin_username_returns_401(client):
+    response = client.post(
+        "/api/login", json={"username": "nimda", "password": "admin123"}
+    )
+    assert response.status_code == 401

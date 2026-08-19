@@ -1,5 +1,7 @@
 import uuid
 
+from peewee import DatabaseError
+
 from app import load_user
 from src.models import User
 from unittest.mock import patch
@@ -26,18 +28,18 @@ def test_load_user_returns_none_for_invalid_type():
 
 def test_delete_coin_returns_500_on_database_error(admin_client, test_coin):
     with patch("src.models.Coin.delete") as mock_delete:
-        mock_delete.side_effect = Exception("Database connection failed")
+        mock_delete.side_effect = DatabaseError("Database connection failed")
         response = admin_client.delete(f"/coins/{uuid.uuid4()}")
     assert response.status_code == 500
-    assert response.json["error"] == "Database connection failed"
+    assert response.json["error"] == "An internal server error occurred"
 
 
 def test_update_coin_returns_500_on_database_error(admin_client, test_coin):
     with patch("src.models.Coin.update") as mock_save:
-        mock_save.side_effect = Exception("Database connection failed")
+        mock_save.side_effect = DatabaseError("Database connection failed")
         response = admin_client.put(
             f"/coins/{test_coin.id}",
             json={"name": "New name"},
         )
     assert response.status_code == 500
-    assert response.json["error"] == "Database connection failed"
+    assert response.json["error"] == "An internal server error occurred"

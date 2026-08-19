@@ -131,6 +131,8 @@ def admin_page(page: Page, live_server):
     username_field.fill("admin")
     password_field.fill("admin123")
     login_button.click()
+
+    page.wait_for_url("**/apprenticeduties")
     yield page
 
 
