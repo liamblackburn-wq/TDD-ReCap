@@ -59,3 +59,7 @@ def test_remove_duties_button(admin_page: Page, assigned_duty):
 
 def test_admin_dashboard_loads(admin_page):
     expect(admin_page.locator('#admin-view')).to_be_visible()
+
+def test_logout_button_is_visible_for_authenticated_users(admin_page: Page):
+    logout_button = admin_page.get_by_role("button", name="Logout")
+    expect(logout_button).to_be_visible()

@@ -121,7 +121,7 @@ def internal_error(error):
 @app.route("/api/logout", methods=["POST"])
 def api_logout():
     logout_user()
-    return jsonify({"message": "Logged out successfully"}), 200
+    return redirect("/")
 
 
 @app.route("/api/logs", methods=["GET"])
