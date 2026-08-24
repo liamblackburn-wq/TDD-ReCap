@@ -47,10 +47,9 @@ jobs:
           DATABASE_USER: liam
           DATABASE_PASSWORD: ci_test_password
           DATABASE_HOST: localhost
+          DATABASE_PORT: 25060
           FLASK_APP: app.py
         run: |
-          flask run --port 5000 &   
-          sleep 3                    
           pytest
 
       - name: Configure AWS credentials
