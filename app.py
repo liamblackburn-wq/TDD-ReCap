@@ -18,7 +18,7 @@ from src.db import db
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv("SECRET_KEY", "dev-fallback-key-change-in-prod")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
